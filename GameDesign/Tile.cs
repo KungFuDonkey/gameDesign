@@ -17,8 +17,15 @@ namespace rollercoaster_tycoon_ripoff
         Road,
         Grass
     }
+    public enum Type
+    {
+        grass,
+        wall,
+        floor
+    }
     public class Tile
     {
+        public Type type;
         public Rectangle rectangle;
         public Color standardColor;
         public Color color;
@@ -31,10 +38,6 @@ namespace rollercoaster_tycoon_ripoff
             if (rectangle.Contains(mouse.Position))
             {
                 color = Color.Blue;
-                if(mouse.LeftButton == ButtonState.Pressed)
-                {
-                    TileChange.setWall(this);
-                }
                 Game1.SelectedTile = this;
             }
             else

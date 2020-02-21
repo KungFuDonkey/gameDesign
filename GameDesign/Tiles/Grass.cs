@@ -18,6 +18,7 @@ namespace rollercoaster_tycoon_ripoff
             moveable = true;
             layer = _layer;
             zone = Zone.Grass;
+            type = Type.grass;
         }
     }
 }

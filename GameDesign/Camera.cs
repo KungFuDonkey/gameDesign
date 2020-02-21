@@ -20,16 +20,16 @@ namespace rollercoaster_tycoon_ripoff
             {
                 if (keyboardState.IsKeyDown(keys[i]))
                 {
-                    for(int j = 0; j < GameValues.gridSize; j++)
+                    foreach (Tile t in GameValues.tiles)
                     {
-                        GameValues.tiles[j].rectangle.Y += move * movespeed;
+                        t.rectangle.Y += move * movespeed;
                     }
                 }
                 if (keyboardState.IsKeyDown(keys[i + 2]))
                 {
-                    for (int j = 0; j < GameValues.gridSize; j++)
+                    foreach(Tile t in GameValues.tiles)
                     {
-                        GameValues.tiles[j].rectangle.X += move * movespeed;
+                        t.rectangle.X += move * movespeed;
                     }
                 }
                 if (keyboardState.IsKeyDown(keys[i + 4]) && !prevKeyBoardState.IsKeyDown(keys[i+4]))

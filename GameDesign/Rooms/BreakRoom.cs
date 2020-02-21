@@ -13,6 +13,7 @@ namespace rollercoaster_tycoon_ripoff
         {
             layer = _layer;
             layout = new List<Tile>();
+            middle = new Point(2 * GameValues.tileSize, 2 * GameValues.tileSize);
             zone = Zone.Break;
             for(int i = 0; i < 5; i++)
             {

@@ -12,6 +12,7 @@ namespace rollercoaster_tycoon_ripoff
     {
         public Zone zone;
         public int layer;
+        public Point middle;
         public List<Tile> layout;
     }
 }

@@ -17,6 +17,7 @@ namespace rollercoaster_tycoon_ripoff
             moveable = false;
             layer = _layer;
             zone = _zone;
+            type = Type.wall;
         }
     }
 }

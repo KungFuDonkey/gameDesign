@@ -13,6 +13,13 @@ namespace rollercoaster_tycoon_ripoff
         {
             tile.moveable = false;
             tile.standardColor = Color.Brown;
+            tile.occupied = true;
+        }
+        public static void setFloor(Tile tile)
+        {
+            tile.moveable = true;
+            tile.standardColor = Color.Beige;
+            tile.occupied = true;
         }
     }
 }

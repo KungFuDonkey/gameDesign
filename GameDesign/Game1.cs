@@ -71,20 +71,24 @@ namespace rollercoaster_tycoon_ripoff
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         KeyboardState keys;
         KeyboardState prevKeys;
+        MouseState mouseState;
+        MouseState prevMouseState;
         protected override void Update(GameTime gameTime)
         {
             keys = Keyboard.GetState();
+            mouseState = Mouse.GetState();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             
-            MouseState mouse = Mouse.GetState();
             IEnumerable<Tile> query = from t in GameValues.tiles where t.layer == cam.layer select t;
             foreach (Tile t in query)
             {
-                t.Update(mouse);
+                t.Update(mouseState);
             }
             cam.Update(keys, prevKeys);
+            roomPreview.Update(mouseState, prevMouseState, SelectedTile.rectangle);
             prevKeys = keys;
+            prevMouseState = mouseState;
             base.Update(gameTime);
         }
         protected override void Draw(GameTime gameTime)
