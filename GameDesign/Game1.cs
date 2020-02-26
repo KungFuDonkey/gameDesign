@@ -16,6 +16,7 @@ namespace rollercoaster_tycoon_ripoff
         public static Tile SelectedTile;
         RoomPreview roomPreview = new RoomPreview();
         Camera cam = new Camera();
+        Timer gameTimer;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
