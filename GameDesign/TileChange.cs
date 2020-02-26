@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-namespace rollercoaster_tycoon_ripoff
+namespace GameDesign
 {
     static class TileChange
     {
@@ -14,12 +14,14 @@ namespace rollercoaster_tycoon_ripoff
             tile.moveable = false;
             tile.standardColor = Color.Brown;
             tile.occupied = true;
+            tile.type = Type.wall;
         }
         public static void setFloor(Tile tile)
         {
             tile.moveable = true;
             tile.standardColor = Color.Beige;
             tile.occupied = true;
+            tile.type = Type.floor;
         }
     }
 }

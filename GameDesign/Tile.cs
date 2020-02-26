@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-namespace rollercoaster_tycoon_ripoff
+namespace GameDesign
 {
     public enum Zone
     {

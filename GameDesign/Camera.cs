@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-namespace rollercoaster_tycoon_ripoff
+namespace GameDesign
 {
-    class Camera
+    public class Camera
     {
-        Keys[] keys = new Keys[6] { Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.W, Keys.S };
+        Keys[] keys = new Keys[6] { Keys.W, Keys.S, Keys.A, Keys.D, Keys.Up, Keys.Down };
         public int layer = 0;
         public int movespeed = 5;
         public void Update(KeyboardState keyboardState, KeyboardState prevKeyBoardState)
