@@ -53,6 +53,7 @@
     <Compile Include="Tiles\Ceiling.cs" />
     <Compile Include="Tiles\Floor.cs" />
     <Compile Include="Tiles\Grass.cs" />
+    <Compile Include="Tiles\Timer.cs" />
     <Compile Include="Tiles\Wall.cs" />
   </ItemGroup>
   <ItemGroup>
