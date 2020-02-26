@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace GameDesign
 {
+    public enum dayPhase
+    {
+        morning,
+        afternoon,
+        night
+    }
+
     public class Timer
     {
         long currentTime_ms;
