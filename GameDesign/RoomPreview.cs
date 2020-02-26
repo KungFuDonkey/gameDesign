@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
@@ -11,10 +12,34 @@ namespace GameDesign
 {
     class RoomPreview
     {
-        public Room room = new Room();
+        public List<Room> rooms = new List<Room>();
+        public Room room;
         public Rectangle drawRectangle = new Rectangle(0,0,GameValues.tileSize,GameValues.tileSize);
         public float alpha = 0.8f;
         public int direction = -1;
+        public int roomIndex = 0;
+        public void initialize()
+        {
+            string directory = Directory.GetCurrentDirectory();
+            directory = directory.Remove(directory.Length - 22);
+            string path = Path.Combine(directory, "Rooms//amount.txt");
+            int amount = int.Parse(File.ReadAllLines(path)[0]);
+            path = Path.Combine(directory, "Rooms//noRoom.txt");
+            rooms.Add(new Room(path));
+            for (int i = 0; i < amount; i++)
+            {
+                try
+                {
+                    path = Path.Combine(directory, "Rooms//room" + i.ToString() + ".txt");
+                    rooms.Add(new Room(path));
+                }
+                catch
+                {
+
+                }
+            }
+            room = rooms[roomIndex];
+        }
         public void Draw(SpriteBatch spriteBatch, Rectangle selectedRectangle)
         {
             foreach(Tile t in room.layout)
@@ -30,11 +55,22 @@ namespace GameDesign
             }
             alpha += move;
         }
-        public void Update(MouseState mouseState, MouseState prevMouseState, Rectangle selectedRectangle)
+        public void Update(KeyboardState keyBoardState, KeyboardState prevKeyboardState, MouseState mouseState, MouseState prevMouseState, Rectangle selectedRectangle)
         {
             if(mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released && !collision(selectedRectangle))
             {
                 build(selectedRectangle);
+            }
+            if(keyBoardState.IsKeyDown(Keys.E) && !prevKeyboardState.IsKeyDown(Keys.E))
+            {
+                roomIndex = roomIndex == rooms.Count - 1 ? roomIndex : roomIndex + 1;
+                room = rooms[roomIndex];
+            }
+            if(keyBoardState.IsKeyDown(Keys.Q) && !prevKeyboardState.IsKeyDown(Keys.Q))
+            {
+                roomIndex = roomIndex == 0 ? 0 : roomIndex - 1;
+                room = rooms[roomIndex];
+                Debug.WriteLine(roomIndex);
             }
         }
         public bool collision(Rectangle selectedRectangle)
@@ -67,7 +103,6 @@ namespace GameDesign
             if (!room.part)
             {
                 room.layer = Game1.cam.layer;
-                Debug.WriteLine($"bruh{room.layer}");
             }
             foreach (Tile t in room.layout)
             {
