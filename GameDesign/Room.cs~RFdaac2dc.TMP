@@ -20,7 +20,6 @@ namespace GameDesign
             zone = Zone.Break;
             layer = -100;
             setValues("");
-            part = false;
         }
         public void setValues(string path)
         {

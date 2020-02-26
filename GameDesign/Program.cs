@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace rollercoaster_tycoon_ripoff
+namespace GameDesign
 {
 #if WINDOWS || LINUX
     /// <summary>

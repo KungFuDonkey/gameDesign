@@ -4,20 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 namespace GameDesign
 {
-    class Grass : Tile
+    class Ceiling : Tile
     {
-        public Grass(Rectangle _rectangle, int _layer)
+        public Ceiling(Rectangle _rectangle, int _layer, Zone _zone)
         {
             rectangle = _rectangle;
-            standardColor = Color.Green;
-            color = Color.Brown;
+            standardColor = Color.Gray;
+            color = Color.Gray;
+            occupied = false;
             moveable = true;
             layer = _layer;
-            zone = Zone.Grass;
+            zone = _zone;
             type = Type.grass;
         }
     }

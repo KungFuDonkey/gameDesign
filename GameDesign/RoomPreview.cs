@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-namespace rollercoaster_tycoon_ripoff
+namespace GameDesign
 {
     class RoomPreview
     {
-        public Room room = new BreakRoom(0);
+        public Room room = new Room();
         public Rectangle drawRectangle = new Rectangle(0,0,GameValues.tileSize,GameValues.tileSize);
         public float alpha = 0.8f;
         public int direction = -1;
@@ -44,14 +44,19 @@ namespace rollercoaster_tycoon_ripoff
                 drawRectangle.Location = selectedRectangle.Location + t.rectangle.Location - room.middle;
                 try
                 {
-                    Tile oldtile = (from tile in GameValues.tiles where tile.rectangle.X == drawRectangle.X && tile.rectangle.Y == drawRectangle.Y select tile).First();
-                    if (oldtile.occupied)
+                    Tile oldtile = (from tile in GameValues.tiles where tile.rectangle.X == drawRectangle.X && tile.rectangle.Y == drawRectangle.Y && tile.layer == Game1.cam.layer select tile).First();
+                    if (oldtile.occupied && !(t.type == Type.wall && oldtile.type == Type.wall))
                     {
+                        Debug.WriteLine("already occupied");
+                        Debug.WriteLine(oldtile.type == Type.wall);
+                        Debug.WriteLine(t.type == Type.wall);
+                        Debug.WriteLine(oldtile.occupied);
                         return true;
                     }
                 }
                 catch
                 {
+                    Debug.WriteLine("no terrain");
                     return true;
                 }
             }
@@ -59,12 +64,18 @@ namespace rollercoaster_tycoon_ripoff
         }
         public void build(Rectangle selectedRectangle)
         {
+            if (!room.part)
+            {
+                room.layer = Game1.cam.layer;
+                Debug.WriteLine($"bruh{room.layer}");
+            }
             foreach (Tile t in room.layout)
             {
                 drawRectangle.Location = selectedRectangle.Location + t.rectangle.Location - room.middle;
+                Rectangle rectangle = new Rectangle(drawRectangle.X, drawRectangle.Y, GameValues.tileSize, GameValues.tileSize);
                 try
                 {
-                    Tile oldtile = (from tile in GameValues.tiles where tile.rectangle.X == drawRectangle.X && tile.rectangle.Y == drawRectangle.Y select tile).First();
+                    Tile oldtile = (from tile in GameValues.tiles where tile.rectangle.X == drawRectangle.X && tile.rectangle.Y == drawRectangle.Y && tile.layer == room.layer select tile).First();
                     switch (t.type)
                     {
                         case Type.wall:
@@ -79,7 +90,6 @@ namespace rollercoaster_tycoon_ripoff
                 }
                 catch
                 {
-                    Rectangle rectangle = new Rectangle(drawRectangle.X,drawRectangle.Y, GameValues.tileSize, GameValues.tileSize);//needs fix
                     switch (t.type)
                     {
                         case Type.wall:
@@ -92,6 +102,19 @@ namespace rollercoaster_tycoon_ripoff
                             break;
                     }
                 }
+                if(t.type == Type.wall)
+                {
+                    try
+                    {
+                        Tile oldtile = (from tile in GameValues.tiles where tile.rectangle.X == drawRectangle.X && tile.rectangle.Y == drawRectangle.Y && tile.layer == room.layer + 1 select tile).First();
+                        continue;
+                    }
+                    catch
+                    {
+
+                    }
+                }
+                GameValues.tiles.Add(new Ceiling(rectangle, room.layer + 1, room.zone));
             }
         }
     }

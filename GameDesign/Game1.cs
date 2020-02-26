@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Linq;
 using System.Collections.Generic;
-namespace rollercoaster_tycoon_ripoff
+namespace GameDesign
 {
     /// <summary>
     /// This is the main type for your game.
@@ -15,7 +15,7 @@ namespace rollercoaster_tycoon_ripoff
         SpriteFont font;
         public static Tile SelectedTile;
         RoomPreview roomPreview = new RoomPreview();
-        Camera cam = new Camera();
+        public static Camera cam = new Camera();
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -38,6 +38,9 @@ namespace rollercoaster_tycoon_ripoff
                     GameValues.tiles.Add(new Grass(new Rectangle(i*GameValues.tileSize,j*GameValues.tileSize,GameValues.tileSize,GameValues.tileSize),0));
                 }
             }
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 900;
+            graphics.ApplyChanges();
             IsMouseVisible = true;
             base.Initialize();
         }
