@@ -17,7 +17,7 @@ namespace GameDesign
         public static Tile SelectedTile;
         RoomPreview roomPreview = new RoomPreview();
         public static Camera cam = new Camera();
-        public Timer gameTimer;
+        public Timer gameTimer = new Timer();
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);

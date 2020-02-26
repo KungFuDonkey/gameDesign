@@ -19,7 +19,7 @@ namespace GameDesign
         long phaseStartTime_ms;
         long phaseTime_ms;
 
-        Timer()
+        public Timer()
         {
             currentTime_ms = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             phaseStartTime_ms = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
