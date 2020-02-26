@@ -14,6 +14,7 @@ namespace GameDesign
     {
         public Zone zone;
         public int layer;
+        int size, width, height;
         public Point middle;
         public List<Tile> layout;
         public bool part;
@@ -23,6 +24,13 @@ namespace GameDesign
             setValues(path);
             part = false;
         }
+        public Room(string path, int _layer)
+        {
+            layer = _layer;
+            setValues(path);
+            part = true;
+        }
+        //reads the values from the path and creates the layout from that
         public void setValues(string path)
         {
             layout = new List<Tile>();
@@ -51,8 +59,65 @@ namespace GameDesign
                 x = 0;
                 y += 1;
             }
+            size = maxX > y ? maxX : y;
+            width = maxX;
+            height = y;
             Debug.WriteLine(maxX.ToString() + " " + y.ToString());
-            middle = new Point((maxX / 2) * GameValues.tileSize, (y / 2) * GameValues.tileSize);
+            middle = new Point((width / 2) * GameValues.tileSize, (height / 2) * GameValues.tileSize);
+        }
+        //rotates the layout counterclockwise on the grid
+        public void rotate()
+        {
+            //rotation
+            for(int x = 0; x < size/2; x++)
+            {
+                for(int y = x; y < size - x - 1; y++)
+                {
+                    List<Tile> query1 = (from t in layout where t.rectangle.X == x * GameValues.tileSize && t.rectangle.Y == y * GameValues.tileSize select t).ToList();
+                    List<Tile> query2 = (from t in layout where t.rectangle.X == y * GameValues.tileSize && t.rectangle.Y == (size - 1 - x) * GameValues.tileSize select t).ToList();
+                    List<Tile> query3 = (from t in layout where t.rectangle.X == (size - 1 - x) * GameValues.tileSize && t.rectangle.Y == (size - 1 - y) * GameValues.tileSize select t).ToList();
+                    List<Tile> query4 = (from t in layout where t.rectangle.X == (size - 1 - y) * GameValues.tileSize && t.rectangle.Y == x * GameValues.tileSize select t).ToList();
+                    foreach(Tile t in query1)
+                    {
+                        t.rectangle.X = y * GameValues.tileSize;
+                        t.rectangle.Y = (size - 1 - x) * GameValues.tileSize;
+                    }
+                    foreach(Tile t in query2)
+                    {
+                        t.rectangle.X = (size - 1 - x) * GameValues.tileSize;
+                        t.rectangle.Y = (size - 1 - y) * GameValues.tileSize;
+                    }
+                    foreach(Tile t in query3)
+                    {
+                        t.rectangle.X = (size - 1 - y) * GameValues.tileSize;
+                        t.rectangle.Y = x * GameValues.tileSize;
+                    }
+                    foreach(Tile t in query4)
+                    {
+                        t.rectangle.X = x * GameValues.tileSize;
+                        t.rectangle.Y = y * GameValues.tileSize;
+                    }
+                }
+            }
+            //moving the layout back to the origional spot otherwise the middle won't be in the right spot
+            while(layout.Min(x => x.rectangle.X) != 0)
+            {
+                foreach(Tile t in layout)
+                {
+                    t.rectangle.X -= GameValues.tileSize;
+                }
+            }
+            while(layout.Min(x => x.rectangle.Y) != 0)
+            {
+                foreach(Tile t in layout)
+                {
+                    t.rectangle.Y -= GameValues.tileSize;
+                }
+            }
+            int temp = height;
+            height = width;
+            width = temp;
+            middle = new Point((width / 2) * GameValues.tileSize, (height / 2) * GameValues.tileSize);
         }
     }
 }

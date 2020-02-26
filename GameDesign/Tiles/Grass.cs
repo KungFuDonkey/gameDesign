@@ -14,7 +14,7 @@ namespace GameDesign
         {
             rectangle = _rectangle;
             standardColor = Color.Green;
-            color = Color.Brown;
+            color = Color.Green;
             moveable = true;
             layer = _layer;
             zone = Zone.Grass;

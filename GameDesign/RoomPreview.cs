@@ -72,6 +72,10 @@ namespace GameDesign
                 room = rooms[roomIndex];
                 Debug.WriteLine(roomIndex);
             }
+            if(mouseState.RightButton == ButtonState.Pressed && prevMouseState.RightButton != ButtonState.Pressed)
+            {
+                room.rotate();
+            }
         }
         public bool collision(Rectangle selectedRectangle)
         {
