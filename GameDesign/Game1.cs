@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Linq;
 using System.Collections.Generic;
+
 namespace GameDesign
 {
     /// <summary>
@@ -16,7 +17,7 @@ namespace GameDesign
         public static Tile SelectedTile;
         RoomPreview roomPreview = new RoomPreview();
         public static Camera cam = new Camera();
-        Timer gameTimer;
+        public Timer gameTimer;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -79,6 +80,11 @@ namespace GameDesign
         MouseState prevMouseState;
         protected override void Update(GameTime gameTime)
         {
+            if (gameTimer.isPhaseOver())
+            {
+                //TODO: switch to night or next day.
+            }
+
             keys = Keyboard.GetState();
             mouseState = Mouse.GetState();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))

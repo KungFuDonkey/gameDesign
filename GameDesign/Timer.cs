@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace rollercoaster_tycoon_ripoff
+namespace GameDesign
 {
-    class Timer
+    public class Timer
     {
         long currentTime_ms;
         long phaseStartTime_ms;
@@ -22,7 +22,7 @@ namespace rollercoaster_tycoon_ripoff
         public bool isPhaseOver()
         {
             updateCurrentTime();
-            if(currentTime_ms > phaseStartTime_ms + phaseTime_ms)
+            if (currentTime_ms > phaseStartTime_ms + phaseTime_ms)
             {
                 phaseStartTime_ms = currentTime_ms;
                 return true;
@@ -42,5 +42,6 @@ namespace rollercoaster_tycoon_ripoff
         {
             currentTime_ms = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
         }
+
     }
 }
