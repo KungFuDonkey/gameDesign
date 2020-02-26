@@ -43,6 +43,7 @@ namespace GameDesign
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 900;
             graphics.ApplyChanges();
+            roomPreview.initialize();
             IsMouseVisible = true;
             base.Initialize();
         }
@@ -96,7 +97,7 @@ namespace GameDesign
                 t.Update(mouseState);
             }
             cam.Update(keys, prevKeys);
-            roomPreview.Update(mouseState, prevMouseState, SelectedTile.rectangle);
+            roomPreview.Update(keys, prevKeys, mouseState, prevMouseState, SelectedTile.rectangle);
             prevKeys = keys;
             prevMouseState = mouseState;
             base.Update(gameTime);
