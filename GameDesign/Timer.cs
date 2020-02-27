@@ -6,7 +6,25 @@ using System.Threading.Tasks;
 
 namespace GameDesign
 {
-    public enum dayPhase
+    public class InvalidPhaseException : Exception
+    {
+        public InvalidPhaseException()
+            : base("Invalid dayPhase")
+        {
+        }
+
+        public InvalidPhaseException(string message)
+            : base(message)
+        {
+        }
+
+        public InvalidPhaseException(string message, Exception inner)
+            : base(message, inner)
+        {
+        }
+    }
+
+    public enum Phase
     {
         morning,
         afternoon,
@@ -15,6 +33,7 @@ namespace GameDesign
 
     public class Timer
     {
+        Phase currentPhase;
         long currentTime_ms;
         long phaseStartTime_ms;
         long phaseTime_ms;
@@ -24,14 +43,16 @@ namespace GameDesign
             currentTime_ms = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             phaseStartTime_ms = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             phaseTime_ms = 1000 * 20;
+            currentPhase = Phase.morning;
         }
 
         public bool isPhaseOver()
         {
-            updateCurrentTime();
+            currentTime_ms = getCurrentTime_ms();
             if (currentTime_ms > phaseStartTime_ms + phaseTime_ms)
             {
                 phaseStartTime_ms = currentTime_ms;
+                currentPhase = getNextPhase(currentPhase);
                 return true;
             }
             else
@@ -40,14 +61,34 @@ namespace GameDesign
             }
         }
 
+        public Phase getCurrentPhase()
+        {
+            return currentPhase;
+        }
+
+        public Phase getNextPhase(Phase currentPhase)
+        {
+            switch (currentPhase)
+            {
+                case Phase.morning:
+                    return Phase.afternoon;
+                case Phase.afternoon:
+                    return Phase.night;
+                case Phase.night:
+                    return Phase.morning;
+                default:
+                    throw new InvalidPhaseException();
+            }
+        }
+
         public void setPhaseTime(long newPhaseTime_ms)
         {
             phaseTime_ms = newPhaseTime_ms;
         }
 
-        private void updateCurrentTime()
+        private long getCurrentTime_ms()
         {
-            currentTime_ms = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+            return DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
         }
 
     }
