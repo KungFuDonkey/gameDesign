@@ -81,7 +81,12 @@ namespace GameDesign
             }
         }
 
-        public void setPhaseTime(long newPhaseTime_ms)
+        public void setPhaseTime_s(long newPhaseTime_s)
+        {
+            phaseTime_ms = newPhaseTime_s * 1000;
+        }
+
+        public void setPhaseTime_ms(long newPhaseTime_ms)
         {
             phaseTime_ms = newPhaseTime_ms;
         }
