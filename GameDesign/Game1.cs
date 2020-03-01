@@ -18,6 +18,7 @@ namespace GameDesign
         RoomPreview roomPreview = new RoomPreview();
         public static Camera cam = new Camera();
         public Timer gameTimer = new Timer();
+        Hud hud;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -44,6 +45,7 @@ namespace GameDesign
             graphics.PreferredBackBufferHeight = 900;
             graphics.ApplyChanges();
             roomPreview.initialize();
+            hud = new Hud(1280, 900);
             IsMouseVisible = true;
             base.Initialize();
         }
@@ -97,7 +99,20 @@ namespace GameDesign
                 t.Update(mouseState);
             }
             cam.Update(keys, prevKeys);
-            roomPreview.Update(keys, prevKeys, mouseState, prevMouseState, SelectedTile.rectangle);
+            bool onhud = hud.Update(mouseState, gameTime);
+            if (!onhud)
+            {
+                switch (GameValues.state)
+                {
+                    case GameState.build:
+                        roomPreview.Update(keys, prevKeys, mouseState, prevMouseState, SelectedTile.rectangle);
+                        break;
+                    case GameState.remove:
+                        break;
+                    case GameState.select:
+                        break;
+                }
+            }
             prevKeys = keys;
             prevMouseState = mouseState;
             base.Update(gameTime);
@@ -112,6 +127,7 @@ namespace GameDesign
                 t.Draw(spriteBatch);
             }
             roomPreview.Draw(spriteBatch, SelectedTile.rectangle);
+            hud.draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
