@@ -33,6 +33,8 @@ namespace GameDesign
         //reads the values from the path and creates the layout from that
         public void setValues(string path)
         {
+            walls = 0;
+            floors = 0;
             layout = new List<Tile>();
             zone = Zone.Break;
             List<string> lines = File.ReadAllLines(path).ToList();

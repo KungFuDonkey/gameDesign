@@ -86,7 +86,7 @@ namespace GameDesign
                 //TODO: switch to night or next day.
                 if (gameTimer.getCurrentPhase() == Phase.morning)
                 {
-                    money.earnCash(100);
+                    money.earnCash(100000);
                 }
             }
 

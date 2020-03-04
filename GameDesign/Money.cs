@@ -18,9 +18,9 @@ namespace GameDesign
 
         public void Update(KeyboardState currKeyboardState, KeyboardState prevKeyboardState)
         {
-            if (currKeyboardState.IsKeyDown(Keys.K) && prevKeyboardState.IsKeyDown(Keys.K))
+            if (currKeyboardState.IsKeyDown(Keys.K) && !prevKeyboardState.IsKeyDown(Keys.K))
             {
-                earnCash(1000);
+                earnCash(10000);
             }
         }
 
@@ -31,7 +31,10 @@ namespace GameDesign
 
         public void buyObject(float amount)
         {
-            Cash -= amount;
+            if (canBuy(amount))
+            {
+                Cash -= amount;
+            }
         }
 
         public bool canBuy(float cost)
