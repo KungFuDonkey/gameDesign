@@ -12,7 +12,7 @@ namespace GameDesign
         public List<Room> rooms = new List<Room>();
         public Room room;
         public Rectangle drawRectangle = new Rectangle(0, 0, GameValues.tileSize, GameValues.tileSize);
-        public float alpha = 0.8f;
+        public float alpha = 0.8f, buildCosts;
         public int direction = -1;
         public int roomIndex = 0;
         string path;
@@ -39,6 +39,7 @@ namespace GameDesign
                 }
             }
             room = rooms[roomIndex];
+            buildCosts = room.walls * GameValues.wallCost + room.floors * GameValues.floorCost;
         }
 
         //draws the current room to the screen over the grid
@@ -67,7 +68,7 @@ namespace GameDesign
             {
                 room.rotate();
             }
-            if(mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released && !collision(selectedRectangle))
+            if (mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released && !collision(selectedRectangle) && Game1.money.canBuy(buildCosts))
             {
                 build(selectedRectangle);
             }

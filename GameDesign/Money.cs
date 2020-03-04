@@ -8,9 +8,13 @@ using System.Threading.Tasks;
 
 namespace GameDesign
 {
-    class Money
+    public class Money
     {
         public float Cash { get; private set; }
+        public Money(float money)
+        {
+            Cash = money;
+        }
 
         public void Update(KeyboardState currKeyboardState, KeyboardState prevKeyboardState)
         {
@@ -25,15 +29,12 @@ namespace GameDesign
             Cash += amount;
         }
 
-        public void buyObject(float cost)
+        public void buyObject(float amount)
         {
-            if (canBuy(cost))
-            {
-                Cash -= cost;
-            }
+            Cash -= amount;
         }
 
-        bool canBuy(float cost)
+        public bool canBuy(float cost)
         {
             if (Cash - cost >= 0f)
             {
@@ -44,7 +45,7 @@ namespace GameDesign
 
         public void payCash(float amount)
         {
-
+            Cash -= amount;
         }
     }
 }

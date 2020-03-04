@@ -19,7 +19,7 @@ namespace GameDesign
         RoomPreview roomPreview = new RoomPreview();
         public static Camera cam = new Camera();
         public Timer gameTimer = new Timer();
-        Money money;
+        public static Money money = new Money(1000);
         Hud hud;
         bool onhud;
         public Game1()
