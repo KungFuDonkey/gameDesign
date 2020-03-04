@@ -19,6 +19,7 @@ namespace GameDesign
         RoomPreview roomPreview = new RoomPreview();
         public static Camera cam = new Camera();
         public Timer gameTimer = new Timer();
+        Money money;
         Hud hud;
         bool onhud;
         public Game1()
@@ -83,6 +84,10 @@ namespace GameDesign
             if (gameTimer.isPhaseOver())
             {
                 //TODO: switch to night or next day.
+                if (gameTimer.getCurrentPhase() == Phase.morning)
+                {
+                    money.earnCash(100);
+                }
             }
 
             keys = Keyboard.GetState();
@@ -96,6 +101,7 @@ namespace GameDesign
                 t.Update(mouseState);
             }
             cam.Update(keys, prevKeys, mouseState, prevMouseState);
+            money.Update(keys, prevKeys);
             onhud = hud.Update(mouseState, prevMouseState, gameTime);
             if (!onhud)
             {
