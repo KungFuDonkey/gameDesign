@@ -18,6 +18,7 @@ namespace GameDesign
         public static Tile SelectedTile;
         RoomPreview roomPreview = new RoomPreview();
         public static Camera cam = new Camera();
+        public NPC npc = new NPC();
         public Timer gameTimer = new Timer();
         public Game1()
         {
@@ -92,6 +93,7 @@ namespace GameDesign
             {
                 t.Update(mouseState);
             }
+            npc.Update(keys);
             cam.Update(keys, prevKeys, mouseState, prevMouseState);
             roomPreview.Update(keys, prevKeys, mouseState, prevMouseState, SelectedTile.rectangle);
             prevKeys = keys;
