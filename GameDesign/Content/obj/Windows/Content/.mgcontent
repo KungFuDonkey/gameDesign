@@ -4,8 +4,8 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/SpelFont.spritefont</File>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Tile.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/SpelFont.spritefont</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Tile.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

@@ -14,15 +14,16 @@ namespace GameDesign
     {
         public List<Room> rooms = new List<Room>();
         public Room room;
-        public Rectangle drawRectangle = new Rectangle(0,0,GameValues.tileSize,GameValues.tileSize);
+        public Rectangle drawRectangle = new Rectangle(0, 0, GameValues.tileSize, GameValues.tileSize);
         public float alpha = 0.8f;
         public int direction = -1;
         public int roomIndex = 0;
+        string path;
         public void initialize()
         {
             string directory = Directory.GetCurrentDirectory();
             directory = directory.Remove(directory.Length - 22);
-            string path = Path.Combine(directory, "Rooms//amount.txt");
+            path = Path.Combine(directory, "Rooms//amount.txt");
             int amount = int.Parse(File.ReadAllLines(path)[0]);
             path = Path.Combine(directory, "Rooms//noRoom.txt");
             rooms.Add(new Room(path));
@@ -45,6 +46,7 @@ namespace GameDesign
             foreach(Tile t in room.layout)
             {
                 drawRectangle.Location = selectedRectangle.Location + t.rectangle.Location - room.middle;
+                drawRectangle.Size = new Point(GameValues.tileSize, GameValues.tileSize);
                 t.Draw(spriteBatch, drawRectangle, alpha);
             }
             float move = direction * 0.01f;
@@ -57,6 +59,11 @@ namespace GameDesign
         }
         public void Update(KeyboardState keyBoardState, KeyboardState prevKeyboardState, MouseState mouseState, MouseState prevMouseState, Rectangle selectedRectangle)
         {
+            room.setValues(path);
+            for (int i = 0; i < 4 - room.rotation; i++)
+            {
+                room.rotate();
+            }
             if(mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released && !collision(selectedRectangle))
             {
                 build(selectedRectangle);
@@ -70,11 +77,10 @@ namespace GameDesign
             {
                 roomIndex = roomIndex == 0 ? 0 : roomIndex - 1;
                 room = rooms[roomIndex];
-                Debug.WriteLine(roomIndex);
             }
             if(mouseState.RightButton == ButtonState.Pressed && prevMouseState.RightButton != ButtonState.Pressed)
             {
-                room.rotate();
+                room.rotation = (room.rotation + 1) % 4;
             }
         }
         public bool collision(Rectangle selectedRectangle)

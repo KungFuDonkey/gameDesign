@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,8 +14,10 @@ namespace GameDesign
         Keys[] keys = new Keys[6] { Keys.W, Keys.S, Keys.A, Keys.D, Keys.Up, Keys.Down };
         public int layer = 0;
         public int movespeed = 5;
-        public void Update(KeyboardState keyboardState, KeyboardState prevKeyBoardState)
+        int zoomSpeed = 1;
+        public void Update(KeyboardState keyboardState, KeyboardState prevKeyBoardState, MouseState currMouseState, MouseState prevMouseState)
         {
+            movespeed = 5 + GameValues.tileSize / 5;
             int move = 1;
             for(int i = 0; i < 2; i++)
             {
@@ -37,6 +40,47 @@ namespace GameDesign
                     layer = layer + move > GameValues.maxHeight || layer + move < 0 ? layer : layer + move;
                 }
                 move *= -1;
+            }
+            if (currMouseState.ScrollWheelValue != prevMouseState.ScrollWheelValue)
+            {
+                int tileSize = GameValues.tileSize;
+                if (tileSize > 15)
+                {
+                    zoomSpeed = 2;
+                    movespeed = 10;
+                }
+                else
+                {
+                    zoomSpeed = 1;
+                    movespeed = 5;
+                }
+
+                Point selectedTile = Game1.SelectedTile.rectangle.Location;
+                if (currMouseState.ScrollWheelValue > prevMouseState.ScrollWheelValue && tileSize <= 25)
+                {
+                    tileSize += zoomSpeed;
+                    Point size = new Point(tileSize, tileSize);
+                    foreach (Tile t in GameValues.tiles)
+                    {
+                        Point location = t.rectangle.Location;
+                        int distX = (location.X - selectedTile.X) / (tileSize - zoomSpeed) * tileSize + selectedTile.X;
+                        int distY = (location.Y - selectedTile.Y) / (tileSize - zoomSpeed) * tileSize + selectedTile.Y;
+                        t.rectangle = new Rectangle(new Point(distX, distY), size);
+                    }
+                }
+                else if (currMouseState.ScrollWheelValue < prevMouseState.ScrollWheelValue && tileSize > 3)
+                {
+                    tileSize -= zoomSpeed;
+                    Point size = new Point(tileSize, tileSize);
+                    foreach (Tile t in GameValues.tiles)
+                    {
+                        Point location = t.rectangle.Location;
+                        int distX = (location.X - selectedTile.X) / (tileSize + zoomSpeed) * tileSize + selectedTile.X;
+                        int distY = (location.Y - selectedTile.Y) / (tileSize + zoomSpeed) * tileSize + selectedTile.Y;
+                        t.rectangle = new Rectangle(new Point(distX, distY), size);
+                    }
+                }
+                GameValues.tileSize = tileSize;
             }
         }
     }
