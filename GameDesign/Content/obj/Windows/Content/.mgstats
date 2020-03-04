@@ -1,3 +1,1 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/SpelFont.spritefont","C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/bin/Windows/Content/SpelFont.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21521,1.203349
-"C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Tile.png","C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/bin/Windows/Content/Tile.xnb","TextureProcessor","Texture2DContent",164,1685,0.6284364

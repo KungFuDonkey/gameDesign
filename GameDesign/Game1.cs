@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Linq;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace GameDesign
 {
@@ -24,12 +25,7 @@ namespace GameDesign
             Content.RootDirectory = "Content";
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
+        public static Point viewport = new Point(1280, 900);
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
@@ -40,8 +36,8 @@ namespace GameDesign
                     GameValues.tiles.Add(new Grass(new Rectangle(i*GameValues.tileSize,j*GameValues.tileSize,GameValues.tileSize,GameValues.tileSize),0));
                 }
             }
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 900;
+            graphics.PreferredBackBufferWidth = viewport.X;
+            graphics.PreferredBackBufferHeight = viewport.Y;
             graphics.ApplyChanges();
             roomPreview.initialize();
             IsMouseVisible = true;
@@ -96,7 +92,7 @@ namespace GameDesign
             {
                 t.Update(mouseState);
             }
-            cam.Update(keys, prevKeys);
+            cam.Update(keys, prevKeys, mouseState, prevMouseState);
             roomPreview.Update(keys, prevKeys, mouseState, prevMouseState, SelectedTile.rectangle);
             prevKeys = keys;
             prevMouseState = mouseState;

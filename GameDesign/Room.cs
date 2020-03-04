@@ -13,7 +13,7 @@ namespace GameDesign
     class Room
     {
         public Zone zone;
-        public int layer;
+        public int layer, rotation = 0;
         int size, width, height;
         public Point middle;
         public List<Tile> layout;
@@ -62,40 +62,41 @@ namespace GameDesign
             size = maxX > y ? maxX : y;
             width = maxX;
             height = y;
-            Debug.WriteLine(maxX.ToString() + " " + y.ToString());
+            //Debug.WriteLine(maxX.ToString() + " " + y.ToString());
             middle = new Point((width / 2) * GameValues.tileSize, (height / 2) * GameValues.tileSize);
         }
         //rotates the layout counterclockwise on the grid
         public void rotate()
         {
+            int tileSize = GameValues.tileSize;
             //rotation
             for(int x = 0; x < size/2; x++)
             {
                 for(int y = x; y < size - x - 1; y++)
                 {
-                    List<Tile> query1 = (from t in layout where t.rectangle.X == x * GameValues.tileSize && t.rectangle.Y == y * GameValues.tileSize select t).ToList();
-                    List<Tile> query2 = (from t in layout where t.rectangle.X == y * GameValues.tileSize && t.rectangle.Y == (size - 1 - x) * GameValues.tileSize select t).ToList();
-                    List<Tile> query3 = (from t in layout where t.rectangle.X == (size - 1 - x) * GameValues.tileSize && t.rectangle.Y == (size - 1 - y) * GameValues.tileSize select t).ToList();
-                    List<Tile> query4 = (from t in layout where t.rectangle.X == (size - 1 - y) * GameValues.tileSize && t.rectangle.Y == x * GameValues.tileSize select t).ToList();
+                    List<Tile> query1 = (from t in layout where t.rectangle.X == x * tileSize && t.rectangle.Y == y * tileSize select t).ToList();
+                    List<Tile> query2 = (from t in layout where t.rectangle.X == y * tileSize && t.rectangle.Y == (size - 1 - x) * tileSize select t).ToList();
+                    List<Tile> query3 = (from t in layout where t.rectangle.X == (size - 1 - x) * tileSize && t.rectangle.Y == (size - 1 - y) * tileSize select t).ToList();
+                    List<Tile> query4 = (from t in layout where t.rectangle.X == (size - 1 - y) * tileSize && t.rectangle.Y == x * tileSize select t).ToList();
                     foreach(Tile t in query1)
                     {
-                        t.rectangle.X = y * GameValues.tileSize;
-                        t.rectangle.Y = (size - 1 - x) * GameValues.tileSize;
+                        t.rectangle.X = y * tileSize;
+                        t.rectangle.Y = (size - 1 - x) * tileSize;
                     }
                     foreach(Tile t in query2)
                     {
-                        t.rectangle.X = (size - 1 - x) * GameValues.tileSize;
-                        t.rectangle.Y = (size - 1 - y) * GameValues.tileSize;
+                        t.rectangle.X = (size - 1 - x) * tileSize;
+                        t.rectangle.Y = (size - 1 - y) * tileSize;
                     }
                     foreach(Tile t in query3)
                     {
-                        t.rectangle.X = (size - 1 - y) * GameValues.tileSize;
-                        t.rectangle.Y = x * GameValues.tileSize;
+                        t.rectangle.X = (size - 1 - y) * tileSize;
+                        t.rectangle.Y = x * tileSize;
                     }
                     foreach(Tile t in query4)
                     {
-                        t.rectangle.X = x * GameValues.tileSize;
-                        t.rectangle.Y = y * GameValues.tileSize;
+                        t.rectangle.X = x * tileSize;
+                        t.rectangle.Y = y * tileSize;
                     }
                 }
             }
@@ -104,20 +105,20 @@ namespace GameDesign
             {
                 foreach(Tile t in layout)
                 {
-                    t.rectangle.X -= GameValues.tileSize;
+                    t.rectangle.X -= tileSize;
                 }
             }
             while(layout.Min(x => x.rectangle.Y) != 0)
             {
                 foreach(Tile t in layout)
                 {
-                    t.rectangle.Y -= GameValues.tileSize;
+                    t.rectangle.Y -= tileSize;
                 }
             }
             int temp = height;
             height = width;
             width = temp;
-            middle = new Point((width / 2) * GameValues.tileSize, (height / 2) * GameValues.tileSize);
+            middle = new Point((width / 2) * tileSize, (height / 2) * tileSize);
         }
     }
 }
