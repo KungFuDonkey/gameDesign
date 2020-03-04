@@ -13,16 +13,15 @@ namespace GameDesign
     {
         Rectangle verticalRectangle, horizontalRectangle, cornerRectangle;
         Rectangle buildRectangle, selectRectangle, removeRectangle;
-        Point buildDifference = new Point(100, 0), selectDifference = new Point(175,0), removeDifference = new Point(250,0);
         float timer = 0.01f, TIMER = 0.01f;
         public Hud(int screenwidth, int screenheight)
         {
             horizontalRectangle = new Rectangle(0, -30, screenwidth, 50);
             verticalRectangle = new Rectangle(-30, 0, 50, screenheight);
             cornerRectangle = new Rectangle(-30, -30, 50, 50);
-            buildRectangle = new Rectangle(horizontalRectangle.Location + buildDifference, new Point(50, 50));
-            selectRectangle = new Rectangle(horizontalRectangle.Location + selectDifference, new Point(50, 50));
-            removeRectangle = new Rectangle(horizontalRectangle.Location + removeDifference, new Point(50, 50));
+            buildRectangle = new Rectangle(100, -30, 50, 50);
+            selectRectangle = new Rectangle(200, -30, 50, 50);
+            removeRectangle = new Rectangle(300, -30, 50, 50);
         }
         public void draw(SpriteBatch spriteBatch)
         {
@@ -33,9 +32,12 @@ namespace GameDesign
             spriteBatch.Draw(GameValues.tileTex, selectRectangle, Color.Pink);
             spriteBatch.Draw(GameValues.tileTex, removeRectangle, Color.Red);
         }
-        public bool Update(MouseState mouseState, GameTime gameTime)
+        public bool Update(MouseState mouseState, MouseState prevMouseState, GameTime gameTime)
         {
-            if(horizontalRectangle.Contains(mouseState.Position) || verticalRectangle.Contains(mouseState.Position))
+            checkRectangle(buildRectangle, mouseState, prevMouseState, GameState.build);
+            checkRectangle(selectRectangle, mouseState, prevMouseState, GameState.select);
+            checkRectangle(removeRectangle, mouseState, prevMouseState, GameState.remove);
+            if (horizontalRectangle.Contains(mouseState.Position) || verticalRectangle.Contains(mouseState.Position))
             {
                 if(horizontalRectangle.Y < 0)
                 {
@@ -47,19 +49,14 @@ namespace GameDesign
             {
                 slide(false, gameTime);
             }
-            checkRectangle(buildRectangle, mouseState, GameState.build);
-            checkRectangle(selectRectangle, mouseState, GameState.select);
-            checkRectangle(removeRectangle, mouseState, GameState.remove);
-
             return false;
         }
-        public void checkRectangle(Rectangle rectangle, MouseState mouseState, GameState state)
-        {
-            Debug.WriteLine($"1{rectangle.Y}");
-            if (mouseState.Position.X > rectangle.X && mouseState.Position.X < rectangle.X + rectangle.Width && mouseState.Position.Y > rectangle.Y && mouseState.Position.Y < rectangle.Y + rectangle.Width && mouseState.LeftButton == ButtonState.Pressed)
+        public void checkRectangle(Rectangle rectangle, MouseState mouseState, MouseState prevMouseState, GameState state)
+        { 
+            if (rectangle.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
             {
-                Debug.WriteLine(state);
                 GameValues.state = state;
+                Debug.WriteLine(state);
             }
         }
         public void slide(bool outward, GameTime gameTime)

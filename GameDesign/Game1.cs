@@ -19,6 +19,7 @@ namespace GameDesign
         public static Camera cam = new Camera();
         public Timer gameTimer = new Timer();
         Hud hud;
+        bool onhud;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -99,7 +100,7 @@ namespace GameDesign
                 t.Update(mouseState);
             }
             cam.Update(keys, prevKeys);
-            bool onhud = hud.Update(mouseState, gameTime);
+            onhud = hud.Update(mouseState, prevMouseState, gameTime);
             if (!onhud)
             {
                 switch (GameValues.state)
@@ -126,7 +127,19 @@ namespace GameDesign
             {
                 t.Draw(spriteBatch);
             }
-            roomPreview.Draw(spriteBatch, SelectedTile.rectangle);
+            if (!onhud)
+            {
+                switch (GameValues.state)
+                {
+                    case GameState.build:
+                        roomPreview.Draw(spriteBatch, SelectedTile.rectangle);
+                        break;
+                    case GameState.select:
+                        break;
+                    case GameState.remove:
+                        break;
+                }
+            }
             hud.draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
