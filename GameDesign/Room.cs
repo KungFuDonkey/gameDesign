@@ -13,7 +13,7 @@ namespace GameDesign
     class Room
     {
         public Zone zone;
-        public int layer, rotation = 0, walls, floors;
+        public int layer, rotation = 0;
         int size, width, height;
         public Point middle;
         public List<Tile> layout;
@@ -38,7 +38,6 @@ namespace GameDesign
             List<string> lines = File.ReadAllLines(path).ToList();
             int x = 0, maxX = 0;
             int y = 0;
-            int tileSize = GameValues.tileSize;
             foreach(string l in lines)
             {
                 foreach(char c in l)
@@ -46,12 +45,10 @@ namespace GameDesign
                     switch (c)
                     {
                         case '#':
-                            layout.Add(new Wall(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), layer, zone));
-                            walls++;
+                            layout.Add(new Wall(new Rectangle(x * GameValues.tileSize, y * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize), layer, zone));
                             break;
                         case '0':
-                            layout.Add(new Floor(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), layer, zone));
-                            floors++;
+                            layout.Add(new Floor(new Rectangle(x * GameValues.tileSize, y * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize), layer, zone));
                             break;
                         case ' ':
                             break;
@@ -65,7 +62,8 @@ namespace GameDesign
             size = maxX > y ? maxX : y;
             width = maxX;
             height = y;
-            middle = new Point((width / 2) * tileSize, (height / 2) * tileSize);
+            //Debug.WriteLine(maxX.ToString() + " " + y.ToString());
+            middle = new Point((width / 2) * GameValues.tileSize, (height / 2) * GameValues.tileSize);
         }
         //rotates the layout counterclockwise on the grid
         public void rotate()

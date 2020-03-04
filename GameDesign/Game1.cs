@@ -19,9 +19,6 @@ namespace GameDesign
         RoomPreview roomPreview = new RoomPreview();
         public static Camera cam = new Camera();
         public Timer gameTimer = new Timer();
-        public static Money money = new Money(1000);
-        Hud hud;
-        bool onhud;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -43,7 +40,6 @@ namespace GameDesign
             graphics.PreferredBackBufferHeight = viewport.Y;
             graphics.ApplyChanges();
             roomPreview.initialize();
-            hud = new Hud(1280, 900);
             IsMouseVisible = true;
             base.Initialize();
         }
@@ -84,10 +80,6 @@ namespace GameDesign
             if (gameTimer.isPhaseOver())
             {
                 //TODO: switch to night or next day.
-                if (gameTimer.getCurrentPhase() == Phase.morning)
-                {
-                    money.earnCash(100);
-                }
             }
 
             keys = Keyboard.GetState();
@@ -101,21 +93,7 @@ namespace GameDesign
                 t.Update(mouseState);
             }
             cam.Update(keys, prevKeys, mouseState, prevMouseState);
-            money.Update(keys, prevKeys);
-            onhud = hud.Update(mouseState, prevMouseState, gameTime);
-            if (!onhud)
-            {
-                switch (GameValues.state)
-                {
-                    case GameState.build:
-                        roomPreview.Update(keys, prevKeys, mouseState, prevMouseState, SelectedTile.rectangle);
-                        break;
-                    case GameState.remove:
-                        break;
-                    case GameState.select:
-                        break;
-                }
-            }
+            roomPreview.Update(keys, prevKeys, mouseState, prevMouseState, SelectedTile.rectangle);
             prevKeys = keys;
             prevMouseState = mouseState;
             base.Update(gameTime);
@@ -129,20 +107,7 @@ namespace GameDesign
             {
                 t.Draw(spriteBatch);
             }
-            if (!onhud)
-            {
-                switch (GameValues.state)
-                {
-                    case GameState.build:
-                        roomPreview.Draw(spriteBatch, SelectedTile.rectangle);
-                        break;
-                    case GameState.select:
-                        break;
-                    case GameState.remove:
-                        break;
-                }
-            }
-            hud.draw(spriteBatch);
+            roomPreview.Draw(spriteBatch, SelectedTile.rectangle);
             spriteBatch.End();
             base.Draw(gameTime);
         }
