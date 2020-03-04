@@ -95,7 +95,7 @@ namespace GameDesign
             {
                 t.Update(mouseState);
             }
-            cam.Update(keys, prevKeys);
+            cam.Update(keys, prevKeys, mouseState, prevMouseState);
             onhud = hud.Update(mouseState, prevMouseState, gameTime);
             if (!onhud)
             {

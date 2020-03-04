@@ -21,7 +21,7 @@ namespace GameDesign
         {
             string directory = Directory.GetCurrentDirectory();
             directory = directory.Remove(directory.Length - 22);
-            path = Path.Combine(directory, "Rooms//amount.txt");
+            string path = Path.Combine(directory, "Rooms//amount.txt");
             int amount = int.Parse(File.ReadAllLines(path)[0]);
             path = Path.Combine(directory, "Rooms//noRoom.txt");
             rooms.Add(new Room(path));
