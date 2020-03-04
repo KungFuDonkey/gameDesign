@@ -17,6 +17,7 @@ namespace GameDesign
         SpriteFont font;
         public static Tile SelectedTile;
         RoomPreview roomPreview = new RoomPreview();
+        Remove remove = new Remove();
         public static Camera cam = new Camera();
         public Timer gameTimer = new Timer();
         Hud hud;
@@ -105,6 +106,7 @@ namespace GameDesign
                         roomPreview.Update(keys, prevKeys, mouseState, prevMouseState, SelectedTile.rectangle);
                         break;
                     case GameState.remove:
+                        remove.Update(mouseState,prevMouseState,SelectedTile);
                         break;
                     case GameState.select:
                         break;
