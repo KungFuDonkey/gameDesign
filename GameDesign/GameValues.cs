@@ -23,7 +23,7 @@ namespace GameDesign
         public static GameState state = GameState.build;
 
         //Money
-        public static float wallCost = 10;
-        public static float floorCost = 5;
+        public static float wallCost = 5;
+        public static float floorCost = 1;
     }
 }

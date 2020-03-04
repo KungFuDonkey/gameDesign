@@ -5,6 +5,8 @@ using System.Linq;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
+
 namespace GameDesign
 {
     class RoomPreview
@@ -39,7 +41,6 @@ namespace GameDesign
                 }
             }
             room = rooms[roomIndex];
-            buildCosts = room.walls * GameValues.wallCost + room.floors * GameValues.floorCost;
         }
 
         //draws the current room to the screen over the grid
@@ -82,10 +83,13 @@ namespace GameDesign
                 roomIndex = roomIndex == 0 ? 0 : roomIndex - 1;
                 room = rooms[roomIndex];
             }
-            if(mouseState.RightButton == ButtonState.Pressed && prevMouseState.RightButton != ButtonState.Pressed)
+            if((mouseState.RightButton == ButtonState.Pressed && prevMouseState.RightButton != ButtonState.Pressed) || 
+                (mouseState.MiddleButton == ButtonState.Pressed && prevMouseState.MiddleButton != ButtonState.Pressed) ||
+                (keyBoardState.IsKeyDown(Keys.R) && !prevKeyboardState.IsKeyDown(Keys.R)))
             {
                 room.rotation = (room.rotation + 1) % 4;
             }
+            buildCosts = room.walls * GameValues.wallCost + room.floors * GameValues.floorCost;
         }
 
         //checks for a collision with the grid to decide if the room can be placed
@@ -164,6 +168,7 @@ namespace GameDesign
                 }
                 GameValues.tiles.Add(new Ceiling(rectangle, room.layer + 1, room.zone));
             }
+            Game1.money.payCash(buildCosts);
         }
     }
 }
