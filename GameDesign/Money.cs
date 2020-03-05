@@ -22,6 +22,10 @@ namespace GameDesign
             {
                 earnCash(10000);
             }
+            if (currKeyboardState.IsKeyDown(Keys.J) && !prevKeyboardState.IsKeyDown(Keys.J))
+            {
+                payCash(1000);
+            }
         }
 
         public void earnCash(float amount)
