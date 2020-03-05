@@ -16,12 +16,12 @@ namespace GameDesign
         float timer = 0.01f, TIMER = 0.01f;
         public Hud(int screenwidth, int screenheight)
         {
-            horizontalRectangle = new Rectangle(0, -30, screenwidth, 50);
+            horizontalRectangle = new Rectangle(0, 0, screenwidth, 50);
             verticalRectangle = new Rectangle(-30, 0, 50, screenheight);
-            cornerRectangle = new Rectangle(-30, -30, 50, 50);
-            buildRectangle = new Rectangle(100, -30, 50, 50);
-            selectRectangle = new Rectangle(200, -30, 50, 50);
-            removeRectangle = new Rectangle(300, -30, 50, 50);
+            cornerRectangle = new Rectangle(-30, 0, 50, 50);
+            buildRectangle = new Rectangle(-30, 100, 50, 50);
+            selectRectangle = new Rectangle(-30, 200, 50, 50);
+            removeRectangle = new Rectangle(-30, 300, 50, 50);
         }
         public void draw(SpriteBatch spriteBatch)
         {
@@ -37,15 +37,15 @@ namespace GameDesign
             checkRectangle(buildRectangle, mouseState, prevMouseState, GameState.build);
             checkRectangle(selectRectangle, mouseState, prevMouseState, GameState.select);
             checkRectangle(removeRectangle, mouseState, prevMouseState, GameState.remove);
-            if (horizontalRectangle.Contains(mouseState.Position) || verticalRectangle.Contains(mouseState.Position))
+            if (verticalRectangle.Contains(mouseState.Position))
             {
-                if(horizontalRectangle.Y < 0)
+                if(verticalRectangle.X < 0)
                 {
                     slide(true, gameTime);
                 }
                 return true;
             }
-            else if(horizontalRectangle.Y > -30)
+            else if(verticalRectangle.X > -30)
             {
                 slide(false, gameTime);
             }
@@ -74,13 +74,11 @@ namespace GameDesign
         }
         public void move(int direction)
         {
-            horizontalRectangle.Y += direction;
             verticalRectangle.X += direction;
             cornerRectangle.X += direction;
-            cornerRectangle.Y += direction;
-            buildRectangle.Y += direction;
-            selectRectangle.Y += direction;
-            removeRectangle.Y += direction;
+            buildRectangle.X += direction;
+            selectRectangle.X += direction;
+            removeRectangle.X += direction;
         }
     }
 }
