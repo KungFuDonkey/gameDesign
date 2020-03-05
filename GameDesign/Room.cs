@@ -104,7 +104,7 @@ namespace GameDesign
                     }
                 }
             }
-            //moving the layout back to the origional spot otherwise the middle won't be in the right spot
+            //moving the layout back to the original spot otherwise the middle won't be in the right spot
             while(layout.Min(x => x.rectangle.X) != 0)
             {
                 foreach(Tile t in layout)
