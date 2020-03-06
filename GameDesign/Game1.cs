@@ -17,9 +17,12 @@ namespace GameDesign
         SpriteFont font;
         public static Tile SelectedTile;
         RoomPreview roomPreview = new RoomPreview();
+        Remove remove = new Remove();
         public static Camera cam = new Camera();
         public NPC npc = new NPC();
         public Timer gameTimer = new Timer();
+        Hud hud;
+        bool onhud;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -41,6 +44,7 @@ namespace GameDesign
             graphics.PreferredBackBufferHeight = viewport.Y;
             graphics.ApplyChanges();
             roomPreview.initialize();
+            hud = new Hud(1280, 900);
             IsMouseVisible = true;
             base.Initialize();
         }
@@ -95,7 +99,21 @@ namespace GameDesign
             }
             npc.Update(keys);
             cam.Update(keys, prevKeys, mouseState, prevMouseState);
-            roomPreview.Update(keys, prevKeys, mouseState, prevMouseState, SelectedTile.rectangle);
+            onhud = hud.Update(mouseState, prevMouseState, gameTime);
+            if (!onhud)
+            {
+                switch (GameValues.state)
+                {
+                    case GameState.build:
+                        roomPreview.Update(keys, prevKeys, mouseState, prevMouseState, SelectedTile.rectangle);
+                        break;
+                    case GameState.remove:
+                        remove.Update(mouseState,prevMouseState,SelectedTile);
+                        break;
+                    case GameState.select:
+                        break;
+                }
+            }
             prevKeys = keys;
             prevMouseState = mouseState;
             base.Update(gameTime);
@@ -109,7 +127,20 @@ namespace GameDesign
             {
                 t.Draw(spriteBatch);
             }
-            roomPreview.Draw(spriteBatch, SelectedTile.rectangle);
+            if (!onhud)
+            {
+                switch (GameValues.state)
+                {
+                    case GameState.build:
+                        roomPreview.Draw(spriteBatch, SelectedTile.rectangle);
+                        break;
+                    case GameState.select:
+                        break;
+                    case GameState.remove:
+                        break;
+                }
+            }
+            hud.draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }

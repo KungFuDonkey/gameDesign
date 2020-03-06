@@ -17,7 +17,7 @@ namespace GameDesign
             moveable = true;
             layer = _layer;
             zone = _zone;
-            type = Type.grass;
+            type = Type.ceiling;
         }
     }
 }

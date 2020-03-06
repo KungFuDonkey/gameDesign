@@ -21,7 +21,8 @@ namespace GameDesign
     {
         grass,
         wall,
-        floor
+        floor,
+        ceiling
     }
     public class Tile
     {
