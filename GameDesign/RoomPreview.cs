@@ -148,7 +148,7 @@ namespace GameDesign
                             break;
                     }
                 }
-                if(t.type == Type.wall)
+                if(t.type == Type.wall || room.layer == -1)
                 {
                     try
                     {

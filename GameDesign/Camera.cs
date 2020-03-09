@@ -37,7 +37,7 @@ namespace GameDesign
                 }
                 if (keyboardState.IsKeyDown(keys[i + 4]) && !prevKeyBoardState.IsKeyDown(keys[i+4]))
                 {
-                    layer = layer + move > GameValues.maxHeight || layer + move < 0 ? layer : layer + move;
+                    layer = layer + move > GameValues.maxHeight || layer + move < -1 ? layer : layer + move;
                 }
                 move *= -1;
             }

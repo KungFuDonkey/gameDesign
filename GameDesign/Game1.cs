@@ -14,7 +14,6 @@ namespace GameDesign
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        SpriteFont font;
         public static Tile SelectedTile;
         RoomPreview roomPreview = new RoomPreview();
         Remove remove = new Remove();
@@ -36,7 +35,10 @@ namespace GameDesign
             {
                 for(int j = 0; j < GameValues.gridHeight; j++)
                 {
-                    GameValues.tiles.Add(new Grass(new Rectangle(i*GameValues.tileSize,j*GameValues.tileSize,GameValues.tileSize,GameValues.tileSize),0));
+                    Rectangle rect = new Rectangle(i * GameValues.tileSize, j * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize);
+                    GameValues.tiles.Add(new Grass(rect,0));
+                    rect = new Rectangle(i * GameValues.tileSize, j * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize); //dont remove for different rectangle
+                    GameValues.tiles.Add(new Stone(rect, -1));
                 }
             }
             graphics.PreferredBackBufferWidth = viewport.X;
@@ -56,7 +58,7 @@ namespace GameDesign
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            font = Content.Load<SpriteFont>("SpelFont");
+            GameValues.font = Content.Load<SpriteFont>("SpelFont");
             GameValues.tileTex = Content.Load<Texture2D>("Tile");
             // TODO: use this.Content to load your game content here
         }
@@ -120,6 +122,7 @@ namespace GameDesign
         {
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
+
             IEnumerable<Tile> query = from t in GameValues.tiles where t.layer == cam.layer select t;
             foreach (Tile t in query)
             {
@@ -135,6 +138,7 @@ namespace GameDesign
                     case GameState.select:
                         break;
                     case GameState.remove:
+                        remove.Draw(spriteBatch, gameTime);
                         break;
                 }
             }

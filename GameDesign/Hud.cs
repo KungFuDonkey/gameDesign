@@ -11,17 +11,22 @@ namespace GameDesign
 {
     class Hud
     {
-        Rectangle verticalRectangle, horizontalRectangle, cornerRectangle;
+        Rectangle verticalRectangle, horizontalRectangle, cornerRectangle, layerRectangle, indicatorRectangle;
         Rectangle buildRectangle, selectRectangle, removeRectangle;
         float timer = 0.01f, TIMER = 0.01f;
+        Vector2 drawpoint, DRAWPOINT;
         public Hud(int screenwidth, int screenheight)
         {
             horizontalRectangle = new Rectangle(0, 0, screenwidth, 50);
             verticalRectangle = new Rectangle(-30, 0, 50, screenheight);
+            layerRectangle = new Rectangle(screenwidth - 50, 50, 50, screenheight - 50);
             cornerRectangle = new Rectangle(-30, 0, 50, 50);
             buildRectangle = new Rectangle(-30, 100, 50, 50);
             selectRectangle = new Rectangle(-30, 200, 50, 50);
             removeRectangle = new Rectangle(-30, 300, 50, 50);
+            indicatorRectangle = new Rectangle(screenwidth - 44, 0, 41, 41);
+            drawpoint = new Vector2(screenwidth - 29, screenheight - 30);
+            DRAWPOINT = new Vector2(screenwidth - 29, screenheight - 30);
         }
         public void draw(SpriteBatch spriteBatch)
         {
@@ -31,6 +36,23 @@ namespace GameDesign
             spriteBatch.Draw(GameValues.tileTex, buildRectangle, Color.Black);
             spriteBatch.Draw(GameValues.tileTex, selectRectangle, Color.Pink);
             spriteBatch.Draw(GameValues.tileTex, removeRectangle, Color.Red);
+            spriteBatch.Draw(GameValues.tileTex, layerRectangle, Color.AliceBlue);
+            for(int i = -1; i < 20; i++)
+            {
+                if (i == Game1.cam.layer)
+                {
+                    indicatorRectangle.Y = (int)drawpoint.Y - 10;
+                    spriteBatch.Draw(GameValues.tileTex, indicatorRectangle, Color.Blue);
+                }
+                spriteBatch.DrawString(GameValues.font, i.ToString(), drawpoint, Color.Black);
+                if(i == 9)
+                {
+                    drawpoint.X -= 6;
+                }
+                drawpoint.Y -= 40;
+            }
+            drawpoint.X = DRAWPOINT.X;
+            drawpoint.Y = DRAWPOINT.Y;
         }
         public bool Update(MouseState mouseState, MouseState prevMouseState, GameTime gameTime)
         {

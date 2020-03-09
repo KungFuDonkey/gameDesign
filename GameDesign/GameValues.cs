@@ -21,5 +21,6 @@ namespace GameDesign
         public static Texture2D tileTex;
         public static List<Tile> tiles = new List<Tile>();
         public static GameState state = GameState.build;
+        public static SpriteFont font;
     }
 }
