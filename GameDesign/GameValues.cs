@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
+
 namespace GameDesign
 {
     enum GameState
@@ -26,13 +28,13 @@ namespace GameDesign
             get { return tiles; }
         }
 
-        public static Node GetTileNode(Point nodeLocation, Node parent)
+        public static Node GetTileNode(Point nodeLocation)
         {
             foreach (Tile tile in tiles)
             {
-                if(tile.rectangle.Location == nodeLocation)
+                if(tile.gridLocation == nodeLocation)
                 {
-                    return new Node(nodeLocation, parent, tile.moveable);
+                    return new Node(nodeLocation, tile.moveable);
                 }
             }
             return null;
@@ -45,20 +47,20 @@ namespace GameDesign
             {
                 for(int y = -1; y <= 1; y++)
                 {
-                    if(x==0 && y == 0)
+                    if(x == 0 && y == 0)
                     {
                         continue;
                     }
                     else
                     {
                         Point checkNeighbour = new Point(x,y);
-                        if(GetTileNode(node.gridLocation + checkNeighbour, null) == null)
+                        if(GetTileNode(node.gridLocation + checkNeighbour) == null)
                         {
 
                         }
                         else
                         {
-                            neighbours.Add(GetTileNode(node.gridLocation + checkNeighbour, node));
+                            neighbours.Add(GetTileNode(node.gridLocation + checkNeighbour));
                         }
                     }
                 }
@@ -66,13 +68,14 @@ namespace GameDesign
             return neighbours;
         }
 
-        public static void TracePath(Node n)
+        public static void TracePath(Node n, Color color)
         {
+            Debug.WriteLine("coloring");
             foreach (Tile tile in tiles)
             {
-                if (tile.rectangle.Location == n.gridLocation)
+                if (tile.gridLocation == n.gridLocation)
                 {
-                    tile.color = Color.Red;
+                    tile.standardColor = color;
                 }
             }
         }

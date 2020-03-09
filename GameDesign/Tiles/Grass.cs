@@ -10,7 +10,7 @@ namespace GameDesign
 {
     class Grass : Tile
     {
-        public Grass(Rectangle _rectangle, int _layer)
+        public Grass(Rectangle _rectangle, int _layer, Point _gridLocation)
         {
             rectangle = _rectangle;
             standardColor = Color.Green;
@@ -19,6 +19,7 @@ namespace GameDesign
             layer = _layer;
             zone = Zone.Grass;
             type = Type.grass;
+            gridLocation = _gridLocation;
         }
     }
 }

@@ -37,7 +37,7 @@ namespace GameDesign
             {
                 for(int j = 0; j < GameValues.gridHeight; j++)
                 {
-                    GameValues.tiles.Add(new Grass(new Rectangle(i*GameValues.tileSize,j*GameValues.tileSize,GameValues.tileSize,GameValues.tileSize),0));
+                    GameValues.tiles.Add(new Grass(new Rectangle(i*GameValues.tileSize,j*GameValues.tileSize,GameValues.tileSize,GameValues.tileSize),0, new Point(i,j)));
                 }
             }
             graphics.PreferredBackBufferWidth = viewport.X;

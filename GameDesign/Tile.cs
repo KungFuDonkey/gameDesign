@@ -34,6 +34,8 @@ namespace GameDesign
         public bool moveable;
         public Zone zone;
         public bool occupied;
+        public Point gridLocation;
+
         public void Update(MouseState mouse)
         {
             if (rectangle.Contains(mouse.Position))
