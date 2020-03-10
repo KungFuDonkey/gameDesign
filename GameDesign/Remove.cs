@@ -14,7 +14,7 @@ namespace GameDesign
         Tile firstSelection, secondSelection;
         Rectangle drawRectangle = new Rectangle(0,0,0,0);
         Color color = new Color(255, 0, 0);
-        float alpha = 1;
+        float alpha = 0.8f;
         int direction = -1;
         int minx, maxx, miny, maxy;
         public void Update(MouseState mouseState, MouseState prevMouseState, Tile selectedTile)
@@ -98,10 +98,10 @@ namespace GameDesign
                 direction *= -1;
                 alpha = 0.2f;
             }
-            else if(alpha > 1)
+            else if(alpha > 0.8f)
             {
                 direction *= -1;
-                alpha = 1;
+                alpha = 0.8f;
             }
         }
         public bool hasCeiling(Tile selectedTile)
