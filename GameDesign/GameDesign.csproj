@@ -45,8 +45,11 @@
     <Compile Include="Camera.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameValues.cs" />
+    <Compile Include="Menu\LoadGameMenu.cs" />
+    <Compile Include="Menu\Menu.cs" />
     <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Menu\OptionsMenu.cs" />
+    <Compile Include="Menu\PauseMenu.cs" />
     <Compile Include="Money.cs" />
     <Compile Include="OptionsValues.cs" />
     <Compile Include="Program.cs" />

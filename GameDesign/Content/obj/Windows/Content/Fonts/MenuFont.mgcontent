@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Fonts/MenuFont.spritefont</SourceFile>
-  <SourceTime>2020-03-09T12:57:47.7449026+01:00</SourceTime>
+  <SourceTime>2020-03-10T12:04:35.6768556+01:00</SourceTime>
   <DestFile>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/bin/Windows/Content/Fonts/MenuFont.xnb</DestFile>
-  <DestTime>2020-03-09T13:24:01.2051978+01:00</DestTime>
+  <DestTime>2020-03-10T12:15:04.7588196+01:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>

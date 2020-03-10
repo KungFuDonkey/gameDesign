@@ -22,7 +22,7 @@ namespace GameDesign
         public static Camera cam = new Camera();
         public Timer gameTimer = new Timer();
         public static Money money = new Money(100000);
-        public static MainMenu menu;
+        public static Menu menu;
         Hud hud;
         bool onhud;
 
@@ -49,7 +49,7 @@ namespace GameDesign
             graphics.ApplyChanges();
             roomPreview.initialize();
             hud = new Hud(1280, 900);
-            menu = new MainMenu();
+            menu = new Menu();
             IsMouseVisible = true;
             base.Initialize();
         }
@@ -99,7 +99,7 @@ namespace GameDesign
                 }
                 else
                 {
-                    menu.menuState = MenuState.Pause;
+                    menu.newMenuState = MenuState.Pause;
                     GameValues.state = GameState.menu;
                 }
             }

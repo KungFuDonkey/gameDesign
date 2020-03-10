@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -15,12 +16,11 @@ namespace GameDesign
         public Rectangle rectangle;
         public bool active, clicked;
         public Color drawColor = Color.White;
-        public string text;
+        public string text, texturePath;
 
-        public Button(Rectangle rectangle, Texture2D texture, string text)
+        public Button(Rectangle rectangle, string text)
         {
             this.rectangle = rectangle;
-            this.texture = texture;
             this.text = text;
         }
 
