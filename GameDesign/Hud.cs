@@ -51,7 +51,7 @@ namespace GameDesign
             {
                 for(int i = 0; i < zoneRectangles.Count(); ++i)
                 {
-                    spriteBatch.Draw(GameValues.tileTex, zoneRectangles[i], GameValues.zoneColors[i]);
+                    spriteBatch.Draw(GameValues.colorSpetter, zoneRectangles[i], GameValues.zoneColors[i]);
                 }
             }
             for(int i = -1; i < 20; i++)

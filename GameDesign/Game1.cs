@@ -67,6 +67,7 @@ namespace GameDesign
             GameValues.tileTex = Content.Load<Texture2D>("Tile");
             GameValues.colorplate = Content.Load<Texture2D>("ColorPlate");
             GameValues.remover = Content.Load<Texture2D>("Eraser");
+            GameValues.colorSpetter = Content.Load<Texture2D>("White");
             // TODO: use this.Content to load your game content here
         }
 
