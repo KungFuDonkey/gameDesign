@@ -17,6 +17,7 @@ namespace GameDesign
         public static Tile SelectedTile;
         RoomPreview roomPreview = new RoomPreview();
         Remove remove = new Remove();
+        ZoneCreator zoneCreator = new ZoneCreator();
         public static Camera cam = new Camera();
         public Timer gameTimer = new Timer();
         Hud hud;
@@ -112,6 +113,9 @@ namespace GameDesign
                         break;
                     case GameState.select:
                         break;
+                    case GameState.zone:
+                        zoneCreator.Update(mouseState, prevMouseState, SelectedTile);
+                        break;
                 }
             }
             prevKeys = keys;
@@ -128,6 +132,14 @@ namespace GameDesign
             {
                 t.Draw(spriteBatch);
             }
+            if (GameValues.state == GameState.zone)
+            {
+                foreach(Tile t in query)
+                {
+                    t.DrawZone(spriteBatch);
+                }
+            }
+
             if (!onhud)
             {
                 switch (GameValues.state)
@@ -139,6 +151,9 @@ namespace GameDesign
                         break;
                     case GameState.remove:
                         remove.Draw(spriteBatch, gameTime);
+                        break;
+                    case GameState.zone:
+                        zoneCreator.Draw(spriteBatch, gameTime);
                         break;
                 }
             }

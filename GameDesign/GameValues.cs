@@ -12,7 +12,8 @@ namespace GameDesign
     {
         build,
         select,
-        remove
+        remove,
+        zone
     }
     static class GameValues
     {
@@ -22,5 +23,7 @@ namespace GameDesign
         public static List<Tile> tiles = new List<Tile>();
         public static GameState state = GameState.build;
         public static SpriteFont font;
+        public static Color[] zoneColors = new Color[6] { Color.Blue, Color.Gray, Color.Brown, Color.Black, Color.Green, Color.Green };
+        public static Zone selectedZone = Zone.Lesson;
     }
 }

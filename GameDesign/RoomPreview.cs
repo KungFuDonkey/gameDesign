@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -61,11 +62,6 @@ namespace GameDesign
         //updates the input of the player leftbutton = build, E and Q = switching between rooms, rightbutton = rotation
         public void Update(KeyboardState keyBoardState, KeyboardState prevKeyboardState, MouseState mouseState, MouseState prevMouseState, Rectangle selectedRectangle)
         {
-            room.setValues(path);
-            for (int i = 0; i < 4 - room.rotation; i++)
-            {
-                room.rotate();
-            }
             if(mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released && !collision(selectedRectangle))
             {
                 build(selectedRectangle);
@@ -82,7 +78,7 @@ namespace GameDesign
             }
             if(mouseState.RightButton == ButtonState.Pressed && prevMouseState.RightButton != ButtonState.Pressed)
             {
-                room.rotation = (room.rotation + 1) % 4;
+                room.rotate();
             }
         }
 

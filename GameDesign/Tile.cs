@@ -60,5 +60,9 @@ namespace GameDesign
         {
             spriteBatch.Draw(GameValues.tileTex, drawRectangle, color * alpha);
         }
+        public void DrawZone(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(GameValues.tileTex, rectangle, GameValues.zoneColors[(int)zone] * 0.5f);
+        }
     }
 }
