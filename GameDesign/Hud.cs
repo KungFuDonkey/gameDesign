@@ -42,10 +42,10 @@ namespace GameDesign
             spriteBatch.Draw(GameValues.tileTex, horizontalRectangle, Color.Blue);
             spriteBatch.Draw(GameValues.tileTex, verticalRectangle, Color.LightBlue);
             spriteBatch.Draw(GameValues.tileTex, cornerRectangle, Color.Gray);
-            spriteBatch.Draw(GameValues.tileTex, buildRectangle, Color.Black);
+            spriteBatch.Draw(GameValues.hammer, buildRectangle, Color.White);
             spriteBatch.Draw(GameValues.tileTex, selectRectangle, Color.Pink);
-            spriteBatch.Draw(GameValues.tileTex, removeRectangle, Color.Red);
-            spriteBatch.Draw(GameValues.tileTex, zoneRectangle, Color.Khaki);
+            spriteBatch.Draw(GameValues.remover, removeRectangle, Color.White);
+            spriteBatch.Draw(GameValues.colorplate, zoneRectangle, Color.White);
             spriteBatch.Draw(GameValues.tileTex, layerRectangle, Color.AliceBlue);
             if(GameValues.state == GameState.zone)
             {

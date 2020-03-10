@@ -63,7 +63,10 @@ namespace GameDesign
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             GameValues.font = Content.Load<SpriteFont>("SpelFont");
+            GameValues.hammer = Content.Load<Texture2D>("Hamer");
             GameValues.tileTex = Content.Load<Texture2D>("Tile");
+            GameValues.colorplate = Content.Load<Texture2D>("ColorPlate");
+            GameValues.remover = Content.Load<Texture2D>("Eraser");
             // TODO: use this.Content to load your game content here
         }
 

@@ -19,7 +19,7 @@ namespace GameDesign
     {
         public static int gridWidth = 200, gridHeight = 200, tileSize = 10, maxHeight = 20;
         public static int gridSize = gridHeight * gridWidth;
-        public static Texture2D tileTex;
+        public static Texture2D tileTex, hammer, colorplate, remover;
         public static List<Tile> tiles = new List<Tile>();
         public static GameState state = GameState.build;
         public static SpriteFont font;
