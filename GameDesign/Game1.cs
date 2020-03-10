@@ -87,10 +87,8 @@ namespace GameDesign
         MouseState prevMouseState;
         protected override void Update(GameTime gameTime)
         {
-            System.Console.WriteLine("checking if phase is over");
             if (gameTimer.isPhaseOver())
             {
-                System.Console.WriteLine("PhaseOver");
                 currentPhase = gameTimer.getCurrentPhase();
             }
 

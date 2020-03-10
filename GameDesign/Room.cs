@@ -67,6 +67,10 @@ namespace GameDesign
         //rotates the layout counterclockwise on the grid
         public void rotate()
         {
+            if(layout.Count == 0)
+            {
+                return;
+            }
             int tileSize = GameValues.tileSize;
             //rotation
             for(int x = 0; x < size/2; x++)
