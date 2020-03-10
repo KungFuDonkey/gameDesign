@@ -18,11 +18,14 @@ namespace GameDesign
         public static Tile SelectedTile;
         RoomPreview roomPreview = new RoomPreview();
         public static Camera cam = new Camera();
-        public Timer gameTimer = new Timer();
+        Phase currentPhase;
+        public Timer gameTimer;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            currentPhase = Phase.morning;
+            gameTimer = new Timer(currentPhase, 7);
         }
 
         public static Point viewport = new Point(1280, 900);
@@ -77,9 +80,11 @@ namespace GameDesign
         MouseState prevMouseState;
         protected override void Update(GameTime gameTime)
         {
+            System.Console.WriteLine("checking if phase is over");
             if (gameTimer.isPhaseOver())
             {
-                //TODO: switch to night or next day.
+                System.Console.WriteLine("PhaseOver");
+                currentPhase = gameTimer.getCurrentPhase();
             }
 
             keys = Keyboard.GetState();
@@ -105,7 +110,7 @@ namespace GameDesign
             IEnumerable<Tile> query = from t in GameValues.tiles where t.layer == cam.layer select t;
             foreach (Tile t in query)
             {
-                t.Draw(spriteBatch);
+                t.Draw(spriteBatch, currentPhase);
             }
             roomPreview.Draw(spriteBatch, SelectedTile.rectangle);
             spriteBatch.End();
