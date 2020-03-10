@@ -31,6 +31,7 @@ namespace GameDesign
         public Type type;
         public Rectangle rectangle;
         public Color standardColor;
+        public Color drawColor;
         public Color color;
         public int layer;
         public bool moveable;
@@ -45,11 +46,37 @@ namespace GameDesign
             }
             else
             {
-                color = standardColor;
+                color = drawColor;
             }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(GameValues.tileTex, rectangle, color);
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Phase currentPhase)
+        {
+            switch (currentPhase)
+            {
+                case Phase.morning:
+                    drawColor.R = (byte)((int)standardColor.R * 0.6);
+                    drawColor.G = (byte)((int)standardColor.G * 0.6);
+                    drawColor.B = (byte)((int)standardColor.B * 0.8);
+                    break;
+                case Phase.noon:
+                    color = standardColor;
+                    break;
+                case Phase.afternoon:
+                    drawColor.R = (byte)((int)standardColor.R * 0.8);
+                    drawColor.G = (byte)((int)standardColor.G * 0.6);
+                    drawColor.B = (byte)((int)standardColor.B * 0.6);
+                    break;
+                case Phase.night:
+                    drawColor.R = (byte)((int)standardColor.R * 0.4);
+                    drawColor.G = (byte)((int)standardColor.G * 0.4);
+                    drawColor.B = (byte)((int)standardColor.B * 0.4);
+                    break;
+            }
             spriteBatch.Draw(GameValues.tileTex, rectangle, color);
         }
         public void Draw(SpriteBatch spriteBatch, Rectangle drawRectangle)

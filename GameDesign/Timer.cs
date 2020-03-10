@@ -27,6 +27,7 @@ namespace GameDesign
     public enum Phase
     {
         morning,
+        noon,
         afternoon,
         night
     }
@@ -38,27 +39,23 @@ namespace GameDesign
         long currentTime_ms;
         long phaseStartTime_ms;
         long phaseTime_ms;
-
-        float[] phaseTimeMultiplierArray;
-        int currentPhaseTimeMultiplierIndex;
-
-        bool paused;
         long phaseTimeDifferenceOnPause;
 
-        public Timer()
+        bool paused;
+
+        public Timer(Phase gamePhase, int seconds)
         {
             currentTime_ms = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
-            phaseStartTime_ms = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
-            phaseTime_ms = 1000 * 20;
-            currentPhase = Phase.morning;
-            phaseTimeMultiplierArray = new float[7] {4.0f, 2.0f, 1.0f, 0.75f, 0.5f, 0.2f, 0.1f };
+            phaseStartTime_ms = currentTime_ms;
+            phaseTime_ms = 1000 * seconds;
+            currentPhase = gamePhase;
             paused = false;
         }
 
         public bool isPhaseOver()
         {
             currentTime_ms = getCurrentTime_ms();
-            if (!paused && currentTime_ms > phaseStartTime_ms + phaseTime_ms * phaseTimeMultiplierArray[currentPhaseTimeMultiplierIndex])
+            if (!paused && currentTime_ms > phaseStartTime_ms + phaseTime_ms )
             {
                 phaseStartTime_ms = currentTime_ms;
                 currentPhase = getNextPhase(currentPhase);
@@ -75,11 +72,13 @@ namespace GameDesign
             return currentPhase;
         }
 
-        private Phase getNextPhase(Phase currentPhase)
+        public Phase getNextPhase(Phase currentPhase)
         {
             switch (currentPhase)
             {
                 case Phase.morning:
+                    return Phase.noon;
+                case Phase.noon:
                     return Phase.afternoon;
                 case Phase.afternoon:
                     return Phase.night;
@@ -102,26 +101,12 @@ namespace GameDesign
 
         public void increaseGameSpeed()
         {
-            if(currentPhaseTimeMultiplierIndex == 0)
-            {
-                resumeGameTime();
-            }
-            else if(currentPhaseTimeMultiplierIndex < 7)
-            {
-                currentPhaseTimeMultiplierIndex++;
-            }
+            phaseTime_ms += 5000;
         }
 
         public void decreaseGameSpeed()
         {
-            if(currentPhaseTimeMultiplierIndex == 1)
-            {
-                pauseGameTime();
-            }
-            else if(currentPhaseTimeMultiplierIndex > 1)
-            {
-                currentPhaseTimeMultiplierIndex--;
-            }
+            phaseTime_ms -= 5000;
         }
 
         public void pauseGameTime()
