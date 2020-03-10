@@ -14,12 +14,14 @@ namespace GameDesign
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        SpriteFont font;
         public static Tile SelectedTile;
         RoomPreview roomPreview = new RoomPreview();
+        Remove remove = new Remove();
         public static Camera cam = new Camera();
         Phase currentPhase;
         public Timer gameTimer;
+        Hud hud;
+        bool onhud;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -36,13 +38,17 @@ namespace GameDesign
             {
                 for(int j = 0; j < GameValues.gridHeight; j++)
                 {
-                    GameValues.tiles.Add(new Grass(new Rectangle(i*GameValues.tileSize,j*GameValues.tileSize,GameValues.tileSize,GameValues.tileSize),0));
+                    Rectangle rect = new Rectangle(i * GameValues.tileSize, j * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize);
+                    GameValues.tiles.Add(new Grass(rect,0));
+                    rect = new Rectangle(i * GameValues.tileSize, j * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize); //dont remove for different rectangle
+                    GameValues.tiles.Add(new Stone(rect, -1));
                 }
             }
             graphics.PreferredBackBufferWidth = viewport.X;
             graphics.PreferredBackBufferHeight = viewport.Y;
             graphics.ApplyChanges();
             roomPreview.initialize();
+            hud = new Hud(1280, 900);
             IsMouseVisible = true;
             base.Initialize();
         }
@@ -55,7 +61,7 @@ namespace GameDesign
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            font = Content.Load<SpriteFont>("SpelFont");
+            GameValues.font = Content.Load<SpriteFont>("SpelFont");
             GameValues.tileTex = Content.Load<Texture2D>("Tile");
             // TODO: use this.Content to load your game content here
         }
@@ -98,7 +104,21 @@ namespace GameDesign
                 t.Update(mouseState);
             }
             cam.Update(keys, prevKeys, mouseState, prevMouseState);
-            roomPreview.Update(keys, prevKeys, mouseState, prevMouseState, SelectedTile.rectangle);
+            onhud = hud.Update(mouseState, prevMouseState, gameTime);
+            if (!onhud)
+            {
+                switch (GameValues.state)
+                {
+                    case GameState.build:
+                        roomPreview.Update(keys, prevKeys, mouseState, prevMouseState, SelectedTile.rectangle);
+                        break;
+                    case GameState.remove:
+                        remove.Update(mouseState,prevMouseState,SelectedTile);
+                        break;
+                    case GameState.select:
+                        break;
+                }
+            }
             prevKeys = keys;
             prevMouseState = mouseState;
             base.Update(gameTime);
@@ -107,12 +127,27 @@ namespace GameDesign
         {
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
+
             IEnumerable<Tile> query = from t in GameValues.tiles where t.layer == cam.layer select t;
             foreach (Tile t in query)
             {
                 t.Draw(spriteBatch, currentPhase);
             }
-            roomPreview.Draw(spriteBatch, SelectedTile.rectangle);
+            if (!onhud)
+            {
+                switch (GameValues.state)
+                {
+                    case GameState.build:
+                        roomPreview.Draw(spriteBatch, SelectedTile.rectangle);
+                        break;
+                    case GameState.select:
+                        break;
+                    case GameState.remove:
+                        remove.Draw(spriteBatch, gameTime);
+                        break;
+                }
+            }
+            hud.draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }

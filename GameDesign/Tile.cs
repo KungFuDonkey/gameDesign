@@ -15,13 +15,16 @@ namespace GameDesign
         Break,
         Path,
         Road,
-        Grass
+        Grass,
+        Stone
     }
     public enum Type
     {
         grass,
         wall,
-        floor
+        floor,
+        ceiling,
+        Stone
     }
     public class Tile
     {

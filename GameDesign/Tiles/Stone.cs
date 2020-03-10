@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 namespace GameDesign
 {
-    class Ceiling : Tile
+    class Stone : Tile
     {
-        public Ceiling(Rectangle _rectangle, int _layer, Zone _zone)
+        public Stone(Rectangle _rectangle, int _layer)
         {
             rectangle = _rectangle;
             standardColor = Color.Gray;
             color = Color.Gray;
-            occupied = false;
-            moveable = true;
+            moveable = false;
             layer = _layer;
-            zone = _zone;
-            type = Type.ceiling;
+            zone = Zone.Stone;
+            type = Type.Stone;
         }
     }
 }

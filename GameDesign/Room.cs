@@ -62,7 +62,6 @@ namespace GameDesign
             size = maxX > y ? maxX : y;
             width = maxX;
             height = y;
-            //Debug.WriteLine(maxX.ToString() + " " + y.ToString());
             middle = new Point((width / 2) * GameValues.tileSize, (height / 2) * GameValues.tileSize);
         }
         //rotates the layout counterclockwise on the grid
