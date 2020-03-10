@@ -10,6 +10,7 @@ namespace GameDesign
 {
     enum GameState
     {
+        menu,
         build,
         select,
         remove
@@ -20,10 +21,22 @@ namespace GameDesign
         public static int gridSize = gridHeight * gridWidth;
         public static Texture2D tileTex;
         public static List<Tile> tiles = new List<Tile>();
-        public static GameState state = GameState.build;
+        public static GameState state = GameState.menu;
 
         //Money
-        public static float wallCost = 5;
-        public static float floorCost = 1;
+        public static int wallCost = 5;
+        public static int floorCost = 1;
+
+        public static int students = 0;
+        public static int teachers = 0;
+        public static int staff = 0;
+
+        public static int studentIncome = 30;
+        public static int teacherSalary = 100;
+        public static int staffSalary = 60;
+
+
+        public static string appDataFilePath;
+        public static string gameName = "UniversiTycoon";
     }
 }

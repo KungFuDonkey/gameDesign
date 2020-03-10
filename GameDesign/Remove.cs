@@ -42,8 +42,14 @@ namespace GameDesign
                     {
                         TileChange.setCeiling(t);
                     }
-                    Tile ceiling = (from x in GameValues.tiles where x.rectangle.X == t.rectangle.X && x.rectangle.Y == t.rectangle.Y && x.layer > t.layer select x).First();
-                    GameValues.tiles.Remove(ceiling);
+                    try
+                    {
+                        Tile ceiling = (from x in GameValues.tiles where x.rectangle.X == t.rectangle.X && x.rectangle.Y == t.rectangle.Y && x.layer > t.layer select x).First();
+                        GameValues.tiles.Remove(ceiling);
+                    }
+                    catch (Exception)
+                    {
+                    }
                 }
             }
         }

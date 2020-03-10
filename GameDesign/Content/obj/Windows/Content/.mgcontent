@@ -4,10 +4,52 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/SpelFont.spritefont</File>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Tile.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/CancelButton.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/ElevatorDown.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/ElevatorDownActive.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/ElevatorUp.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/ElevatorUpActive.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/EmptyButton.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/ExitButton.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/LoadGameButton.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/NewGameButton.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/OkButton.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/OptionsButton.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/PlayButton.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/PopUp.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/ResumeButton.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/SaveGameButton.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/StartButton.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/euro-symbol.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Fonts/MenuFont.spritefont</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Fonts/SpelFont.spritefont</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Tile.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Title.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/UUlogo.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Yellowblock.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System;
 
 namespace GameDesign
 {
@@ -12,21 +13,24 @@ namespace GameDesign
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
+        public static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        SpriteFont font;
+        public static SpriteFont font;
         public static Tile SelectedTile;
         RoomPreview roomPreview = new RoomPreview();
         Remove remove = new Remove();
         public static Camera cam = new Camera();
         public Timer gameTimer = new Timer();
         public static Money money = new Money(100000);
+        public static MainMenu menu;
         Hud hud;
         bool onhud;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            GameValues.appDataFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         }
 
         public static Point viewport = new Point(1280, 900);
@@ -45,6 +49,7 @@ namespace GameDesign
             graphics.ApplyChanges();
             roomPreview.initialize();
             hud = new Hud(1280, 900);
+            menu = new MainMenu();
             IsMouseVisible = true;
             base.Initialize();
         }
@@ -57,7 +62,9 @@ namespace GameDesign
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            font = Content.Load<SpriteFont>("SpelFont");
+            font = Content.Load<SpriteFont>("Fonts/SpelFont");
+            menu.LoadContent(Content);
+            money.LoadContent(Content);
             GameValues.tileTex = Content.Load<Texture2D>("Tile");
             // TODO: use this.Content to load your game content here
         }
@@ -82,40 +89,59 @@ namespace GameDesign
         MouseState prevMouseState;
         protected override void Update(GameTime gameTime)
         {
-            if (gameTimer.isPhaseOver())
+            keys = Keyboard.GetState();
+            mouseState = Mouse.GetState();
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || keys.IsKeyDown(Keys.Escape) && GameValues.state != GameState.menu)
             {
-                //TODO: switch to night or next day.
-                if (gameTimer.getCurrentPhase() == Phase.morning)
+                if (menu.menuState == MenuState.Main && GameValues.state == GameState.menu)
                 {
-                    money.earnCash(100000);
+                    Exit();
+                }
+                else
+                {
+                    menu.menuState = MenuState.Pause;
+                    GameValues.state = GameState.menu;
                 }
             }
 
-            keys = Keyboard.GetState();
-            mouseState = Mouse.GetState();
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-            
-            IEnumerable<Tile> query = from t in GameValues.tiles where t.layer == cam.layer select t;
-            foreach (Tile t in query)
+            if (GameValues.state == GameState.menu)
             {
-                t.Update(mouseState);
+                menu.Update(keys, prevKeys, mouseState, prevMouseState, this);
             }
-            cam.Update(keys, prevKeys, mouseState, prevMouseState);
-            money.Update(keys, prevKeys);
-            onhud = hud.Update(mouseState, prevMouseState, gameTime);
-            if (!onhud)
+            else
             {
-                switch (GameValues.state)
+                if (gameTimer.isPhaseOver())
                 {
-                    case GameState.build:
-                        roomPreview.Update(keys, prevKeys, mouseState, prevMouseState, SelectedTile.rectangle);
-                        break;
-                    case GameState.remove:
-                        remove.Update(mouseState,prevMouseState,SelectedTile);
-                        break;
-                    case GameState.select:
-                        break;
+                    //TODO: switch to night or next day.
+                    if (gameTimer.getCurrentPhase() == Phase.morning)
+                    {
+                        money.earnCash(GameValues.students * GameValues.studentIncome);
+                        money.payCash(GameValues.teachers * GameValues.teacherSalary);
+                        money.payCash(GameValues.staff * GameValues.staffSalary);
+                    }
+                }
+
+                IEnumerable<Tile> query = from t in GameValues.tiles where t.layer == cam.layer select t;
+                foreach (Tile t in query)
+                {
+                    t.Update(mouseState);
+                }
+                cam.Update(keys, prevKeys, mouseState, prevMouseState);
+                money.Update(keys, prevKeys);
+                onhud = hud.Update(mouseState, prevMouseState, gameTime);
+                if (!onhud)
+                {
+                    switch (GameValues.state)
+                    {
+                        case GameState.build:
+                            roomPreview.Update(keys, prevKeys, mouseState, prevMouseState, SelectedTile.rectangle);
+                            break;
+                        case GameState.select:
+                            break;
+                        case GameState.remove:
+                            remove.Update(mouseState, prevMouseState, SelectedTile);
+                            break;
+                    }
                 }
             }
             prevKeys = keys;
@@ -124,27 +150,36 @@ namespace GameDesign
         }
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
-            IEnumerable<Tile> query = from t in GameValues.tiles where t.layer == cam.layer select t;
-            foreach (Tile t in query)
+            if (GameValues.state == GameState.menu)
             {
-                t.Draw(spriteBatch);
+                GraphicsDevice.Clear(Color.White);
+                menu.Draw(spriteBatch);
             }
-            if (!onhud)
+            else
             {
-                switch (GameValues.state)
+                GraphicsDevice.Clear(Color.Black);
+                IEnumerable<Tile> query = from t in GameValues.tiles where t.layer == cam.layer select t;
+                foreach (Tile t in query)
                 {
-                    case GameState.build:
-                        roomPreview.Draw(spriteBatch, SelectedTile.rectangle);
-                        break;
-                    case GameState.select:
-                        break;
-                    case GameState.remove:
-                        break;
+                    t.Draw(spriteBatch);
                 }
+                if (!onhud)
+                {
+                    switch (GameValues.state)
+                    {
+                        case GameState.build:
+                            roomPreview.Draw(spriteBatch, SelectedTile.rectangle);
+                            break;
+                        case GameState.select:
+                            break;
+                        case GameState.remove:
+                            break;
+                    }
+                }
+                hud.draw(spriteBatch);
+                money.draw(spriteBatch);
             }
-            hud.draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
