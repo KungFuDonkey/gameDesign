@@ -29,11 +29,12 @@ namespace GameDesign
     public class Tile
     {
         public Type type;
+        public Point gridLocation;
         public Rectangle rectangle;
         public Color standardColor;
         public Color color;
         public int layer;
-        public bool moveable;
+        public bool walkable;
         public Zone zone;
         public bool occupied;
         public void Update(MouseState mouse)

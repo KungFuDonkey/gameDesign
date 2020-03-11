@@ -17,6 +17,7 @@ namespace GameDesign
         public static Tile SelectedTile;
         RoomPreview roomPreview = new RoomPreview();
         Remove remove = new Remove();
+        NPC npc = new NPC();
         public static Camera cam = new Camera();
         public Timer gameTimer = new Timer();
         Hud hud;
@@ -36,11 +37,12 @@ namespace GameDesign
                 for(int j = 0; j < GameValues.gridHeight; j++)
                 {
                     Rectangle rect = new Rectangle(i * GameValues.tileSize, j * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize);
-                    GameValues.tiles.Add(new Grass(rect,0));
+                    GameValues.tiles.Add(new Grass(rect,0, new Point(i,j)));
                     rect = new Rectangle(i * GameValues.tileSize, j * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize); //dont remove for different rectangle
                     GameValues.tiles.Add(new Stone(rect, -1));
                 }
             }
+            GameValues.npcs.Add(npc);
             graphics.PreferredBackBufferWidth = viewport.X;
             graphics.PreferredBackBufferHeight = viewport.Y;
             graphics.ApplyChanges();
@@ -60,6 +62,7 @@ namespace GameDesign
             spriteBatch = new SpriteBatch(GraphicsDevice);
             GameValues.font = Content.Load<SpriteFont>("SpelFont");
             GameValues.tileTex = Content.Load<Texture2D>("Tile");
+            GameValues.Student = Content.Load<Texture2D>("player_side");
             // TODO: use this.Content to load your game content here
         }
 
@@ -97,6 +100,10 @@ namespace GameDesign
             foreach (Tile t in query)
             {
                 t.Update(mouseState);
+            }
+            foreach (NPC n in GameValues.npcs)
+            {
+                n.Update(keys, prevKeys, gameTime);
             }
             cam.Update(keys, prevKeys, mouseState, prevMouseState);
             onhud = hud.Update(mouseState, prevMouseState, gameTime);
@@ -142,6 +149,7 @@ namespace GameDesign
                         break;
                 }
             }
+            npc.Draw(spriteBatch);
             hud.draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);

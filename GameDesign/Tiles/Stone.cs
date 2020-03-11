@@ -13,7 +13,7 @@ namespace GameDesign
             rectangle = _rectangle;
             standardColor = Color.Gray;
             color = Color.Gray;
-            moveable = false;
+            walkable = false;
             layer = _layer;
             zone = Zone.Stone;
             type = Type.Stone;
