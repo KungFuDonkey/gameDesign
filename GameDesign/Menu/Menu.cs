@@ -33,25 +33,25 @@ namespace GameDesign
         public Texture2D UUlogo, yellowBlock, title, popUp, emptyButton;
         public Button playButton, resumeButton, optionsButton, cancelButton, yesButton, exitButton, loadgameButton, newgameButton, savegameButton, applyButton, cancelOptionsButton, noButton;
         List<Button> buttons = new List<Button>();
-        Point buttonSize = new Point(252, 101);
+        Point buttonSize = new Point(252, 101), none = new Point(0,0);
         bool popUpActive;
         string popUpText;
         public PopUpState popUpState;
-        public SpriteFont menuFont = Game1.font;
+        public SpriteFont menuFont = GameValues.font;
 
         public Menu()
         {
             newMenuState = MenuState.Main;
             playButton = new Button(new Rectangle(new Point(Game1.viewport.X / 2 - buttonSize.X / 2, 300), buttonSize), "PLAY");
             resumeButton = new Button(new Rectangle(new Point(Game1.viewport.X / 2 - buttonSize.X / 2, 300), buttonSize), "RESUME");
-            optionsButton = new Button(new Rectangle(new Point(Game1.viewport.X / 2 - buttonSize.X / 2, 450), buttonSize), "OPTIONS");
+            optionsButton = new Button(new Rectangle(new Point(Game1.viewport.X / 2 - buttonSize.X / 2, 450), none), "");
             cancelButton = new Button(new Rectangle(new Point(Game1.viewport.X / 2 - buttonSize.X / 2, 750), buttonSize), "CANCEL");
             yesButton = new Button(new Rectangle(new Point(Game1.viewport.X / 2 - buttonSize.X - 50, 475), new Point(buttonSize.X / 2, buttonSize.Y / 2)), "YES");
             noButton = new Button(new Rectangle(new Point(Game1.viewport.X / 2 + 50, 475), new Point(buttonSize.X / 2, buttonSize.Y / 2)), "NO");
             exitButton = new Button(new Rectangle(new Point(Game1.viewport.X / 2 - buttonSize.X / 2, 600), buttonSize), "EXIT");
-            loadgameButton = new Button(new Rectangle(new Point(150, 550), buttonSize), "LOAD GAME");
+            loadgameButton = new Button(new Rectangle(new Point(150, 550), none), "");
             newgameButton = new Button(new Rectangle(new Point(150, 350), buttonSize), "NEW GAME");
-            savegameButton = new Button(new Rectangle(new Point(Game1.viewport.X - 150 - buttonSize.X, 350), buttonSize), "SAVE GAME");
+            savegameButton = new Button(new Rectangle(new Point(Game1.viewport.X - 150 - buttonSize.X, 350), none), "");
             applyButton = new Button(new Rectangle(new Point(Game1.viewport.X / 2 - buttonSize.X - 50, 750), buttonSize), "APPLY");
             cancelOptionsButton = new Button(new Rectangle(new Point(Game1.viewport.X / 2 + 50, 750), buttonSize), "CANCEL");
             //Main 0-2
@@ -187,9 +187,12 @@ namespace GameDesign
                 }
                 else if (menuState == MenuState.Pause)
                 {
+                    newMenuState = MenuState.Main;
+                    /*
                     popUpState = PopUpState.ExitPause;
                     string[] text = new string[]{ "All unsaved progress", "will be lost!" };
                     PopUp(text);
+                    */
                 }
             }
             else if (cancelButton.clicked)
@@ -253,7 +256,7 @@ namespace GameDesign
             if (popUpActive)
             {
                 spriteBatch.Draw(popUp, popUpRectangle, Color.White);
-                spriteBatch.DrawString(Game1.font, popUpText, new Vector2(popUpRectangle.X + 100, popUpRectangle.Y + 80), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
+                spriteBatch.DrawString(GameValues.font, popUpText, new Vector2(popUpRectangle.X + 100, popUpRectangle.Y + 40), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
                 for (int i = 8; i < 10; i++)
                 {
                     buttons[i].Draw(spriteBatch);
@@ -266,7 +269,7 @@ namespace GameDesign
             this.popUpText = popUpText[0];
             for (int i = 1; i < popUpText.Length; i++)
             {
-                float space = (Game1.font.MeasureString(popUpText[0]).X - Game1.font.MeasureString(popUpText[i]).X) / 10;
+                float space = (GameValues.font.MeasureString(popUpText[0]).X - GameValues.font.MeasureString(popUpText[i]).X) / 10;
                 this.popUpText += "\n";
                 for (int j = 0; j < space; j++)
                 {
@@ -274,7 +277,7 @@ namespace GameDesign
                 }
                 this.popUpText += popUpText[i];
             }
-            Point textSize = Game1.font.MeasureString(this.popUpText).ToPoint();
+            Point textSize = GameValues.font.MeasureString(this.popUpText).ToPoint();
             Point size = textSize + new Point(200, 160);
             Point location = new Point(Game1.viewport.X / 2 - size.X / 2, 200);
             popUpRectangle.Location = location;

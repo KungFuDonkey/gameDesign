@@ -15,7 +15,6 @@ namespace GameDesign
     {
         public static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        public static SpriteFont font;
         public static Tile SelectedTile;
         RoomPreview roomPreview = new RoomPreview();
         Remove remove = new Remove();
@@ -23,7 +22,6 @@ namespace GameDesign
         public static Camera cam = new Camera();
         Phase currentPhase;
         public Timer gameTimer;
-        public Timer gameTimer = new Timer();
         public static Money money = new Money(100000);
         public static Menu menu;
         Hud hud;
@@ -70,9 +68,8 @@ namespace GameDesign
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            GameValues.font = Content.Load<SpriteFont>("SpelFont");
+            GameValues.font = Content.Load<SpriteFont>("Fonts/SpelFont");
             GameValues.hammer = Content.Load<Texture2D>("Hamer");
-            font = Content.Load<SpriteFont>("Fonts/SpelFont");
             menu.LoadContent(Content);
             money.LoadContent(Content);
             GameValues.tileTex = Content.Load<Texture2D>("Tile");
@@ -100,6 +97,7 @@ namespace GameDesign
         KeyboardState prevKeys;
         MouseState mouseState;
         MouseState prevMouseState;
+
         protected override void Update(GameTime gameTime)
         {
             keys = Keyboard.GetState();
@@ -125,7 +123,7 @@ namespace GameDesign
             {
                 if (gameTimer.isPhaseOver())
                 {
-                    //TODO: switch to night or next day.
+                    currentPhase = gameTimer.getCurrentPhase();
                     if (gameTimer.getCurrentPhase() == Phase.morning)
                     {
                         money.earnCash(GameValues.students * GameValues.studentIncome);
@@ -149,10 +147,13 @@ namespace GameDesign
                         case GameState.build:
                             roomPreview.Update(keys, prevKeys, mouseState, prevMouseState, SelectedTile.rectangle);
                             break;
-                        case GameState.select:
-                            break;
                         case GameState.remove:
                             remove.Update(mouseState, prevMouseState, SelectedTile);
+                            break;
+                        case GameState.select:
+                            break;
+                        case GameState.zone:
+                            zoneCreator.Update(mouseState, prevMouseState, SelectedTile);
                             break;
                     }
                 }
@@ -172,11 +173,20 @@ namespace GameDesign
             else
             {
                 GraphicsDevice.Clear(Color.Black);
+
                 IEnumerable<Tile> query = from t in GameValues.tiles where t.layer == cam.layer select t;
                 foreach (Tile t in query)
                 {
-                    t.Draw(spriteBatch);
+                    t.Draw(spriteBatch, currentPhase);
                 }
+                if (GameValues.state == GameState.zone)
+                {
+                    foreach(Tile t in query)
+                    {
+                        t.DrawZone(spriteBatch);
+                    }
+                }
+
                 if (!onhud)
                 {
                     switch (GameValues.state)
@@ -187,6 +197,10 @@ namespace GameDesign
                         case GameState.select:
                             break;
                         case GameState.remove:
+                            remove.Draw(spriteBatch, gameTime);
+                            break;
+                        case GameState.zone:
+                            zoneCreator.Draw(spriteBatch, gameTime);
                             break;
                     }
                 }

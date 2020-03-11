@@ -15,10 +15,18 @@
     <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Fonts/SpelFont.spritefont</File>
     <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Tile.png</File>
     <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Title.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Hamer.png</File>
     <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/UUlogo.png</File>
     <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Yellowblock.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/ColorPlate.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Eraser.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/White.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

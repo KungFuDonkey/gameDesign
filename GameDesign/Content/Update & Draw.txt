@@ -1,0 +1,80 @@
+protected override void Update(GameTime gameTime)
+        {
+            if (gameTimer.isPhaseOver())
+            {
+                currentPhase = gameTimer.getCurrentPhase();
+            }
+
+            keys = Keyboard.GetState();
+            mouseState = Mouse.GetState();
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
+            
+            IEnumerable<Tile> query = from t in GameValues.tiles where t.layer == cam.layer select t;
+            foreach (Tile t in query)
+            {
+                t.Update(mouseState);
+            }
+            cam.Update(keys, prevKeys, mouseState, prevMouseState);
+            onhud = hud.Update(mouseState, prevMouseState, gameTime);
+            if (!onhud)
+            {
+                switch (GameValues.state)
+                {
+                    case GameState.build:
+                        roomPreview.Update(keys, prevKeys, mouseState, prevMouseState, SelectedTile.rectangle);
+                        break;
+                    case GameState.remove:
+                        remove.Update(mouseState,prevMouseState,SelectedTile);
+                        break;
+                    case GameState.select:
+                        break;
+                    case GameState.zone:
+                        zoneCreator.Update(mouseState, prevMouseState, SelectedTile);
+                        break;
+                }
+            }
+            prevKeys = keys;
+            prevMouseState = mouseState;
+            base.Update(gameTime);
+        }
+
+protected override void Draw(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Color.Black);
+            spriteBatch.Begin();
+
+            IEnumerable<Tile> query = from t in GameValues.tiles where t.layer == cam.layer select t;
+            foreach (Tile t in query)
+            {
+                t.Draw(spriteBatch, currentPhase);
+            }
+            if (GameValues.state == GameState.zone)
+            {
+                foreach(Tile t in query)
+                {
+                    t.DrawZone(spriteBatch);
+                }
+            }
+
+            if (!onhud)
+            {
+                switch (GameValues.state)
+                {
+                    case GameState.build:
+                        roomPreview.Draw(spriteBatch, SelectedTile.rectangle);
+                        break;
+                    case GameState.select:
+                        break;
+                    case GameState.remove:
+                        remove.Draw(spriteBatch, gameTime);
+                        break;
+                    case GameState.zone:
+                        zoneCreator.Draw(spriteBatch, gameTime);
+                        break;
+                }
+            }
+            hud.draw(spriteBatch);
+            spriteBatch.End();
+            base.Draw(gameTime);
+        }
