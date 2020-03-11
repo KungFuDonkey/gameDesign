@@ -27,12 +27,20 @@ namespace GameDesign
                     {
                         t.rectangle.Y += move * movespeed;
                     }
+                    foreach (NPC n in GameValues.npcs)
+                    {
+                        n.drawRectangle.Y += move * movespeed;
+                    }
                 }
                 if (keyboardState.IsKeyDown(keys[i + 2]))
                 {
                     foreach(Tile t in GameValues.tiles)
                     {
                         t.rectangle.X += move * movespeed;
+                    }
+                    foreach (NPC n in GameValues.npcs)
+                    {
+                        n.drawRectangle.X += move * movespeed;
                     }
                 }
                 if (keyboardState.IsKeyDown(keys[i + 4]) && !prevKeyBoardState.IsKeyDown(keys[i+4]))

@@ -14,7 +14,7 @@ namespace GameDesign
             standardColor = Color.Gray;
             color = Color.Gray;
             occupied = false;
-            moveable = true;
+            walkable = true;
             layer = _layer;
             zone = _zone;
             type = Type.ceiling;

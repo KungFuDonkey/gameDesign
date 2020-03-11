@@ -10,12 +10,13 @@ namespace GameDesign
 {
     class Grass : Tile
     {
-        public Grass(Rectangle _rectangle, int _layer)
+        public Grass(Rectangle _rectangle, int _layer, Point _gridLocation)
         {
+            gridLocation = _gridLocation; 
             rectangle = _rectangle;
             standardColor = Color.Green;
             color = Color.Green;
-            moveable = true;
+            walkable = true;
             layer = _layer;
             zone = Zone.Grass;
             type = Type.grass;

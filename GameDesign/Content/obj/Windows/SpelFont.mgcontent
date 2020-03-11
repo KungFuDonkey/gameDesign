@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/SpelFont.spritefont</SourceFile>
-  <SourceTime>2019-10-02T13:46:54.0429066+02:00</SourceTime>
-  <DestFile>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/bin/Windows/SpelFont.xnb</DestFile>
-  <DestTime>2020-02-20T11:13:40.1190888+01:00</DestTime>
+  <SourceFile>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/SpelFont.spritefont</SourceFile>
+  <SourceTime>2020-03-06T13:39:04.9205243+01:00</SourceTime>
+  <DestFile>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/bin/Windows/SpelFont.xnb</DestFile>
+  <DestTime>2020-03-10T13:12:32.5725048+01:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
-  <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
+  <ImporterTime>2017-03-01T16:05:36+01:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>
-  <ProcessorTime>2018-12-08T17:35:54+01:00</ProcessorTime>
+  <ProcessorTime>2017-03-01T16:05:36+01:00</ProcessorTime>
   <Parameters>
     <Key>PremultiplyAlpha</Key>
     <Value>True</Value>
