@@ -17,6 +17,7 @@ namespace GameDesign
         public override void Update(MouseState mouseState, MouseState prevMouseState, Tile selectedTile)
         {
             base.Update(mouseState, prevMouseState, selectedTile);
+            color = GameValues.zoneColors[(int)GameValues.selectedZone];
             if (mouseState.LeftButton == ButtonState.Released && prevMouseState.LeftButton == ButtonState.Pressed)
             {
                 IEnumerable<Tile> query = from t in GameValues.tiles where drawRectangle.Contains(t.rectangle.Location) && t.layer == firstSelection.layer && t.layer == secondSelection.layer && t.type != Type.grass select t;

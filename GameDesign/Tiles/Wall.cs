@@ -14,7 +14,7 @@ namespace GameDesign
             rectangle = _rectangle;
             standardColor = Color.Brown;
             color = Color.Brown;
-            moveable = false;
+            walkable = false;
             layer = _layer;
             zone = _zone;
             type = Type.wall;

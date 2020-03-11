@@ -8,9 +8,6 @@ using System;
 
 namespace GameDesign
 {
-    /// <summary>
-    /// This is the main type for your game.
-    /// </summary>
     public class Game1 : Game
     {
         public static GraphicsDeviceManager graphics;
@@ -19,6 +16,7 @@ namespace GameDesign
         RoomPreview roomPreview = new RoomPreview();
         Remove remove = new Remove();
         ZoneCreator zoneCreator = new ZoneCreator();
+        TileCreator tileCreator = new TileCreator();
         public static Camera cam = new Camera();
         Phase currentPhase;
         public Timer gameTimer;
@@ -40,13 +38,25 @@ namespace GameDesign
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            Rectangle rect = new Rectangle(0,0,0,0);
             for(int i = 0; i < GameValues.gridWidth; i++)
             {
-                for(int j = 0; j < GameValues.gridHeight; j++)
+                for(int j = 0; j < GameValues.gridHeight - 3; j++)
                 {
-                    Rectangle rect = new Rectangle(i * GameValues.tileSize, j * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize);
+                    rect = new Rectangle(i * GameValues.tileSize, j * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize);
                     GameValues.tiles.Add(new Grass(rect,0));
                     rect = new Rectangle(i * GameValues.tileSize, j * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize); //dont remove for different rectangle
+                    GameValues.tiles.Add(new Stone(rect, -1));
+                }
+                rect = new Rectangle(i * GameValues.tileSize, (GameValues.gridHeight - 3) * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize);
+                GameValues.tiles.Add(new Pavement(rect));
+                rect = new Rectangle(i * GameValues.tileSize, (GameValues.gridHeight - 3) * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize); //dont remove for different rectangle
+                GameValues.tiles.Add(new Stone(rect, -1));
+                for(int j = 2; j != 0; j--)
+                {
+                    rect = new Rectangle(i * GameValues.tileSize, (GameValues.gridHeight - j) * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize);
+                    GameValues.tiles.Add(new Road(rect));
+                    rect = new Rectangle(i * GameValues.tileSize, (GameValues.gridHeight - j) * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize); //dont remove for different rectangle
                     GameValues.tiles.Add(new Stone(rect, -1));
                 }
             }
@@ -59,11 +69,6 @@ namespace GameDesign
             IsMouseVisible = true;
             base.Initialize();
         }
-
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
@@ -78,21 +83,10 @@ namespace GameDesign
             GameValues.colorSpetter = Content.Load<Texture2D>("White");
             // TODO: use this.Content to load your game content here
         }
-
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
-        /// </summary>
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
         }
-
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         KeyboardState keys;
         KeyboardState prevKeys;
         MouseState mouseState;
@@ -145,7 +139,15 @@ namespace GameDesign
                     switch (GameValues.state)
                     {
                         case GameState.build:
-                            roomPreview.Update(keys, prevKeys, mouseState, prevMouseState, SelectedTile.rectangle);
+                            switch (GameValues.buildState)
+                            {
+                                case BuildState.room:
+                                    roomPreview.Update(keys, prevKeys, mouseState, prevMouseState, SelectedTile.rectangle);
+                                    break;
+                                case BuildState.singleTile:
+                                    tileCreator.Update(mouseState, prevMouseState, SelectedTile);
+                                    break;
+                            }
                             break;
                         case GameState.remove:
                             remove.Update(mouseState, prevMouseState, SelectedTile);
@@ -191,17 +193,25 @@ namespace GameDesign
                 {
                     switch (GameValues.state)
                     {
-                        case GameState.build:
-                            roomPreview.Draw(spriteBatch, SelectedTile.rectangle);
-                            break;
-                        case GameState.select:
-                            break;
-                        case GameState.remove:
-                            remove.Draw(spriteBatch, gameTime);
-                            break;
-                        case GameState.zone:
-                            zoneCreator.Draw(spriteBatch, gameTime);
-                            break;
+                    case GameState.build:
+                        switch (GameValues.buildState)
+                        {
+                            case BuildState.room:
+                                roomPreview.Draw(spriteBatch, SelectedTile.rectangle);
+                                break;
+                            case BuildState.singleTile:
+                                tileCreator.Draw(spriteBatch, gameTime);
+                                break;
+                        }
+                        break;
+                    case GameState.select:
+                        break;
+                    case GameState.remove:
+                        remove.Draw(spriteBatch, gameTime);
+                        break;
+                    case GameState.zone:
+                        zoneCreator.Draw(spriteBatch, gameTime);
+                        break;
                     }
                 }
                 hud.draw(spriteBatch);

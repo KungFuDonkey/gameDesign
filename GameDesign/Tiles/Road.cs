@@ -4,21 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 namespace GameDesign
 {
-    class Grass : Tile
+    class Road : Tile
     {
-        public Grass(Rectangle _rectangle, int _layer)
+        public Road(Rectangle _rectangle)
         {
             rectangle = _rectangle;
-            standardColor = Color.Green;
-            color = Color.Green;
+            standardColor = Color.DarkGray;
+            color = Color.DarkGray;
+            occupied = true;
             walkable = false;
-            layer = _layer;
             zone = Zone.Grass;
             type = Type.grass;
+            layer = 0;
         }
     }
 }
