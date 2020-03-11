@@ -22,6 +22,7 @@ namespace GameDesign
         public Timer gameTimer;
         public static Money money = new Money(100000);
         public static Menu menu;
+        public static ScoreSystem score;
         Hud hud;
         bool onhud;
 
@@ -66,6 +67,7 @@ namespace GameDesign
             roomPreview.initialize();
             hud = new Hud(1280, 900);
             menu = new Menu();
+            score = new ScoreSystem();
             IsMouseVisible = true;
             base.Initialize();
         }
@@ -133,6 +135,7 @@ namespace GameDesign
                 }
                 cam.Update(keys, prevKeys, mouseState, prevMouseState);
                 money.Update(keys, prevKeys);
+                score.Update();
                 onhud = hud.Update(mouseState, prevMouseState, gameTime);
                 if (!onhud)
                 {
@@ -215,7 +218,8 @@ namespace GameDesign
                     }
                 }
                 hud.draw(spriteBatch);
-                money.draw(spriteBatch);
+                money.Draw(spriteBatch);
+                score.Draw(spriteBatch);
             }
             spriteBatch.End();
             base.Draw(gameTime);
