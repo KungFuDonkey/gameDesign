@@ -34,7 +34,7 @@ namespace GameDesign
         public Color drawColor;
         public Color color;
         public int layer;
-        public bool moveable;
+        public bool walkable;
         public Zone zone;
         public bool occupied;
         public void Update(MouseState mouse)

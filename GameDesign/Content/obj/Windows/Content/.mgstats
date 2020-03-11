@@ -1,1 +1,7 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/ColorPlate.png","C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/bin/Windows/Content/ColorPlate.xnb","TextureProcessor","Texture2DContent",2113,44629,0.011934
+"C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Eraser.png","C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/bin/Windows/Content/Eraser.xnb","TextureProcessor","Texture2DContent",7989,41685,0.0109957
+"C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Hamer.png","C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/bin/Windows/Content/Hamer.xnb","TextureProcessor","Texture2DContent",1165,29205,0.5345641
+"C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/SpelFont.spritefont","C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/bin/Windows/Content/SpelFont.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21521,0.5168277
+"C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Tile.png","C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/bin/Windows/Content/Tile.xnb","TextureProcessor","Texture2DContent",164,1685,0.2293947
+"C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/White.png","C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/bin/Windows/Content/White.xnb","TextureProcessor","Texture2DContent",5483,40085,0.009949

@@ -13,7 +13,9 @@ namespace GameDesign
     {
         Rectangle verticalRectangle, horizontalRectangle, cornerRectangle, layerRectangle, indicatorRectangle, bottomRectangle;
         Rectangle buildRectangle, selectRectangle, removeRectangle, zoneRectangle;
-        Rectangle[] zoneRectangles = new Rectangle[6];
+        Rectangle[] zoneRectangles = new Rectangle[GameValues.zoneColors.Count()];
+        Rectangle otherBuildState;
+        Rectangle[] allTiles = new Rectangle[GameValues.tileColors.Count()];
         float timer = 0.01f, TIMER = 0.01f;
         Vector2 drawpoint, DRAWPOINT;
         public Hud(int screenwidth, int screenheight)
@@ -27,10 +29,15 @@ namespace GameDesign
             selectRectangle = new Rectangle(-30, 200, 50, 50);
             removeRectangle = new Rectangle(-30, 300, 50, 50);
             zoneRectangle = new Rectangle(-30, 400, 50, 50);
+            otherBuildState = new Rectangle(100, screenheight - 17, 50, 50);
             int x = 80;
             foreach(Zone zone in Enum.GetValues(typeof(Zone))){
                 zoneRectangles[(int)zone] = new Rectangle(x, screenheight - 17, 50, 50);
                 x += 100;
+            }
+            for(int i = 0; i < GameValues.tileColors.Count(); ++i)
+            {
+                allTiles[i] = new Rectangle(100 * i + 200, screenheight - 17, 50, 50);
             }
             indicatorRectangle = new Rectangle(screenwidth - 44, 0, 41, 41);
             drawpoint = new Vector2(screenwidth - 29, screenheight - 30);
@@ -47,12 +54,24 @@ namespace GameDesign
             spriteBatch.Draw(GameValues.remover, removeRectangle, Color.White);
             spriteBatch.Draw(GameValues.colorplate, zoneRectangle, Color.White);
             spriteBatch.Draw(GameValues.tileTex, layerRectangle, Color.AliceBlue);
-            if(GameValues.state == GameState.zone)
+            switch (GameValues.state)
             {
-                for(int i = 0; i < zoneRectangles.Count(); ++i)
-                {
-                    spriteBatch.Draw(GameValues.colorSpetter, zoneRectangles[i], GameValues.zoneColors[i]);
-                }
+                case GameState.zone:
+                    for (int i = 0; i < zoneRectangles.Count(); ++i)
+                    {
+                        spriteBatch.Draw(GameValues.colorSpetter, zoneRectangles[i], GameValues.zoneColors[i]);
+                    }
+                    break;
+                case GameState.build:
+                    spriteBatch.Draw(GameValues.tileTex, otherBuildState, Color.Black);
+                    if(GameValues.buildState == BuildState.singleTile)
+                    {
+                        for(int i = 0; i < GameValues.tileColors.Count(); ++i)
+                        {
+                            spriteBatch.Draw(GameValues.tileTex, allTiles[i], GameValues.tileColors[i]);
+                        }
+                    }
+                    break;
             }
             for(int i = -1; i < 20; i++)
             {
@@ -77,12 +96,25 @@ namespace GameDesign
             checkRectangle(selectRectangle, mouseState, prevMouseState, GameState.select);
             checkRectangle(removeRectangle, mouseState, prevMouseState, GameState.remove);
             checkRectangle(zoneRectangle, mouseState, prevMouseState, GameState.zone);
-            if(GameValues.state == GameState.zone)
+            switch (GameValues.state)
             {
-                for(int i = 0; i < zoneRectangles.Count(); ++i)
-                {
-                    checkZone(zoneRectangles[i], mouseState, prevMouseState, (Zone)i);
-                }
+                case GameState.zone:
+                    for (int i = 0; i < zoneRectangles.Count(); ++i)
+                    {
+                        checkZone(zoneRectangles[i], mouseState, prevMouseState, (Zone)i);
+                    }
+                    break;
+                case GameState.build:
+                    checkBuild(otherBuildState, mouseState, prevMouseState);
+                    if(GameValues.buildState == BuildState.singleTile)
+                    {
+                        for(int i = 0; i < GameValues.tileColors.Count(); i++)
+                        {
+                            checkTile(allTiles[i], mouseState, prevMouseState, (BuildTiles)i);
+                        }
+                    }
+                    break;
+
             }
             if (verticalRectangle.Contains(mouseState.Position) || bottomRectangle.Contains(mouseState.Position)) 
             {
@@ -112,6 +144,20 @@ namespace GameDesign
                 GameValues.selectedZone = zone;
             }
         }
+        public void checkBuild(Rectangle rectangle, MouseState mouseState, MouseState prevMouseState)
+        {
+            if (rectangle.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
+            {
+                GameValues.buildState = GameValues.buildState == BuildState.room ? BuildState.singleTile : BuildState.room;
+            }
+        }
+        public void checkTile(Rectangle rectangle, MouseState mouseState, MouseState prevMouseState, BuildTiles tile)
+        {
+            if (rectangle.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
+            {
+                GameValues.selectedTile = tile;
+            }
+        }
         public void slide(bool outward, GameTime gameTime)
         {
             if (outward && timer < 0){
@@ -134,9 +180,14 @@ namespace GameDesign
             removeRectangle.X += direction;
             zoneRectangle.X += direction;
             bottomRectangle.Y -= direction;
+            otherBuildState.Y -= direction;
             for (int i = 0; i < zoneRectangles.Count(); ++i)
             {
                 zoneRectangles[i].Y -= direction;
+            }
+            for (int i = 0; i < allTiles.Count(); ++i)
+            {
+                allTiles[i].Y -= direction;
             }
         }
     }
