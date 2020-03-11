@@ -13,14 +13,18 @@ namespace GameDesign
         menu,
         build,
         select,
-        remove
+        remove,
+        zone
     }
     static class GameValues
     {
         public static int gridWidth = 200, gridHeight = 200, tileSize = 10, maxHeight = 20;
         public static int gridSize = gridHeight * gridWidth;
-        public static Texture2D tileTex;
+        public static Texture2D tileTex, hammer, colorplate, remover, colorSpetter;
         public static List<Tile> tiles = new List<Tile>();
+        public static SpriteFont font;
+        public static Color[] zoneColors = new Color[6] { Color.Blue, Color.Gray, Color.Brown, Color.Black, Color.Green, Color.Green };
+        public static Zone selectedZone = Zone.Lesson;
         public static GameState state = GameState.menu;
 
         //Money

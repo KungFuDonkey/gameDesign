@@ -29,6 +29,7 @@ namespace GameDesign
             tile.standardColor = Color.Green;
             tile.occupied = false;
             tile.type = Type.grass;
+            tile.zone = Zone.Grass;
         }
         public static void setCeiling(Tile tile)
         {
@@ -36,6 +37,7 @@ namespace GameDesign
             tile.standardColor = Color.Gray;
             tile.occupied = false;
             tile.type = Type.ceiling;
+            tile.zone = Zone.Grass;
         }
     }
 }

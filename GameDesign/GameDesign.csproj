@@ -60,14 +60,17 @@
     <Compile Include="RoomPreview.cs" />
     <Compile Include="Save.cs" />
     <Compile Include="SaveSystem.cs" />
+    <Compile Include="Selectors.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="TileChange.cs" />
     <Compile Include="Tiles\Ceiling.cs" />
     <Compile Include="Tiles\Floor.cs" />
     <Compile Include="Tiles\Grass.cs" />
     <Compile Include="Hud.cs" />
+    <Compile Include="Tiles\Stone.cs" />
     <Compile Include="Tiles\Wall.cs" />
     <Compile Include="Timer.cs" />
+    <Compile Include="ZoneCreator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

@@ -4,11 +4,11 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/SpelFont.spritefont</File>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Tile.png</File>
+    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/SpelFont.spritefont</File>
+    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Tile.png</File>
+    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Hamer.png</File>
+    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/ColorPlate.png</File>
+    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Eraser.png</File>
+    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/White.png</File>
   </SourceFiles>
-  <DestFiles>
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-  </DestFiles>
 </SourceFileCollection>

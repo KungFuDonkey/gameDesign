@@ -19,7 +19,10 @@ namespace GameDesign
         public static Tile SelectedTile;
         RoomPreview roomPreview = new RoomPreview();
         Remove remove = new Remove();
+        ZoneCreator zoneCreator = new ZoneCreator();
         public static Camera cam = new Camera();
+        Phase currentPhase;
+        public Timer gameTimer;
         public Timer gameTimer = new Timer();
         public static Money money = new Money(100000);
         public static Menu menu;
@@ -30,6 +33,8 @@ namespace GameDesign
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            currentPhase = Phase.morning;
+            gameTimer = new Timer(currentPhase, 7);
             GameValues.appDataFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         }
 
@@ -41,7 +46,10 @@ namespace GameDesign
             {
                 for(int j = 0; j < GameValues.gridHeight; j++)
                 {
-                    GameValues.tiles.Add(new Grass(new Rectangle(i*GameValues.tileSize,j*GameValues.tileSize,GameValues.tileSize,GameValues.tileSize),0));
+                    Rectangle rect = new Rectangle(i * GameValues.tileSize, j * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize);
+                    GameValues.tiles.Add(new Grass(rect,0));
+                    rect = new Rectangle(i * GameValues.tileSize, j * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize); //dont remove for different rectangle
+                    GameValues.tiles.Add(new Stone(rect, -1));
                 }
             }
             graphics.PreferredBackBufferWidth = viewport.X;
@@ -62,10 +70,15 @@ namespace GameDesign
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            GameValues.font = Content.Load<SpriteFont>("SpelFont");
+            GameValues.hammer = Content.Load<Texture2D>("Hamer");
             font = Content.Load<SpriteFont>("Fonts/SpelFont");
             menu.LoadContent(Content);
             money.LoadContent(Content);
             GameValues.tileTex = Content.Load<Texture2D>("Tile");
+            GameValues.colorplate = Content.Load<Texture2D>("ColorPlate");
+            GameValues.remover = Content.Load<Texture2D>("Eraser");
+            GameValues.colorSpetter = Content.Load<Texture2D>("White");
             // TODO: use this.Content to load your game content here
         }
 

@@ -72,6 +72,10 @@ namespace GameDesign
         //rotates the layout counterclockwise on the grid
         public void rotate()
         {
+            if(layout.Count == 0)
+            {
+                return;
+            }
             int tileSize = GameValues.tileSize;
             //rotation
             for(int x = 0; x < size/2; x++)
@@ -84,23 +88,23 @@ namespace GameDesign
                     List<Tile> query4 = (from t in layout where t.rectangle.X == (size - 1 - y) * tileSize && t.rectangle.Y == x * tileSize select t).ToList();
                     foreach(Tile t in query1)
                     {
-                        t.rectangle.X = y * tileSize;
-                        t.rectangle.Y = (size - 1 - x) * tileSize;
-                    }
-                    foreach(Tile t in query2)
-                    {
-                        t.rectangle.X = (size - 1 - x) * tileSize;
-                        t.rectangle.Y = (size - 1 - y) * tileSize;
-                    }
-                    foreach(Tile t in query3)
-                    {
                         t.rectangle.X = (size - 1 - y) * tileSize;
                         t.rectangle.Y = x * tileSize;
                     }
-                    foreach(Tile t in query4)
+                    foreach(Tile t in query2)
                     {
                         t.rectangle.X = x * tileSize;
                         t.rectangle.Y = y * tileSize;
+                    }
+                    foreach(Tile t in query3)
+                    {
+                        t.rectangle.X = y * tileSize;
+                        t.rectangle.Y = (size - 1 - x) * tileSize;
+                    }
+                    foreach(Tile t in query4)
+                    {
+                        t.rectangle.X = (size - 1 - x) * tileSize;
+                        t.rectangle.Y = (size - 1 - y) * tileSize;
                     }
                 }
             }
