@@ -120,7 +120,7 @@ namespace GameDesign
                 if (gameTimer.isPhaseOver())
                 {
                     currentPhase = gameTimer.getCurrentPhase();
-                    if (gameTimer.getCurrentPhase() == Phase.morning)
+                    if (currentPhase == Phase.morning)
                     {
                         money.earnCash(GameValues.students * GameValues.studentIncome);
                         money.payCash(GameValues.teachers * GameValues.teacherSalary);
