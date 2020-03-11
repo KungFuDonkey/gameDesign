@@ -24,7 +24,7 @@ namespace GameDesign
         public static Menu menu;
         public static ScoreSystem score;
         Hud hud;
-        bool onhud;
+        bool onhud; 
 
         public Game1()
         {
@@ -96,19 +96,19 @@ namespace GameDesign
 
         protected override void Update(GameTime gameTime)
         {
-            keys = Keyboard.GetState();
-            mouseState = Mouse.GetState();
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || keys.IsKeyDown(Keys.Escape) && GameValues.state != GameState.menu)
+            if (!Program.game.IsActive)
             {
-                if (menu.menuState == MenuState.Main && GameValues.state == GameState.menu)
-                {
-                    Exit();
-                }
-                else
-                {
-                    menu.newMenuState = MenuState.Pause;
-                    GameValues.state = GameState.menu;
-                }
+                return;
+            }
+            else
+            {
+                keys = Keyboard.GetState();
+                mouseState = Mouse.GetState();
+            }
+            if (keys.IsKeyDown(Keys.Escape) && GameValues.state != GameState.menu)
+            {
+                menu.newMenuState = MenuState.Pause;
+                GameValues.state = GameState.menu;
             }
 
             if (GameValues.state == GameState.menu)
