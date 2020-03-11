@@ -22,8 +22,6 @@ namespace GameDesign
         public static Texture2D tileTex;
         public static List<Tile> tiles = new List<Tile>();
         public static GameState state = GameState.menu;
-        public static GameState newState;
-        public static GameState prevState;
 
         //Money
         public static int wallCost = 5;

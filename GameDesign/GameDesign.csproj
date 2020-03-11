@@ -45,6 +45,7 @@
     <Compile Include="Camera.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameValues.cs" />
+    <Compile Include="GameData.cs" />
     <Compile Include="Menu\LoadGameMenu.cs" />
     <Compile Include="Menu\Menu.cs" />
     <Compile Include="Menu\MainMenu.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Room.cs" />
     <Compile Include="RoomPreview.cs" />
     <Compile Include="Save.cs" />
+    <Compile Include="SaveSystem.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="TileChange.cs" />
     <Compile Include="Tiles\Ceiling.cs" />

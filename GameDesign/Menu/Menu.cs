@@ -18,21 +18,25 @@ namespace GameDesign
         LoadGame,
         Options
     }
+
+    public enum PopUpState
+    {
+        ExitPause,
+        OverwriteSave,
+        DeleteSave
+    }
+
     public class Menu
     {
         public MenuState menuState = MenuState.Loading, prevMenuState, newMenuState;
-        public OptionsMenu optionsMenu;
-        public PauseMenu pauseMenu;
-        public LoadGameMenu loadGameMenu;
-        public MainMenu mainMenu;
-
-        Rectangle logoRectangle = new Rectangle(10, 10, 400, 110), yellowBlockRectangle, titleRectangle, popUpRectangle = new Rectangle(Game1.viewport.X / 2 - 200, 200, 400, 250);
+        Rectangle logoRectangle = new Rectangle(10, 10, 400, 110), yellowBlockRectangle, titleRectangle, popUpRectangle;
         public Texture2D UUlogo, yellowBlock, title, popUp, emptyButton;
-        public Button playButton, resumeButton, optionsButton, cancelButton, okButton, exitButton, loadgameButton, newgameButton, savegameButton, applyButton, cancelOptionsButton, cancelPopUpButton;
+        public Button playButton, resumeButton, optionsButton, cancelButton, yesButton, exitButton, loadgameButton, newgameButton, savegameButton, applyButton, cancelOptionsButton, noButton;
         List<Button> buttons = new List<Button>();
         Point buttonSize = new Point(252, 101);
         bool popUpActive;
         string popUpText;
+        public PopUpState popUpState;
         public SpriteFont menuFont = Game1.font;
 
         public Menu()
@@ -42,8 +46,8 @@ namespace GameDesign
             resumeButton = new Button(new Rectangle(new Point(Game1.viewport.X / 2 - buttonSize.X / 2, 300), buttonSize), "RESUME");
             optionsButton = new Button(new Rectangle(new Point(Game1.viewport.X / 2 - buttonSize.X / 2, 450), buttonSize), "OPTIONS");
             cancelButton = new Button(new Rectangle(new Point(Game1.viewport.X / 2 - buttonSize.X / 2, 750), buttonSize), "CANCEL");
-            okButton = new Button(new Rectangle(new Point(200, 600), buttonSize), "OK");
-            cancelPopUpButton = new Button(new Rectangle(new Point(200, 600), buttonSize), "CANCEL");
+            yesButton = new Button(new Rectangle(new Point(Game1.viewport.X / 2 - buttonSize.X - 50, 475), new Point(buttonSize.X / 2, buttonSize.Y / 2)), "YES");
+            noButton = new Button(new Rectangle(new Point(Game1.viewport.X / 2 + 50, 475), new Point(buttonSize.X / 2, buttonSize.Y / 2)), "NO");
             exitButton = new Button(new Rectangle(new Point(Game1.viewport.X / 2 - buttonSize.X / 2, 600), buttonSize), "EXIT");
             loadgameButton = new Button(new Rectangle(new Point(150, 550), buttonSize), "LOAD GAME");
             newgameButton = new Button(new Rectangle(new Point(150, 350), buttonSize), "NEW GAME");
@@ -62,8 +66,8 @@ namespace GameDesign
             buttons.Add(newgameButton);
             buttons.Add(cancelButton);
             //PopUp 8-9
-            buttons.Add(okButton);
-            buttons.Add(cancelPopUpButton);
+            buttons.Add(yesButton);
+            buttons.Add(noButton);
             //Options 10-11
             buttons.Add(applyButton);
             buttons.Add(cancelOptionsButton);
@@ -85,18 +89,6 @@ namespace GameDesign
             {
                 buttons[i].texture = emptyButton;
             }
-
-            /*
-            playButton.texture = Content.Load<Texture2D>("Buttons/PlayButton");
-            resumeButton.texture = Content.Load<Texture2D>("Buttons/ResumeButton");
-            optionsButton.texture = Content.Load<Texture2D>("Buttons/OptionsButton");
-            cancelButton.texture = Content.Load<Texture2D>("Buttons/CancelButton");
-            okButton.texture = Content.Load<Texture2D>("Buttons/OkButton");
-            exitButton.texture = Content.Load<Texture2D>("Buttons/ExitButton");
-            loadgameButton.texture = Content.Load<Texture2D>("Buttons/LoadGameButton");
-            newgameButton.texture = Content.Load<Texture2D>("Buttons/NewGameButton");
-            savegameButton.texture = Content.Load<Texture2D>("Buttons/SaveGameButton");
-            */
         }
 
         public void Update(KeyboardState currKeyboardState, KeyboardState prevKeyboardState, MouseState currMouseState, MouseState prevMouseState, Game1 game)
@@ -141,18 +133,49 @@ namespace GameDesign
                         break;
                 }
             }
+            if (popUpActive)
+            {
+                for (int i = 8; i < 10; i++)
+                {
+                    buttons[i].active = true;
+                    buttons[i].Update(currMouseState, prevMouseState);
+                }
+            }
+            else
+            {
+                for (int i = 8; i < 10; i++)
+                {
+                    buttons[i].active = false;
+                }
+                for (int i = 0; i < buttons.Count; i++)
+                {
+                    buttons[i].Update(currMouseState, prevMouseState);
+                }
+            }
 
             if (popUpActive)
             {
-
+                if (noButton.clicked)
+                {
+                    popUpActive = false;
+                }
+                else if (yesButton.clicked)
+                {
+                    switch (popUpState)
+                    {
+                        case PopUpState.ExitPause:
+                            menuState = MenuState.Main;
+                            break;
+                        case PopUpState.OverwriteSave:
+                            break;
+                        case PopUpState.DeleteSave:
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
-
-            for (int i = 0; i < buttons.Count; i++)
-            {
-                buttons[i].Update(currMouseState, prevMouseState);
-            }
-
-            if (playButton.clicked)
+            else if (playButton.clicked)
             {
                 newMenuState = MenuState.LoadGame;
             }
@@ -164,6 +187,7 @@ namespace GameDesign
                 }
                 else if (menuState == MenuState.Pause)
                 {
+                    popUpState = PopUpState.ExitPause;
                     string[] text = new string[]{ "All unsaved progress", "will be lost!" };
                     PopUp(text);
                 }
@@ -195,6 +219,22 @@ namespace GameDesign
                     newMenuState = MenuState.Main;
                 }
             }
+            else if (savegameButton.clicked)
+            {
+                SaveSystem.SaveGame();
+            }
+            else if (loadgameButton.clicked)
+            {
+                GameValues.state = GameState.select;
+                GameData data =  SaveSystem.LoadGame();
+                int i = 0;
+                foreach (Tile t in GameValues.tiles)
+                {
+                    t.type = (Type)data.types[i];
+                    t.zone = (Zone)data.zones[i];
+                    i++;
+                }
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -213,13 +253,16 @@ namespace GameDesign
             if (popUpActive)
             {
                 spriteBatch.Draw(popUp, popUpRectangle, Color.White);
-                spriteBatch.DrawString(Game1.font, popUpText, new Vector2(Game1.viewport.X / 2 - Game1.font.MeasureString(popUpText).X, 250), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
+                spriteBatch.DrawString(Game1.font, popUpText, new Vector2(popUpRectangle.X + 100, popUpRectangle.Y + 80), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 0);
+                for (int i = 8; i < 10; i++)
+                {
+                    buttons[i].Draw(spriteBatch);
+                }
             }
         }
 
         public void PopUp(string[] popUpText)
         {
-            popUpActive = true;
             this.popUpText = popUpText[0];
             for (int i = 1; i < popUpText.Length; i++)
             {
@@ -231,6 +274,14 @@ namespace GameDesign
                 }
                 this.popUpText += popUpText[i];
             }
+            Point textSize = Game1.font.MeasureString(this.popUpText).ToPoint();
+            Point size = textSize + new Point(200, 160);
+            Point location = new Point(Game1.viewport.X / 2 - size.X / 2, 200);
+            popUpRectangle.Location = location;
+            popUpRectangle.Size = size;
+            yesButton.rectangle.Location = new Point(popUpRectangle.X, popUpRectangle.Bottom - yesButton.rectangle.Height / 2);
+            noButton.rectangle.Location = new Point(popUpRectangle.Right - noButton.rectangle.Width, popUpRectangle.Bottom - noButton.rectangle.Height / 2);
+            popUpActive = true;
         }
     }
 }

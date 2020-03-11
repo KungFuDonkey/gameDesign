@@ -5,19 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace GameDesign
 {
     class Save
     {
         string gameName, baseFolder;
-
+        
         public Save()
         {
             gameName = GameValues.gameName;
 
             baseFolder = GameValues.appDataFilePath + "\\" + gameName + "";
-
             CreateBaseFolders();
         }
 
