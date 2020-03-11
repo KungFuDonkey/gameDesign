@@ -13,7 +13,7 @@ namespace GameDesign
     class Room
     {
         public Zone zone;
-        public int layer, rotation = 0;
+        public int layer, rotation = 0, walls, floors;
         int size, width, height;
         public Point middle;
         public List<Tile> layout;
@@ -33,11 +33,14 @@ namespace GameDesign
         //reads the values from the path and creates the layout from that
         public void setValues(string path)
         {
+            walls = 0;
+            floors = 0;
             layout = new List<Tile>();
             zone = Zone.Break;
             List<string> lines = File.ReadAllLines(path).ToList();
             int x = 0, maxX = 0;
             int y = 0;
+            int tileSize = GameValues.tileSize;
             foreach(string l in lines)
             {
                 foreach(char c in l)
@@ -45,10 +48,12 @@ namespace GameDesign
                     switch (c)
                     {
                         case '#':
-                            layout.Add(new Wall(new Rectangle(x * GameValues.tileSize, y * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize), layer, zone));
+                            layout.Add(new Wall(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), layer, zone));
+                            walls++;
                             break;
                         case '0':
-                            layout.Add(new Floor(new Rectangle(x * GameValues.tileSize, y * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize), layer, zone));
+                            layout.Add(new Floor(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), layer, zone));
+                            floors++;
                             break;
                         case ' ':
                             break;
@@ -62,7 +67,7 @@ namespace GameDesign
             size = maxX > y ? maxX : y;
             width = maxX;
             height = y;
-            middle = new Point((width / 2) * GameValues.tileSize, (height / 2) * GameValues.tileSize);
+            middle = new Point((width / 2) * tileSize, (height / 2) * tileSize);
         }
         //rotates the layout counterclockwise on the grid
         public void rotate()
@@ -103,7 +108,7 @@ namespace GameDesign
                     }
                 }
             }
-            //moving the layout back to the origional spot otherwise the middle won't be in the right spot
+            //moving the layout back to the original spot otherwise the middle won't be in the right spot
             while(layout.Min(x => x.rectangle.X) != 0)
             {
                 foreach(Tile t in layout)

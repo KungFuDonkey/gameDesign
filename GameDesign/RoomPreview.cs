@@ -6,6 +6,8 @@ using System.Linq;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
+
 namespace GameDesign
 {
     class RoomPreview
@@ -13,10 +15,11 @@ namespace GameDesign
         public List<Room> rooms = new List<Room>();
         public Room room;
         public Rectangle drawRectangle = new Rectangle(0, 0, GameValues.tileSize, GameValues.tileSize);
-        public float alpha = 0.8f;
+        public float alpha = 0.8f, buildCosts;
         public int direction = -1;
         public int roomIndex = 0;
         string path;
+
         //initialize runs on the initialization and creates the different rooms which are read from the text files in rooms/text
         public void initialize()
         {
@@ -62,7 +65,7 @@ namespace GameDesign
         //updates the input of the player leftbutton = build, E and Q = switching between rooms, rightbutton = rotation
         public void Update(KeyboardState keyBoardState, KeyboardState prevKeyboardState, MouseState mouseState, MouseState prevMouseState, Rectangle selectedRectangle)
         {
-            if(mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released && !collision(selectedRectangle))
+            if (mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released && !collision(selectedRectangle) && Game1.money.canBuy(buildCosts))
             {
                 build(selectedRectangle);
             }
@@ -76,10 +79,13 @@ namespace GameDesign
                 roomIndex = roomIndex == 0 ? 0 : roomIndex - 1;
                 room = rooms[roomIndex];
             }
-            if(mouseState.RightButton == ButtonState.Pressed && prevMouseState.RightButton != ButtonState.Pressed)
+            if((mouseState.RightButton == ButtonState.Pressed && prevMouseState.RightButton != ButtonState.Pressed) || 
+                (mouseState.MiddleButton == ButtonState.Pressed && prevMouseState.MiddleButton != ButtonState.Pressed) ||
+                (keyBoardState.IsKeyDown(Keys.R) && !prevKeyboardState.IsKeyDown(Keys.R)))
             {
                 room.rotate();
             }
+            buildCosts = room.walls * GameValues.wallCost + room.floors * GameValues.floorCost;
         }
 
         //checks for a collision with the grid to decide if the room can be placed
@@ -158,6 +164,7 @@ namespace GameDesign
                 }
                 GameValues.tiles.Add(new Ceiling(rectangle, room.layer + 1, room.zone));
             }
+            Game1.money.payCash(buildCosts);
         }
     }
 }
