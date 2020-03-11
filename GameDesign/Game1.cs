@@ -22,8 +22,9 @@ namespace GameDesign
         public Timer gameTimer;
         public static Money money = new Money(100000);
         public static Menu menu;
+        public static ScoreSystem score;
         Hud hud;
-        bool onhud;
+        bool onhud; 
 
         public Game1()
         {
@@ -66,6 +67,7 @@ namespace GameDesign
             roomPreview.initialize();
             hud = new Hud(1280, 900);
             menu = new Menu();
+            score = new ScoreSystem();
             IsMouseVisible = true;
             base.Initialize();
         }
@@ -94,19 +96,19 @@ namespace GameDesign
 
         protected override void Update(GameTime gameTime)
         {
-            keys = Keyboard.GetState();
-            mouseState = Mouse.GetState();
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || keys.IsKeyDown(Keys.Escape) && GameValues.state != GameState.menu)
+            if (!Program.game.IsActive)
             {
-                if (menu.menuState == MenuState.Main && GameValues.state == GameState.menu)
-                {
-                    Exit();
-                }
-                else
-                {
-                    menu.newMenuState = MenuState.Pause;
-                    GameValues.state = GameState.menu;
-                }
+                return;
+            }
+            else
+            {
+                keys = Keyboard.GetState();
+                mouseState = Mouse.GetState();
+            }
+            if (keys.IsKeyDown(Keys.Escape) && GameValues.state != GameState.menu)
+            {
+                menu.newMenuState = MenuState.Pause;
+                GameValues.state = GameState.menu;
             }
 
             if (GameValues.state == GameState.menu)
@@ -118,7 +120,7 @@ namespace GameDesign
                 if (gameTimer.isPhaseOver())
                 {
                     currentPhase = gameTimer.getCurrentPhase();
-                    if (gameTimer.getCurrentPhase() == Phase.morning)
+                    if (currentPhase == Phase.morning)
                     {
                         money.earnCash(GameValues.students * GameValues.studentIncome);
                         money.payCash(GameValues.teachers * GameValues.teacherSalary);
@@ -133,6 +135,7 @@ namespace GameDesign
                 }
                 cam.Update(keys, prevKeys, mouseState, prevMouseState);
                 money.Update(keys, prevKeys);
+                score.Update();
                 onhud = hud.Update(mouseState, prevMouseState, gameTime);
                 if (!onhud)
                 {
@@ -215,7 +218,8 @@ namespace GameDesign
                     }
                 }
                 hud.draw(spriteBatch);
-                money.draw(spriteBatch);
+                money.Draw(spriteBatch);
+                score.Draw(spriteBatch);
             }
             spriteBatch.End();
             base.Draw(gameTime);

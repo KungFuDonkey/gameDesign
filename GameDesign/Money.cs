@@ -53,7 +53,7 @@ namespace GameDesign
             }
         }
 
-        public void draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(GameValues.tileTex, moneyRectangle, Color.White);
             spriteBatch.Draw(euroSign, euroRectangle, Color.White);

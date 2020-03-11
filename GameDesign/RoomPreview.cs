@@ -65,6 +65,11 @@ namespace GameDesign
         //updates the input of the player leftbutton = build, E and Q = switching between rooms, rightbutton = rotation
         public void Update(KeyboardState keyBoardState, KeyboardState prevKeyboardState, MouseState mouseState, MouseState prevMouseState, Rectangle selectedRectangle)
         {
+            room.setValues(rooms[roomIndex].path);
+            for (int i = 0; i < room.rotation; i++)
+            {
+                room.rotate();
+            }
             if (mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released && !collision(selectedRectangle) && Game1.money.canBuy(buildCosts))
             {
                 build(selectedRectangle);
@@ -83,7 +88,7 @@ namespace GameDesign
                 (mouseState.MiddleButton == ButtonState.Pressed && prevMouseState.MiddleButton != ButtonState.Pressed) ||
                 (keyBoardState.IsKeyDown(Keys.R) && !prevKeyboardState.IsKeyDown(Keys.R)))
             {
-                room.rotate();
+                room.rotation = (room.rotation + 1) % 4;
             }
             buildCosts = room.walls * GameValues.wallCost + room.floors * GameValues.floorCost;
         }

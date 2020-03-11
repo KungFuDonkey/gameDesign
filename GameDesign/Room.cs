@@ -17,15 +17,19 @@ namespace GameDesign
         int size, width, height;
         public Point middle;
         public List<Tile> layout;
+        public string path;
         public bool part;
+
         public Room(string path)
         {
+            this.path = path;
             layer = -100;
             setValues(path);
             part = false;
         }
         public Room(string path, int _layer)
         {
+            this.path = path;
             layer = _layer;
             setValues(path);
             part = true;

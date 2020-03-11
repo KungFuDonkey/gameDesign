@@ -60,6 +60,7 @@
     <Compile Include="RoomPreview.cs" />
     <Compile Include="Save.cs" />
     <Compile Include="SaveSystem.cs" />
+    <Compile Include="ScoreSystem.cs" />
     <Compile Include="Selectors.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="TileChange.cs" />
