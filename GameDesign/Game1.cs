@@ -38,7 +38,6 @@ namespace GameDesign
         public static Point viewport = new Point(1280, 900);
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             Rectangle rect = new Rectangle(0,0,0,0);
             for(int i = 0; i < GameValues.gridWidth; i++)
             {
@@ -73,7 +72,6 @@ namespace GameDesign
         }
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             GameValues.font = Content.Load<SpriteFont>("Fonts/SpelFont");
             GameValues.hammer = Content.Load<Texture2D>("Hamer");
@@ -83,7 +81,7 @@ namespace GameDesign
             GameValues.colorplate = Content.Load<Texture2D>("ColorPlate");
             GameValues.remover = Content.Load<Texture2D>("Eraser");
             GameValues.colorSpetter = Content.Load<Texture2D>("White");
-            // TODO: use this.Content to load your game content here
+            GameValues.warning = Content.Load<Texture2D>("Warning");
         }
         protected override void UnloadContent()
         {
@@ -122,9 +120,10 @@ namespace GameDesign
                     currentPhase = gameTimer.getCurrentPhase();
                     if (currentPhase == Phase.morning)
                     {
+                        money.earnCash(GameValues.governmentSubsidy);
                         money.earnCash(GameValues.students * GameValues.studentIncome);
-                        money.payCash(GameValues.teachers * GameValues.teacherSalary);
-                        money.payCash(GameValues.staff * GameValues.staffSalary);
+                        money.earnCash(GameValues.workers * GameValues.researchIncome);
+                        money.payCash(GameValues.maintenanceCosts);
                     }
                 }
 
