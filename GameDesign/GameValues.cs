@@ -17,6 +17,7 @@ namespace GameDesign
         remove,
         zone,
         plus
+        editor
     }
     enum BuildState
     {
@@ -37,11 +38,75 @@ namespace GameDesign
         public static SpriteFont font;
         public static Color[] zoneColors = new Color[6] { Color.Blue, Color.Gray, Color.Brown, Color.Black, Color.Green, Color.Yellow };
         public static Zone selectedZone = Zone.Lesson;
-        public static Color[] tileColors = new Color[1] { Color.Gray };//floor wall pavement
+        public static Color[] tileColors = new Color[1] { Color.Gray };//pavement
         public static GameState state = GameState.menu;
         public static BuildTiles selectedTile = BuildTiles.pavement;
         public static List<BuildingType> buildingTypes = new List<BuildingType>();
         public static List<Building> buildings = new List<Building>();
+        //Room and building builder
+        public static Color[] buildTileColors = new Color[28]
+        {
+            Color.Aqua,
+            Color.Black,
+            Color.CadetBlue,
+            Color.DimGray,
+            Color.Chocolate,
+            Color.Fuchsia,
+            Color.DarkGreen,
+            Color.HotPink,
+            Color.Indigo,
+            Color.IndianRed,
+            Color.Khaki,
+            Color.Lavender,
+            Color.Magenta,
+            Color.Navy,
+            Color.Orange,
+            Color.PaleTurquoise,
+            Color.PaleGoldenrod,
+            Color.Red,
+            Color.Silver,
+            Color.Teal,
+            Color.Sienna,
+            Color.Violet,
+            Color.White,
+            Color.Wheat,
+            Color.Yellow,
+            Color.YellowGreen,
+            Color.Gray,
+            Color.Green
+        };
+        public static char[] buildChars = new char[28]
+        {
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J',
+            'K',
+            'L',
+            'M',
+            'N',
+            'O',
+            'P',
+            'Q',
+            'R',
+            'S',
+            'T',
+            'U',
+            'V',
+            'W',
+            'X',
+            'Y',
+            'Z',
+            '#',
+            ' ',
+        };
+        
         //Money
         public static int wallCost = 5;
         public static int floorCost = 1;

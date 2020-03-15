@@ -47,6 +47,17 @@ namespace GameDesign
                 }
                 move *= -1;
             }
+            if(GameValues.state == GameState.editor)
+            {
+                Zoom(keyboardState, prevKeyBoardState, currMouseState, prevMouseState, Game1.buildingBuilder.grid);
+            }
+            else
+            {
+                Zoom(keyboardState, prevKeyBoardState, currMouseState, prevMouseState, GameValues.grid);
+            }
+        }
+        public void Zoom(KeyboardState keyboardState, KeyboardState prevKeyBoardState, MouseState currMouseState, MouseState prevMouseState, Tile[,,] grid)
+        {
             if (currMouseState.ScrollWheelValue != prevMouseState.ScrollWheelValue)
             {
                 moving = true;
@@ -66,25 +77,29 @@ namespace GameDesign
                 if (currMouseState.ScrollWheelValue > prevMouseState.ScrollWheelValue && tileSize <= 25)
                 {
                     tileSize += zoomSpeed;
-                    Point size = new Point(tileSize, tileSize);
-                    foreach (Tile t in GameValues.grid)
+                    foreach (Tile t in grid)
                     {
                         Point location = t.rectangle.Location;
                         int distX = (location.X - selectedTile.X) / (tileSize - zoomSpeed) * tileSize + selectedTile.X;
                         int distY = (location.Y - selectedTile.Y) / (tileSize - zoomSpeed) * tileSize + selectedTile.Y;
-                        t.rectangle = new Rectangle(new Point(distX, distY), size);
+                        t.rectangle.X = distX;
+                        t.rectangle.Y = distY;
+                        t.rectangle.Width = tileSize;
+                        t.rectangle.Height = tileSize;
                     }
                 }
                 else if (currMouseState.ScrollWheelValue < prevMouseState.ScrollWheelValue && tileSize > 3)
                 {
                     tileSize -= zoomSpeed;
-                    Point size = new Point(tileSize, tileSize);
-                    foreach (Tile t in GameValues.grid)
+                    foreach (Tile t in grid)
                     {
                         Point location = t.rectangle.Location;
                         int distX = (location.X - selectedTile.X) / (tileSize + zoomSpeed) * tileSize + selectedTile.X;
                         int distY = (location.Y - selectedTile.Y) / (tileSize + zoomSpeed) * tileSize + selectedTile.Y;
-                        t.rectangle = new Rectangle(new Point(distX, distY), size);
+                        t.rectangle.X = distX;
+                        t.rectangle.Y = distY;
+                        t.rectangle.Width = tileSize;
+                        t.rectangle.Height = tileSize;
                     }
                 }
                 GameValues.tileSize = tileSize;

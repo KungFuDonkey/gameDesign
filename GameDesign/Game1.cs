@@ -24,6 +24,7 @@ namespace GameDesign
         public static Money money = new Money(100000);
         public static Menu menu;
         public static ScoreSystem score;
+        public static BuildingBuilder buildingBuilder;
         Hud hud;
         bool onhud; 
 
@@ -116,6 +117,11 @@ namespace GameDesign
             {
                 menu.Update(keys, prevKeys, mouseState, prevMouseState, this);
             }
+            else if(GameValues.state == GameState.editor)
+            {
+                cam.Update(keys, prevKeys, mouseState, prevMouseState);
+                buildingBuilder.Update(mouseState, prevMouseState);
+            }
             else
             {
                 cam.Update(keys, prevKeys, mouseState, prevMouseState);
@@ -180,11 +186,16 @@ namespace GameDesign
                 GraphicsDevice.Clear(Color.White);
                 menu.Draw(spriteBatch);
             }
+            else if(GameValues.state == GameState.editor)
+            {
+                GraphicsDevice.Clear(Color.Black);
+                buildingBuilder.Draw(spriteBatch);
+            }
             else
             {
                 GraphicsDevice.Clear(Color.Black);
-                //IEnumerable<Tile> query = from t in GameValues.grid.Cast<Tile>() where t.place == cam.place select t;
-                foreach (Tile t in GameValues.grid)
+                IEnumerable<Tile> query = from t in GameValues.grid.Cast<Tile>() where t.place == cam.place select t;
+                foreach (Tile t in query)
                 {
                     t.Draw(spriteBatch, currentPhase);
                 }
