@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 namespace GameDesign
 {
-    class Pavement : Tile
+    class Enterance : Tile
     {
-        public Pavement(Rectangle _rectangle, int _place)
+        public Enterance(Rectangle _rectangle, int _place, Zone zone)
         {
             rectangle = _rectangle;
             standardColor = Color.Gray;
@@ -17,8 +17,8 @@ namespace GameDesign
             occupied = true;
             place = _place;
             zone = Zone.Path;
-            type = Type.pavement;
-            enterance = false;
+            type = Type.building;
+            enterance = true;
         }
     }
 }

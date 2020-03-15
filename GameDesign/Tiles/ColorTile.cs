@@ -18,6 +18,7 @@ namespace GameDesign
             place = _place;
             zone = _zone;
             type = Type.building;
+            enterance = false;
         }
     }
 }

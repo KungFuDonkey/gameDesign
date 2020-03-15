@@ -129,6 +129,9 @@ namespace GameDesign
                         case 'Z':
                             layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.YellowGreen, zone));
                             break;
+                        case '#':
+                            layout.Add(new Enterance(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, zone));
+                            break;
                         case ' ':
                             break;
                     }

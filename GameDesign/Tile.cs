@@ -52,6 +52,7 @@ namespace GameDesign
         public Color color;
         public int place;
         public bool walkable;
+        public bool enterance;
         public Zone zone;
         public bool occupied;
         public Point gridPos

@@ -16,6 +16,7 @@ namespace GameDesign
             tile.occupied = false;
             tile.type = Type.grass;
             tile.zone = Zone.Grass;
+            tile.enterance = false;
         }
         public static void setRoad(Tile tile)
         {
@@ -24,6 +25,7 @@ namespace GameDesign
             tile.occupied = true;
             tile.zone = Zone.Grass;
             tile.type = Type.grass;
+            tile.enterance = false;
         }
         public static void setPavement(Tile tile)
         {
@@ -31,7 +33,8 @@ namespace GameDesign
             tile.standardColor = Color.Gray;
             tile.occupied = true;
             tile.zone = Zone.Path;
-            tile.type = Type.grass;
+            tile.type = Type.pavement;
+            tile.enterance = false;
         }
         public static void setColorTile(Tile tile, Color color, Zone zone)
         {
@@ -41,6 +44,7 @@ namespace GameDesign
             tile.zone = zone;
             tile.type = Type.building;
             tile.occupied = true;
+            tile.enterance = false;
         }
     }
 }

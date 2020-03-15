@@ -20,15 +20,10 @@ namespace GameDesign
             base.Update(mouseState, prevMouseState, selectedTile);
             if (mouseState.LeftButton == ButtonState.Released && prevMouseState.LeftButton == ButtonState.Pressed)
             {
-                IEnumerable<Tile> query = from t in GameValues.grid.Cast<Tile>() where drawRectangle.Contains(t.rectangle.Location) && t.place == firstSelection.place && t.place == secondSelection.place && t.type != Type.grass select t;
-                int count = query.Count(); //gets downed by 1 everytime query.elementat(0) is called on line 27
-                for(int i = 0; i<count; ++i)
+                List<Tile> query = (from t in GameValues.grid.Cast<Tile>() where drawRectangle.Contains(t.rectangle.Location) && t.place == firstSelection.place && t.place == secondSelection.place && t.type != Type.grass select t).ToList();
+                foreach(Tile t in query)
                 {
-                    Tile t = query.ElementAt(0);
-                    if (t.place == 0)
-                    {
-                        TileChange.setGrass(t);
-                    }
+                    TileChange.setGrass(t);
                 }
                 drawRectangle.X = 0;
                 drawRectangle.Y = 0;

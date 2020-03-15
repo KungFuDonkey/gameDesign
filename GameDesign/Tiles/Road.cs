@@ -18,6 +18,7 @@ namespace GameDesign
             zone = Zone.Grass;
             type = Type.grass;
             place = _place;
+            enterance = false;
         }
     }
 }
