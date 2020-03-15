@@ -79,6 +79,12 @@ namespace GameDesign
             GameValues.remover = Content.Load<Texture2D>("Eraser");
             GameValues.colorSpetter = Content.Load<Texture2D>("White");
             GameValues.warning = Content.Load<Texture2D>("Warning");
+            GameValues.plus = Content.Load<Texture2D>("Plus");
+            GameValues.popUp = Content.Load<Texture2D>("Buttons/PopUp");
+            GameValues.plusSign = Content.Load<Texture2D>("Buttons/plusSign");
+            GameValues.minSign = Content.Load<Texture2D>("Buttons/minSign");
+            GameValues.arrowSign = Content.Load<Texture2D>("Buttons/arrowSign");
+            GameValues.makeBuilding = Content.Load<Texture2D>("Buttons/makeBuilding");
         }
         protected override void UnloadContent()
         {

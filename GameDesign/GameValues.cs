@@ -15,7 +15,8 @@ namespace GameDesign
         build,
         select,
         remove,
-        zone
+        zone,
+        plus
     }
     enum BuildState
     {
@@ -31,7 +32,7 @@ namespace GameDesign
         public static int gridWidth = 200, gridHeight = 200, tileSize = 10, maxPlaces = 20, currentMaxPlace = 1;
         public static Tile[,,] grid;
         public static int gridSize = gridHeight * gridWidth;
-        public static Texture2D tileTex, hammer, colorplate, remover, colorSpetter, warning;
+        public static Texture2D tileTex, hammer, colorplate, remover, colorSpetter, warning, plus, popUp, plusSign, minSign, arrowSign, makeBuilding;
         public static BuildState buildState = BuildState.room;
         public static SpriteFont font;
         public static Color[] zoneColors = new Color[6] { Color.Blue, Color.Gray, Color.Brown, Color.Black, Color.Green, Color.Yellow };
