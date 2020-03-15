@@ -17,6 +17,7 @@ namespace GameDesign
         Remove remove = new Remove();
         ZoneCreator zoneCreator = new ZoneCreator();
         TileCreator tileCreator = new TileCreator();
+        BuildingSelector buildingSelector = new BuildingSelector();
         public static Camera cam = new Camera();
         Phase currentPhase;
         public Timer gameTimer;
@@ -39,25 +40,14 @@ namespace GameDesign
         protected override void Initialize()
         {
             Rectangle rect = new Rectangle(0,0,0,0);
-            for(int i = 0; i < GameValues.gridWidth; i++)
+            GameValues.grid = new Tile[GameValues.gridWidth, GameValues.gridHeight];
+            int tileSize = GameValues.tileSize;
+            for (int x = 0; x < GameValues.gridWidth; x++)
             {
-                for(int j = 0; j < GameValues.gridHeight - 3; j++)
+                for (int y = 0; y < GameValues.gridHeight; y++)
                 {
-                    rect = new Rectangle(i * GameValues.tileSize, j * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize);
-                    GameValues.tiles.Add(new Grass(rect,0));
-                    rect = new Rectangle(i * GameValues.tileSize, j * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize); //dont remove for different rectangle
-                    GameValues.tiles.Add(new Stone(rect, -1));
-                }
-                rect = new Rectangle(i * GameValues.tileSize, (GameValues.gridHeight - 3) * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize);
-                GameValues.tiles.Add(new Pavement(rect));
-                rect = new Rectangle(i * GameValues.tileSize, (GameValues.gridHeight - 3) * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize); //dont remove for different rectangle
-                GameValues.tiles.Add(new Stone(rect, -1));
-                for(int j = 2; j != 0; j--)
-                {
-                    rect = new Rectangle(i * GameValues.tileSize, (GameValues.gridHeight - j) * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize);
-                    GameValues.tiles.Add(new Road(rect));
-                    rect = new Rectangle(i * GameValues.tileSize, (GameValues.gridHeight - j) * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize); //dont remove for different rectangle
-                    GameValues.tiles.Add(new Stone(rect, -1));
+                    rect = new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize);
+                    Tile tile = GameValues.grid[x, y] = new Grass(rect, 0);
                 }
             }
             graphics.PreferredBackBufferWidth = viewport.X;
@@ -127,8 +117,7 @@ namespace GameDesign
                     }
                 }
 
-                IEnumerable<Tile> query = from t in GameValues.tiles where t.layer == cam.layer select t;
-                foreach (Tile t in query)
+                foreach (Tile t in GameValues.grid)
                 {
                     t.Update(mouseState);
                 }
@@ -157,7 +146,7 @@ namespace GameDesign
                         case GameState.select:
                             break;
                         case GameState.zone:
-                            zoneCreator.Update(mouseState, prevMouseState, SelectedTile);
+                            buildingSelector.Update(mouseState, prevMouseState, SelectedTile);
                             break;
                     }
                 }
@@ -178,17 +167,21 @@ namespace GameDesign
             {
                 GraphicsDevice.Clear(Color.Black);
 
-                IEnumerable<Tile> query = from t in GameValues.tiles where t.layer == cam.layer select t;
-                foreach (Tile t in query)
+                foreach (Tile t in GameValues.grid)
                 {
                     t.Draw(spriteBatch, currentPhase);
                 }
                 if (GameValues.state == GameState.zone)
                 {
-                    foreach(Tile t in query)
+                    foreach(Tile t in GameValues.grid)
                     {
                         t.DrawZone(spriteBatch);
                     }
+                }
+
+                foreach (Building b in GameValues.buildings)
+                {
+                    b.Draw(spriteBatch);
                 }
 
                 if (!onhud)
@@ -212,7 +205,7 @@ namespace GameDesign
                         remove.Draw(spriteBatch, gameTime);
                         break;
                     case GameState.zone:
-                        zoneCreator.Draw(spriteBatch, gameTime);
+                        buildingSelector.Draw(spriteBatch, gameTime);
                         break;
                     }
                 }

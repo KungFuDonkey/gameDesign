@@ -30,11 +30,11 @@ namespace GameDesign
                     notSelectedRectangle.Y = drawRectangle.Y + GameValues.tileSize;
                     notSelectedRectangle.Width = drawRectangle.Width - 2 * GameValues.tileSize;
                     notSelectedRectangle.Height = drawRectangle.Height - 2 * GameValues.tileSize;
-                    query = (from t in GameValues.tiles where drawRectangle.Contains(t.rectangle.Location) && !notSelectedRectangle.Contains(t.rectangle.Location) && t.layer == firstSelection.layer && t.layer == secondSelection.layer && !t.occupied select t).ToList();
+                    query = (from t in GameValues.grid.Cast<Tile>() where drawRectangle.Contains(t.rectangle.Location) && !notSelectedRectangle.Contains(t.rectangle.Location) && t.layer == firstSelection.layer && t.layer == secondSelection.layer && !t.occupied select t).ToList();
                 }
                 else
                 {
-                    query = (from t in GameValues.tiles where drawRectangle.Contains(t.rectangle.Location) && t.layer == firstSelection.layer && t.layer == secondSelection.layer && !t.occupied select t).ToList();
+                    query = (from t in GameValues.grid.Cast<Tile>() where drawRectangle.Contains(t.rectangle.Location) && t.layer == firstSelection.layer && t.layer == secondSelection.layer && !t.occupied select t).ToList();
                 }
                 for(int i = 0; i < query.Count; i++)
                 {
@@ -42,14 +42,14 @@ namespace GameDesign
                     {
                         case BuildTiles.floor:
                             TileChange.setFloor(query[i]);
-                            GameValues.tiles.Add(new Ceiling(query[i].rectangle, query[i].layer + 1, Zone.Grass));
+                            GameValues.grid[query[i].gridPos.X, query[i].gridPos.Y] = new Ceiling(query[i].rectangle, query[i].layer + 1, Zone.Grass);
                             break;
                         case BuildTiles.pavement:
                             TileChange.setPavement(query[i]);
                             break;
                         case BuildTiles.wall:
                             TileChange.setWall(query[i]);
-                            GameValues.tiles.Add(new Ceiling(query[i].rectangle, query[i].layer + 1, Zone.Grass));
+                            GameValues.grid[query[i].gridPos.X, query[i].gridPos.Y] = new Ceiling(query[i].rectangle, query[i].layer + 1, Zone.Grass);
                             break;
                     }
                 }

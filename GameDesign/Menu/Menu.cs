@@ -231,7 +231,7 @@ namespace GameDesign
                 GameValues.state = GameState.select;
                 GameData data =  SaveSystem.LoadGame();
                 int i = 0;
-                foreach (Tile t in GameValues.tiles)
+                foreach (Tile t in GameValues.grid)
                 {
                     t.type = (Type)data.types[i];
                     t.zone = (Zone)data.zones[i];

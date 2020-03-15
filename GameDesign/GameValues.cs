@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,17 +31,18 @@ namespace GameDesign
     static class GameValues
     {
         public static int gridWidth = 200, gridHeight = 200, tileSize = 10, maxHeight = 20;
+        public static Tile[,] grid;
         public static int gridSize = gridHeight * gridWidth;
         public static Texture2D tileTex, hammer, colorplate, remover, colorSpetter, warning;
-        public static List<Tile> tiles = new List<Tile>();
         public static BuildState buildState = BuildState.room;
         public static SpriteFont font;
-        public static Color[] zoneColors = new Color[6] { Color.Blue, Color.Gray, Color.Brown, Color.Black, Color.Green, Color.Green };
+        public static Color[] zoneColors = new Color[6] { Color.Blue, Color.Gray, Color.Brown, Color.Black, Color.Green, Color.Yellow };
         public static Zone selectedZone = Zone.Lesson;
         public static Color[] tileColors = new Color[3] { Color.Beige, Color.Brown, Color.Gray };//floor wall pavement
         public static BuildTiles selectedTile = BuildTiles.floor;
         public static GameState state = GameState.menu;
         public static List<BuildingType> buildingTypes = new List<BuildingType>();
+        public static List<Building> buildings = new List<Building>();
 
         //Money
         public static int wallCost = 5;
@@ -75,17 +77,40 @@ namespace GameDesign
         public static BuildingType gym = new Gym();
         public static BuildingType park = new Park();
         public static BuildingType superMarket = new SuperMarket();
+
+        public static BuildingType selectedBuildingType = adminBuilding;
         public static void CountTypes()
         {
             foreach (BuildingType b in buildingTypes)
             {
                 b.tileCount = 0;
             }
-            foreach (Tile t in tiles)
+            foreach (Tile t in grid)
             {
                 t.buildingType.tileCount++;
             }
         }
+
+        public static void getAllBuildings()
+        {
+            buildings.Clear();
+            List<Tile> done = new List<Tile>();
+            foreach (Tile t in grid)
+            {
+                if (t.type != Type.floor || done.Contains(t) ||t.buildingType == none)
+                {
+                    continue;
+                }
+                List<Tile> neighbours = t.connectedNeighbours();
+                if (neighbours == null)
+                {
+                    continue;
+                }
+                buildings.Add(new Building(t.buildingType, neighbours));
+                done.AddRange(neighbours);
+            }
+        }
+
         public static int maintenanceCosts
         {
             get

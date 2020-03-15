@@ -101,7 +101,7 @@ namespace GameDesign
                 drawRectangle.Location = selectedRectangle.Location + t.rectangle.Location - room.middle;
                 try
                 {
-                    Tile oldtile = (from tile in GameValues.tiles where tile.rectangle.X == drawRectangle.X && tile.rectangle.Y == drawRectangle.Y && tile.layer == Game1.cam.layer select tile).First();
+                    Tile oldtile = GameValues.grid[(drawRectangle.X - GameValues.grid[0, 0].rectangle.X) / GameValues.tileSize, (drawRectangle.Y - GameValues.grid[0, 0].rectangle.Y) / GameValues.tileSize];
                     if (oldtile.occupied && !(t.type == Type.wall && oldtile.type == Type.wall))
                     {
                         return true;
@@ -126,9 +126,10 @@ namespace GameDesign
             {
                 drawRectangle.Location = selectedRectangle.Location + t.rectangle.Location - room.middle;
                 Rectangle rectangle = new Rectangle(drawRectangle.X, drawRectangle.Y, GameValues.tileSize, GameValues.tileSize);
+                Point gridPos = new Point((drawRectangle.X - GameValues.grid[0, 0].rectangle.X) / GameValues.tileSize, (drawRectangle.Y - GameValues.grid[0, 0].rectangle.Y) / GameValues.tileSize);
                 try
                 {
-                    Tile oldtile = (from tile in GameValues.tiles where tile.rectangle.X == drawRectangle.X && tile.rectangle.Y == drawRectangle.Y && tile.layer == room.layer select tile).First();
+                    Tile oldtile = GameValues.grid[gridPos.X, gridPos.Y];
                     switch (t.type)
                     {
                         case Type.wall:
@@ -146,28 +147,15 @@ namespace GameDesign
                     switch (t.type)
                     {
                         case Type.wall:
-                            GameValues.tiles.Add(new Wall(rectangle, room.layer, room.zone));
+                            GameValues.grid[gridPos.X, gridPos.Y] = new Wall(rectangle, room.layer, room.zone);
                             break;
                         case Type.floor:
-                            GameValues.tiles.Add(new Floor(rectangle, room.layer, room.zone));
+                            GameValues.grid[gridPos.X, gridPos.Y] = new Floor(rectangle, room.layer, room.zone);
                             break;
                         case Type.grass:
                             break;
                     }
                 }
-                if(t.type == Type.wall || room.layer == -1)
-                {
-                    try
-                    {
-                        Tile oldtile = (from tile in GameValues.tiles where tile.rectangle.X == drawRectangle.X && tile.rectangle.Y == drawRectangle.Y && tile.layer == room.layer + 1 select tile).First();
-                        continue;
-                    }
-                    catch
-                    {
-
-                    }
-                }
-                GameValues.tiles.Add(new Ceiling(rectangle, room.layer + 1, room.zone));
             }
             Game1.money.payCash(buildCosts);
         }

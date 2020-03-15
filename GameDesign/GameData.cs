@@ -14,7 +14,7 @@ namespace GameDesign
 
         public GameData()
         {
-            foreach (Tile t in GameValues.tiles)
+            foreach (Tile t in GameValues.grid)
             {
                 switch (t.type)
                 {

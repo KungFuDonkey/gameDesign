@@ -23,14 +23,14 @@ namespace GameDesign
             {
                 if (keyboardState.IsKeyDown(keys[i]))
                 {
-                    foreach (Tile t in GameValues.tiles)
+                    foreach (Tile t in GameValues.grid)
                     {
                         t.rectangle.Y += move * movespeed;
                     }
                 }
                 if (keyboardState.IsKeyDown(keys[i + 2]))
                 {
-                    foreach(Tile t in GameValues.tiles)
+                    foreach(Tile t in GameValues.grid)
                     {
                         t.rectangle.X += move * movespeed;
                     }
@@ -60,7 +60,7 @@ namespace GameDesign
                 {
                     tileSize += zoomSpeed;
                     Point size = new Point(tileSize, tileSize);
-                    foreach (Tile t in GameValues.tiles)
+                    foreach (Tile t in GameValues.grid)
                     {
                         Point location = t.rectangle.Location;
                         int distX = (location.X - selectedTile.X) / (tileSize - zoomSpeed) * tileSize + selectedTile.X;
@@ -72,7 +72,7 @@ namespace GameDesign
                 {
                     tileSize -= zoomSpeed;
                     Point size = new Point(tileSize, tileSize);
-                    foreach (Tile t in GameValues.tiles)
+                    foreach (Tile t in GameValues.grid)
                     {
                         Point location = t.rectangle.Location;
                         int distX = (location.X - selectedTile.X) / (tileSize + zoomSpeed) * tileSize + selectedTile.X;

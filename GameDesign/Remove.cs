@@ -20,7 +20,7 @@ namespace GameDesign
             base.Update(mouseState, prevMouseState, selectedTile);
             if (mouseState.LeftButton == ButtonState.Released && prevMouseState.LeftButton == ButtonState.Pressed)
             {
-                IEnumerable<Tile> query = from t in GameValues.tiles where drawRectangle.Contains(t.rectangle.Location) && t.layer == firstSelection.layer && t.layer == secondSelection.layer && t.type != Type.grass select t;
+                IEnumerable<Tile> query = from t in GameValues.grid.Cast<Tile>() where drawRectangle.Contains(t.rectangle.Location) && t.type != Type.grass select t;
                 int count = query.Count();
                 for (int i = 0; i<count; ++i)
                 {
@@ -32,6 +32,7 @@ namespace GameDesign
                 for(int i = 0; i<count; ++i)
                 {
                     Tile t = query.ElementAt(0);
+                    t.buildingType = GameValues.none;
                     if (t.layer == 0)
                     {
                         TileChange.setGrass(t);
@@ -39,15 +40,6 @@ namespace GameDesign
                     else
                     {
                         TileChange.setCeiling(t);
-                    }
-                    try
-                    {
-                        Tile ceiling = (from x in GameValues.tiles where x.rectangle.X == t.rectangle.X && x.rectangle.Y == t.rectangle.Y && x.layer > t.layer select x).First();
-                        GameValues.tiles.Remove(ceiling);
-                    }
-                    catch
-                    {
-
                     }
                 }
                 drawRectangle.X = 0;
@@ -58,7 +50,7 @@ namespace GameDesign
         }
         public bool hasCeiling(Tile selectedTile)
         {
-            IEnumerable<Tile> query = from t in GameValues.tiles where t.rectangle.X == selectedTile.rectangle.X && t.rectangle.Y == selectedTile.rectangle.Y && t.layer > selectedTile.layer && t.type != Type.ceiling select t;
+            IEnumerable<Tile> query = from t in GameValues.grid.Cast<Tile>() where t.rectangle.X == selectedTile.rectangle.X && t.rectangle.Y == selectedTile.rectangle.Y && t.layer > selectedTile.layer && t.type != Type.ceiling select t;
             foreach(Tile t in query)
             {
                 return true;
