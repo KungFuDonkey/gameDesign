@@ -4,10 +4,12 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/SpelFont.spritefont</File>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Tile.png</File>
+    <File>D:/Gebruikers/Lucas/Bureaublad/GameDesign JAm/gameDesign/GameDesign/Content/SpelFont.spritefont</File>
+    <File>D:/Gebruikers/Lucas/Bureaublad/GameDesign JAm/gameDesign/GameDesign/Content/Tile.png</File>
+    <File>D:/Gebruikers/Lucas/Bureaublad/GameDesign JAm/gameDesign/GameDesign/Content/player_side.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>

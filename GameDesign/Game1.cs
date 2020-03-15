@@ -101,11 +101,11 @@ namespace GameDesign
             {
                 t.Update(mouseState);
             }
+            cam.Update(keys, prevKeys, mouseState, prevMouseState);
             foreach (NPC n in GameValues.npcs)
             {
                 n.Update(keys, prevKeys, gameTime);
             }
-            cam.Update(keys, prevKeys, mouseState, prevMouseState);
             onhud = hud.Update(mouseState, prevMouseState, gameTime);
             if (!onhud)
             {

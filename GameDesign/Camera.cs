@@ -75,6 +75,13 @@ namespace GameDesign
                         int distY = (location.Y - selectedTile.Y) / (tileSize - zoomSpeed) * tileSize + selectedTile.Y;
                         t.rectangle = new Rectangle(new Point(distX, distY), size);
                     }
+                    foreach (NPC n in GameValues.npcs)
+                    {
+                        Point location = n.drawRectangle.Location;
+                        int distX = (location.X - selectedTile.X) / (tileSize - zoomSpeed) * tileSize + selectedTile.X;
+                        int distY = (location.Y - selectedTile.Y) / (tileSize - zoomSpeed) * tileSize + selectedTile.Y;
+                        n.drawRectangle = new Rectangle(new Point(distX, distY), size);
+                    }
                 }
                 else if (currMouseState.ScrollWheelValue < prevMouseState.ScrollWheelValue && tileSize > 3)
                 {
@@ -86,6 +93,13 @@ namespace GameDesign
                         int distX = (location.X - selectedTile.X) / (tileSize + zoomSpeed) * tileSize + selectedTile.X;
                         int distY = (location.Y - selectedTile.Y) / (tileSize + zoomSpeed) * tileSize + selectedTile.Y;
                         t.rectangle = new Rectangle(new Point(distX, distY), size);
+                    }
+                    foreach (NPC n in GameValues.npcs)
+                    {
+                        Point location = n.drawRectangle.Location;
+                        int distX = (location.X - selectedTile.X) / (tileSize + zoomSpeed) * tileSize + selectedTile.X;
+                        int distY = (location.Y - selectedTile.Y) / (tileSize + zoomSpeed) * tileSize + selectedTile.Y;
+                        n.drawRectangle = new Rectangle(new Point(distX, distY), size);
                     }
                 }
                 GameValues.tileSize = tileSize;

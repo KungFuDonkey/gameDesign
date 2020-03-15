@@ -18,8 +18,9 @@ namespace GameDesign
         Node startNode;
         Node targetNode;
         Point location = new Point(20, 20);
-        public Rectangle drawRectangle = new Rectangle(50,50,10,10);
-        Vector2 DrawLocation = new Vector2(50,50);
+        Point oldlocation = new Point();
+
+        public Rectangle drawRectangle = new Rectangle(20, 20, GameValues.tileSize, GameValues.tileSize);
         bool walking = false;
         int steps = 0;
         float timer = 0;
@@ -35,28 +36,17 @@ namespace GameDesign
                 timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (steps + 1 >= path.Count)
                 {
-                    
-                    Debug.WriteLine("done");
                     walking = false;
                     return;
                 }
                 else if (timer > 1)
                 {
-                    Debug.WriteLine("test");
                     steps++;
                     timer = 0;
                 }
+                oldlocation = location;
                 location = new Point(path[steps].x, path[steps].y);
-                try
-                {
-                    drawRectangle.X = (int)(location.X * GameValues.tileSize - timer * (path[steps].x - path[steps + 1].x) * GameValues.tileSize);
-                    drawRectangle.Y = (int)(location.Y * GameValues.tileSize - timer * (path[steps].y - path[steps + 1].y) * GameValues.tileSize);
-                }
-                catch
-                {
-
-                }
-                
+                drawRectangle = (from T in GameValues.tiles where T.gridLocation == location select T.rectangle).First();
             }
         }
 
@@ -67,9 +57,10 @@ namespace GameDesign
 
         private void walkToWards(int xDest, int yDest, GameTime gameTime)
         {
-            Debug.WriteLine("tEST");
             if (!walking)
             {
+                drawRectangle.X = location.X * GameValues.tileSize;
+                drawRectangle.Y = location.Y * GameValues.tileSize;
                 path = PathFinding(location, new Point(xDest, yDest));
                 steps = 0;
                 timer = 0;
