@@ -105,15 +105,13 @@ namespace GameDesign
             }
             else
             {
+                cam.Update(keys, prevKeys, mouseState, prevMouseState);
                 if (gameTimer.isPhaseOver())
                 {
                     currentPhase = gameTimer.getCurrentPhase();
                     if (currentPhase == Phase.morning)
                     {
-                        money.earnCash(GameValues.governmentSubsidy);
-                        money.earnCash(GameValues.students * GameValues.studentIncome);
-                        money.earnCash(GameValues.workers * GameValues.researchIncome);
-                        money.payCash(GameValues.maintenanceCosts);
+                        money.DailyPay();
                     }
                 }
 
@@ -121,7 +119,11 @@ namespace GameDesign
                 {
                     t.Update(mouseState);
                 }
-                cam.Update(keys, prevKeys, mouseState, prevMouseState);
+                foreach (Building b in GameValues.buildings)
+                {
+                    b.Update(mouseState);
+                }
+
                 money.Update(keys, prevKeys);
                 score.Update();
                 onhud = hud.Update(mouseState, prevMouseState, gameTime);
@@ -147,6 +149,7 @@ namespace GameDesign
                             break;
                         case GameState.zone:
                             buildingSelector.Update(mouseState, prevMouseState, SelectedTile);
+                            zoneCreator.Update(mouseState, prevMouseState, SelectedTile);
                             break;
                     }
                 }

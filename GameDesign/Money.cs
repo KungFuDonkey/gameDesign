@@ -60,6 +60,14 @@ namespace GameDesign
             spriteBatch.DrawString(GameValues.font, Cash.ToString(), new Vector2(moneyRectangle.Right - GameValues.font.MeasureString(Cash.ToString()).X, moneyRectangle.Center.Y - GameValues.font.MeasureString(Cash.ToString()).Y / 2) , moneyColor);
         }
 
+        public void DailyPay()
+        {
+            earnCash(GameValues.governmentSubsidy);
+            earnCash(GameValues.students * GameValues.studentIncome);
+            earnCash(GameValues.workers * GameValues.researchIncome);
+            payCash(GameValues.maintenanceCosts);
+        }
+
         public void earnCash(float amount)
         {
             Cash += amount;

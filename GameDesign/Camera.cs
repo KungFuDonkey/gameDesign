@@ -15,14 +15,18 @@ namespace GameDesign
         public int layer = 0;
         public int movespeed = 5;
         int zoomSpeed = 1;
+        public bool moving;
+
         public void Update(KeyboardState keyboardState, KeyboardState prevKeyBoardState, MouseState currMouseState, MouseState prevMouseState)
         {
+            moving = false;
             movespeed = 5 + GameValues.tileSize / 5;
             int move = 1;
             for(int i = 0; i < 2; i++)
             {
                 if (keyboardState.IsKeyDown(keys[i]))
                 {
+                    moving = true;
                     foreach (Tile t in GameValues.grid)
                     {
                         t.rectangle.Y += move * movespeed;
@@ -30,19 +34,22 @@ namespace GameDesign
                 }
                 if (keyboardState.IsKeyDown(keys[i + 2]))
                 {
-                    foreach(Tile t in GameValues.grid)
+                    moving = true;
+                    foreach (Tile t in GameValues.grid)
                     {
                         t.rectangle.X += move * movespeed;
                     }
                 }
                 if (keyboardState.IsKeyDown(keys[i + 4]) && !prevKeyBoardState.IsKeyDown(keys[i+4]))
                 {
+                    moving = true;
                     layer = layer + move > GameValues.maxHeight || layer + move < -1 ? layer : layer + move;
                 }
                 move *= -1;
             }
             if (currMouseState.ScrollWheelValue != prevMouseState.ScrollWheelValue)
             {
+                moving = true;
                 int tileSize = GameValues.tileSize;
                 if (tileSize > 15)
                 {
