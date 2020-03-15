@@ -22,7 +22,7 @@ namespace GameDesign
             color = GameValues.tileColors[(int)GameValues.selectedTile];
             if (mouseState.LeftButton == ButtonState.Released && prevMouseState.LeftButton == ButtonState.Pressed)
             {
-                List<Tile> query = (from t in GameValues.tiles where drawRectangle.Contains(t.rectangle.Location) && t.place == firstSelection.place && t.place == secondSelection.place && !t.occupied select t).ToList();
+                List<Tile> query = (from t in GameValues.grid.Cast<Tile>() where drawRectangle.Contains(t.rectangle.Location) && t.place == firstSelection.place && t.place == secondSelection.place && !t.occupied select t).ToList();
                 for (int i = 0; i < query.Count; i++)
                 {
                     switch (GameValues.selectedTile)

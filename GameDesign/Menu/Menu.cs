@@ -50,7 +50,7 @@ namespace GameDesign
             noButton = new Button(new Rectangle(new Point(Game1.viewport.X / 2 + 50, 475), new Point(buttonSize.X / 2, buttonSize.Y / 2)), "NO");
             exitButton = new Button(new Rectangle(new Point(Game1.viewport.X / 2 - buttonSize.X / 2, 600), buttonSize), "EXIT");
             loadgameButton = new Button(new Rectangle(new Point(150, 550), none), "");
-            newgameButton = new Button(new Rectangle(new Point(150, 350), buttonSize), "START GAME");
+            newgameButton = new Button(new Rectangle(new Point(150, 350), buttonSize), "START");
             savegameButton = new Button(new Rectangle(new Point(Game1.viewport.X - 150 - buttonSize.X, 350), none), "");
             applyButton = new Button(new Rectangle(new Point(Game1.viewport.X / 2 - buttonSize.X - 50, 750), buttonSize), "APPLY");
             cancelOptionsButton = new Button(new Rectangle(new Point(Game1.viewport.X / 2 + 50, 750), buttonSize), "CANCEL");

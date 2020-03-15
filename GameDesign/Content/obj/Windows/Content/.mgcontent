@@ -4,25 +4,27 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Buttons/ElevatorDown.png</File>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Buttons/ElevatorDownActive.png</File>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Buttons/ElevatorUp.png</File>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Buttons/ElevatorUpActive.png</File>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Buttons/EmptyButton.png</File>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Buttons/PopUp.png</File>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/euro-symbol.png</File>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Fonts/MenuFont.spritefont</File>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Fonts/SpelFont.spritefont</File>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Tile.png</File>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Title.png</File>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Hamer.png</File>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/UUlogo.png</File>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Yellowblock.png</File>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/ColorPlate.png</File>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Eraser.png</File>
-    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/White.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/ElevatorDown.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/ElevatorDownActive.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/ElevatorUp.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/ElevatorUpActive.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/EmptyButton.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/PopUp.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/ColorPlate.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Eraser.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/euro-symbol.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Fonts/MenuFont.spritefont</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Fonts/SpelFont.spritefont</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Hamer.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Tile.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Title.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/UUlogo.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Warning.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/White.png</File>
+    <File>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Yellowblock.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

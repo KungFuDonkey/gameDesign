@@ -13,7 +13,7 @@ namespace GameDesign
     {
         public List<Room> rooms = new List<Room>();
         public Room room;
-        public Rectangle drawRectangle = new Rectangle(0, 0, GameValues.tileSize, GameValues.tileSize);
+        public Rectangle drawRectangle = new Rectangle(new Point(), new Point(GameValues.tileSize));
         public float alpha = 0.8f, buildCosts;
         public int direction = -1;
         public int roomIndex = 0;
@@ -49,7 +49,7 @@ namespace GameDesign
             foreach(Tile t in room.layout)
             {
                 drawRectangle.Location = selectedRectangle.Location + t.rectangle.Location - room.middle;
-                drawRectangle.Size = new Point(GameValues.tileSize, GameValues.tileSize);
+                drawRectangle.Size = new Point(GameValues.tileSize);
                 t.Draw(spriteBatch, drawRectangle, alpha);
             }
             float move = direction * 0.01f;
@@ -100,8 +100,8 @@ namespace GameDesign
                 drawRectangle.Location = selectedRectangle.Location + t.rectangle.Location - room.middle;
                 try
                 {
-                    Tile oldtile = (from tile in GameValues.tiles where tile.rectangle.X == drawRectangle.X && tile.rectangle.Y == drawRectangle.Y && tile.place == Game1.cam.place select tile).First();
-                    if (oldtile.occupied)
+                    Tile oldtile = GameValues.grid[(drawRectangle.X - GameValues.grid[0, 0, Game1.cam.place].rectangle.X) / GameValues.tileSize, (drawRectangle.Y - GameValues.grid[0, 0, Game1.cam.place].rectangle.Y) / GameValues.tileSize, Game1.cam.place];
+                    if (oldtile.occupied && !(t.type == Type.building && oldtile.type == Type.building))
                     {
                         return true;
                     }
@@ -124,15 +124,16 @@ namespace GameDesign
             foreach (Tile t in room.layout)
             {
                 drawRectangle.Location = selectedRectangle.Location + t.rectangle.Location - room.middle;
-                Rectangle rectangle = new Rectangle(drawRectangle.X, drawRectangle.Y, GameValues.tileSize, GameValues.tileSize);
+                Rectangle rectangle = new Rectangle(new Point(drawRectangle.X, drawRectangle.Y), new Point(GameValues.tileSize));
+                Point gridPos = new Point((drawRectangle.X - GameValues.grid[0, 0, Game1.cam.place].rectangle.X) / GameValues.tileSize, (drawRectangle.Y - GameValues.grid[0, 0, Game1.cam.place].rectangle.Y) / GameValues.tileSize);
                 try
                 {
-                    Tile oldtile = (from tile in GameValues.tiles where tile.rectangle.X == drawRectangle.X && tile.rectangle.Y == drawRectangle.Y && tile.place == room.place select tile).First();
+                    Tile oldtile = GameValues.grid[gridPos.X, gridPos.Y, Game1.cam.place];
                     TileChange.setColorTile(oldtile,t.color,t.zone);
                 }
                 catch
                 {
-                    GameValues.tiles.Add(new ColorTile(rectangle, room.place, t.color, room.zone));
+                    GameValues.grid[gridPos.X, gridPos.Y, Game1.cam.place] = new ColorTile(rectangle, room.place, t.color, room.zone);
                 }
             }
             Game1.money.payCash(buildCosts);

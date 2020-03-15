@@ -20,7 +20,7 @@ namespace GameDesign
             color = GameValues.zoneColors[(int)GameValues.selectedZone];
             if (mouseState.LeftButton == ButtonState.Released && prevMouseState.LeftButton == ButtonState.Pressed)
             {
-                IEnumerable<Tile> query = from t in GameValues.tiles where drawRectangle.Contains(t.rectangle.Location) && t.place == firstSelection.place && t.place == secondSelection.place && t.type != Type.grass select t;
+                IEnumerable<Tile> query = from t in GameValues.grid.Cast<Tile>() where drawRectangle.Contains(t.rectangle.Location) && t.place == firstSelection.place && t.place == secondSelection.place && t.type == Type.building select t;
                 foreach(Tile t in query)
                 {
                     t.zone = GameValues.selectedZone;

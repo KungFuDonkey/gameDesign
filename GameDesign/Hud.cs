@@ -142,6 +142,7 @@ namespace GameDesign
             if (rectangle.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
             {
                 GameValues.selectedZone = zone;
+                GameValues.selectedBuildingType = GameValues.buildingTypes[(int)zone + 1];
             }
         }
         public void checkBuild(Rectangle rectangle, MouseState mouseState, MouseState prevMouseState)

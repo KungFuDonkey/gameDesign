@@ -17,6 +17,7 @@ namespace GameDesign
         Remove remove = new Remove();
         ZoneCreator zoneCreator = new ZoneCreator();
         TileCreator tileCreator = new TileCreator();
+        BuildingSelector buildingSelector = new BuildingSelector();
         public static Camera cam = new Camera();
         Phase currentPhase;
         public Timer gameTimer;
@@ -38,21 +39,22 @@ namespace GameDesign
         public static Point viewport = new Point(1280, 900);
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             Rectangle rect = new Rectangle(0,0,0,0);
-            for(int i = 0; i < GameValues.gridWidth; i++)
+            GameValues.grid = new Tile[GameValues.gridWidth, GameValues.gridHeight, 1];
+            int tileSize = GameValues.tileSize;
+            for (int x = 0; x < GameValues.gridWidth; x++)
             {
-                for(int j = 0; j < GameValues.gridHeight - 3; j++)
+                for (int y = 0; y < GameValues.gridHeight - 3; y++)
                 {
-                    rect = new Rectangle(i * GameValues.tileSize, j * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize);
-                    GameValues.tiles.Add(new Grass(rect,0));
+                    rect = new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize);
+                    GameValues.grid[x, y, 0] = new Grass(rect, 0);
                 }
-                rect = new Rectangle(i * GameValues.tileSize, (GameValues.gridHeight - 3) * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize);
-                GameValues.tiles.Add(new Pavement(rect,0));
-                for(int j = 2; j != 0; j--)
+                rect = new Rectangle(x * GameValues.tileSize, (GameValues.gridHeight - 3) * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize);
+                GameValues.grid[x, GameValues.gridHeight - 3, 0] = new Pavement(rect, 0);
+                for(int y = 2; y > 0; y--)
                 {
-                    rect = new Rectangle(i * GameValues.tileSize, (GameValues.gridHeight - j) * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize);
-                    GameValues.tiles.Add(new Road(rect,0));
+                    rect = new Rectangle(x * GameValues.tileSize, (GameValues.gridHeight - y) * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize);
+                    GameValues.grid[x, GameValues.gridHeight - y, 0] = new Road(rect, 0);
                 }
             }
             graphics.PreferredBackBufferWidth = viewport.X;
@@ -67,7 +69,6 @@ namespace GameDesign
         }
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             GameValues.font = Content.Load<SpriteFont>("Fonts/SpelFont");
             GameValues.hammer = Content.Load<Texture2D>("Hamer");
@@ -77,7 +78,7 @@ namespace GameDesign
             GameValues.colorplate = Content.Load<Texture2D>("ColorPlate");
             GameValues.remover = Content.Load<Texture2D>("Eraser");
             GameValues.colorSpetter = Content.Load<Texture2D>("White");
-            // TODO: use this.Content to load your game content here
+            GameValues.warning = Content.Load<Texture2D>("Warning");
         }
         protected override void UnloadContent()
         {
@@ -111,23 +112,26 @@ namespace GameDesign
             }
             else
             {
+                cam.Update(keys, prevKeys, mouseState, prevMouseState);
                 if (gameTimer.isPhaseOver())
                 {
                     currentPhase = gameTimer.getCurrentPhase();
                     if (currentPhase == Phase.morning)
                     {
-                        money.earnCash(GameValues.students * GameValues.studentIncome);
-                        money.payCash(GameValues.teachers * GameValues.teacherSalary);
-                        money.payCash(GameValues.staff * GameValues.staffSalary);
+                        money.DailyPay();
                     }
                 }
 
-                IEnumerable<Tile> query = from t in GameValues.tiles where t.place == cam.place select t;
+                IEnumerable<Tile> query = from t in GameValues.grid.Cast<Tile>() where t.place == cam.place select t;
                 foreach (Tile t in query)
                 {
                     t.Update(mouseState);
                 }
-                cam.Update(keys, prevKeys, mouseState, prevMouseState);
+                foreach (Building b in GameValues.buildings)
+                {
+                    b.Update(mouseState);
+                }
+
                 money.Update(keys, prevKeys);
                 score.Update();
                 onhud = hud.Update(mouseState, prevMouseState, gameTime);
@@ -152,6 +156,7 @@ namespace GameDesign
                         case GameState.select:
                             break;
                         case GameState.zone:
+                            buildingSelector.Update(mouseState, prevMouseState, SelectedTile);
                             zoneCreator.Update(mouseState, prevMouseState, SelectedTile);
                             break;
                     }
@@ -172,18 +177,22 @@ namespace GameDesign
             else
             {
                 GraphicsDevice.Clear(Color.Black);
-
-                IEnumerable<Tile> query = from t in GameValues.tiles where t.place == cam.place select t;
-                foreach (Tile t in query)
+                //IEnumerable<Tile> query = from t in GameValues.grid.Cast<Tile>() where t.place == cam.place select t;
+                foreach (Tile t in GameValues.grid)
                 {
                     t.Draw(spriteBatch, currentPhase);
                 }
                 if (GameValues.state == GameState.zone)
                 {
-                    foreach(Tile t in query)
+                    foreach(Tile t in GameValues.grid)
                     {
                         t.DrawZone(spriteBatch);
                     }
+                }
+
+                foreach (Building b in GameValues.buildings)
+                {
+                    b.Draw(spriteBatch);
                 }
 
                 if (!onhud)
@@ -207,7 +216,7 @@ namespace GameDesign
                         remove.Draw(spriteBatch, gameTime);
                         break;
                     case GameState.zone:
-                        zoneCreator.Draw(spriteBatch, gameTime);
+                        buildingSelector.Draw(spriteBatch, gameTime);
                         break;
                     }
                 }
