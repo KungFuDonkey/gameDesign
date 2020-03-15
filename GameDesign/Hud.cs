@@ -14,7 +14,7 @@ namespace GameDesign
         Rectangle verticalRectangle, horizontalRectangle, cornerRectangle, layerRectangle, indicatorRectangle, bottomRectangle;
         Rectangle buildRectangle, selectRectangle, removeRectangle, zoneRectangle;
         Rectangle[] zoneRectangles = new Rectangle[GameValues.zoneColors.Count()];
-        Rectangle otherBuildState;
+        Rectangle otherBuildState, addBuild;
         Rectangle[] allTiles = new Rectangle[GameValues.tileColors.Count()];
         float timer = 0.01f, TIMER = 0.01f;
         Vector2 drawpoint, DRAWPOINT;
@@ -30,6 +30,7 @@ namespace GameDesign
             removeRectangle = new Rectangle(-30, 300, 50, 50);
             zoneRectangle = new Rectangle(-30, 400, 50, 50);
             otherBuildState = new Rectangle(100, screenheight - 17, 50, 50);
+            addBuild = new Rectangle(200, screenheight - 17, 50, 50);
             int x = 80;
             foreach(Zone zone in Enum.GetValues(typeof(Zone))){
                 zoneRectangles[(int)zone] = new Rectangle(x, screenheight - 17, 50, 50);
@@ -71,6 +72,10 @@ namespace GameDesign
                             spriteBatch.Draw(GameValues.tileTex, allTiles[i], GameValues.tileColors[i]);
                         }
                     }
+                    else
+                    {
+                        spriteBatch.Draw(GameValues.tileTex, addBuild, Color.White);
+                    }
                     break;
             }
             for(int i = 0; i < 20; i++)
@@ -92,26 +97,51 @@ namespace GameDesign
         }
         public bool Update(MouseState mouseState, MouseState prevMouseState, GameTime gameTime)
         {
-            checkRectangle(buildRectangle, mouseState, prevMouseState, GameState.build);
-            checkRectangle(selectRectangle, mouseState, prevMouseState, GameState.select);
-            checkRectangle(removeRectangle, mouseState, prevMouseState, GameState.remove);
-            checkRectangle(zoneRectangle, mouseState, prevMouseState, GameState.zone);
+            if (click(buildRectangle, mouseState, prevMouseState))
+            {
+                GameValues.state = GameState.build;
+            }
+            else if(click(selectRectangle, mouseState, prevMouseState))
+            {
+                GameValues.state = GameState.select;
+            }
+            else if (click(removeRectangle, mouseState, prevMouseState))
+            {
+                GameValues.state = GameState.remove;
+            }
+            else if (click(zoneRectangle, mouseState, prevMouseState))
+            {
+                GameValues.state = GameState.zone;
+            }
             switch (GameValues.state)
             {
                 case GameState.zone:
                     for (int i = 0; i < zoneRectangles.Count(); ++i)
                     {
-                        checkZone(zoneRectangles[i], mouseState, prevMouseState, (Zone)i);
+                        if (click(zoneRectangles[i], mouseState, prevMouseState))
+                        {
+                            GameValues.selectedZone = (Zone)i;
+                        }
                     }
                     break;
                 case GameState.build:
-                    checkBuild(otherBuildState, mouseState, prevMouseState);
+                    if (click(otherBuildState, mouseState, prevMouseState))
+                    {
+                        GameValues.buildState = GameValues.buildState == BuildState.room ? BuildState.singleTile : BuildState.room;
+                    }
                     if(GameValues.buildState == BuildState.singleTile)
                     {
                         for(int i = 0; i < GameValues.tileColors.Count(); i++)
                         {
-                            checkTile(allTiles[i], mouseState, prevMouseState, (BuildTiles)i);
+                            if (click(allTiles[i], mouseState, prevMouseState))
+                            {
+                                GameValues.selectedTile = (BuildTiles)i;
+                            }
                         }
+                    }
+                    else
+                    {
+
                     }
                     break;
 
@@ -130,34 +160,9 @@ namespace GameDesign
             }
             return false;
         }
-        public void checkRectangle(Rectangle rectangle, MouseState mouseState, MouseState prevMouseState, GameState state)
-        { 
-            if (rectangle.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
-            {
-                GameValues.state = state;
-            }
-        }
-        public void checkZone(Rectangle rectangle, MouseState mouseState, MouseState prevMouseState, Zone zone)
+        private bool click(Rectangle rectangle, MouseState mouseState, MouseState prevMouseState)
         {
-            if (rectangle.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
-            {
-                GameValues.selectedZone = zone;
-                GameValues.selectedBuildingType = GameValues.buildingTypes[(int)zone + 1];
-            }
-        }
-        public void checkBuild(Rectangle rectangle, MouseState mouseState, MouseState prevMouseState)
-        {
-            if (rectangle.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
-            {
-                GameValues.buildState = GameValues.buildState == BuildState.room ? BuildState.singleTile : BuildState.room;
-            }
-        }
-        public void checkTile(Rectangle rectangle, MouseState mouseState, MouseState prevMouseState, BuildTiles tile)
-        {
-            if (rectangle.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
-            {
-                GameValues.selectedTile = tile;
-            }
+            return rectangle.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released;
         }
         public void slide(bool outward, GameTime gameTime)
         {
@@ -182,6 +187,7 @@ namespace GameDesign
             zoneRectangle.X += direction;
             bottomRectangle.Y -= direction;
             otherBuildState.Y -= direction;
+            addBuild.Y -= direction;
             for (int i = 0; i < zoneRectangles.Count(); ++i)
             {
                 zoneRectangles[i].Y -= direction;
