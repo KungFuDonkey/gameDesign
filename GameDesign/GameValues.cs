@@ -15,13 +15,13 @@ namespace GameDesign
         build,
         select,
         remove,
-        zone,
-        plus
+        zone
     }
     enum BuildState
     {
         room,
-        singleTile
+        singleTile,
+        newBuilding
     }
     enum BuildTiles //maybe roads aswell
     {

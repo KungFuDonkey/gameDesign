@@ -12,12 +12,13 @@ namespace GameDesign
     class Hud
     {
         Rectangle verticalRectangle, horizontalRectangle, cornerRectangle, layerRectangle, indicatorRectangle, bottomRectangle;
-        Rectangle buildRectangle, selectRectangle, removeRectangle, zoneRectangle, plusRectangle, plusXRectangle, plusYRectangle, minXRectangle, minYRectangle, plusTypeRectangle, minTypeRectangle, makeGridRectangle;
+        Rectangle buildRectangle, selectRectangle, removeRectangle, zoneRectangle, plusRectangle, plusXRectangle, plusYRectangle, minXRectangle, minYRectangle, plusTypeRectangle, 
+                                    minTypeRectangle, makeGridRectangle, popUpRectangle, newGridXRectangle, newGridYRectangle, newBuildingTypeRectangle;
         Rectangle[] zoneRectangles = new Rectangle[GameValues.zoneColors.Count()];
         Rectangle otherBuildState, addBuild;
         Rectangle[] allTiles = new Rectangle[GameValues.tileColors.Count()];
         float timer = 0.01f, TIMER = 0.01f;
-        Vector2 drawpoint, DRAWPOINT;
+        Vector2 drawpoint, DRAWPOINT, newGridXVector, newGridYVector, newBuildingTypeVector;
         int newGridX, newGridY, newBuildingType;
 
         public Hud(int screenwidth, int screenheight)
@@ -31,16 +32,22 @@ namespace GameDesign
             selectRectangle = new Rectangle(-30, 200, 50, 50);
             removeRectangle = new Rectangle(-30, 300, 50, 50);
             zoneRectangle = new Rectangle(-30, 400, 50, 50);
-            plusRectangle = new Rectangle(-30, 500, 50, 50);
+            plusRectangle = new Rectangle(100, screenheight - 17, 50, 50);
             plusXRectangle = new Rectangle(300, 500, 50, 50);
-            plusYRectangle = new Rectangle(300, 600, 50, 50);
+            plusYRectangle = new Rectangle(300, 570, 50, 50);
             minXRectangle = new Rectangle(150, 500, 50, 50);
-            minYRectangle = new Rectangle(150, 600, 50, 50);
-            plusTypeRectangle = new Rectangle(300, 700, 50, 50);
-            minTypeRectangle = new Rectangle(150, 700, 50, 50);
-            makeGridRectangle = new Rectangle(190, 800, 120, 50);
-            otherBuildState = new Rectangle(100, screenheight - 17, 50, 50);
-            addBuild = new Rectangle(200, screenheight - 17, 50, 50);
+            minYRectangle = new Rectangle(150, 570, 50, 50);
+            plusTypeRectangle = new Rectangle(350, 670, 50, 50);
+            minTypeRectangle = new Rectangle(100, 670, 50, 50);
+            makeGridRectangle = new Rectangle(190, 750, 120, 50);
+            popUpRectangle = new Rectangle(50, Game1.viewport.Y - 450, 400, 400);
+            newGridXRectangle = new Rectangle(200, 510, 100, 30);
+            newGridYRectangle = new Rectangle(200, 580, 100, 30);
+            newBuildingTypeRectangle = new Rectangle(150, 680, 200, 30);
+            newGridXVector = new Vector2(220, 515);
+            newGridYVector = new Vector2(220, 585);
+            otherBuildState = new Rectangle(200, screenheight - 17, 50, 50);
+            addBuild = new Rectangle(300, screenheight - 17, 50, 50);
             int x = 80;
             foreach(Zone zone in Enum.GetValues(typeof(Zone))){
                 zoneRectangles[(int)zone] = new Rectangle(x, screenheight - 17, 50, 50);
@@ -64,7 +71,6 @@ namespace GameDesign
             spriteBatch.Draw(GameValues.tileTex, selectRectangle, Color.Pink);
             spriteBatch.Draw(GameValues.remover, removeRectangle, Color.White);
             spriteBatch.Draw(GameValues.colorplate, zoneRectangle, Color.White);
-            spriteBatch.Draw(GameValues.plus, plusRectangle, Color.Black);
             spriteBatch.Draw(GameValues.tileTex, layerRectangle, Color.AliceBlue);
             switch (GameValues.state)
             {
@@ -76,33 +82,35 @@ namespace GameDesign
                     break;
                 case GameState.build:
                     spriteBatch.Draw(GameValues.tileTex, otherBuildState, Color.Black);
-                    if(GameValues.buildState == BuildState.singleTile)
+                    spriteBatch.Draw(GameValues.plus, plusRectangle, Color.White);
+                    if (GameValues.buildState == BuildState.singleTile)
                     {
                         for(int i = 0; i < GameValues.tileColors.Count(); ++i)
                         {
                             spriteBatch.Draw(GameValues.tileTex, allTiles[i], GameValues.tileColors[i]);
                         }
                     }
+                    else if (GameValues.buildState == BuildState.newBuilding)
+                    {
+                        spriteBatch.Draw(GameValues.popUp, popUpRectangle, Color.White);
+                        spriteBatch.Draw(GameValues.plusSign, plusXRectangle, Color.White);
+                        spriteBatch.Draw(GameValues.minSign, minXRectangle, Color.White);
+                        spriteBatch.Draw(GameValues.plusSign, plusYRectangle, Color.White);
+                        spriteBatch.Draw(GameValues.minSign, minYRectangle, Color.White);
+                        spriteBatch.Draw(GameValues.arrowSign, plusTypeRectangle, Color.White);
+                        spriteBatch.Draw(GameValues.arrowSign, minTypeRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+                        spriteBatch.Draw(GameValues.makeBuilding, makeGridRectangle, Color.White);
+                        spriteBatch.Draw(GameValues.tileTex, newGridXRectangle, Color.White);
+                        spriteBatch.DrawString(GameValues.font, "X = " + newGridX, newGridXVector, Color.Black);
+                        spriteBatch.Draw(GameValues.tileTex, newGridYRectangle, Color.White);
+                        spriteBatch.DrawString(GameValues.font, "Y = " + newGridY, newGridYVector, Color.Black);
+                        spriteBatch.Draw(GameValues.tileTex, newBuildingTypeRectangle, Color.White);
+                        spriteBatch.DrawString(GameValues.font, GameValues.buildingTypes[newBuildingType].ToString().Remove(0, 11), newBuildingTypeVector, Color.Black);
+                    }
                     else
                     {
                         spriteBatch.Draw(GameValues.tileTex, addBuild, Color.White);
                     }
-                    break;
-                case GameState.plus:
-                    spriteBatch.Draw(GameValues.popUp, new Rectangle(50, Game1.viewport.Y - 450, 400, 400), Color.White);
-                    spriteBatch.Draw(GameValues.plusSign, plusXRectangle, Color.White);
-                    spriteBatch.Draw(GameValues.minSign, minXRectangle, Color.White);
-                    spriteBatch.Draw(GameValues.plusSign, plusYRectangle, Color.White);
-                    spriteBatch.Draw(GameValues.minSign, minYRectangle, Color.White);
-                    spriteBatch.Draw(GameValues.arrowSign, plusTypeRectangle, Color.White);
-                    spriteBatch.Draw(GameValues.arrowSign, minTypeRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
-                    spriteBatch.Draw(GameValues.makeBuilding, makeGridRectangle, Color.White);
-                    spriteBatch.Draw(GameValues.tileTex, new Rectangle(200, 510, 100, 30), Color.White);
-                    spriteBatch.DrawString(GameValues.font, "X = " + newGridX, new Vector2(250, 525) - GameValues.font.MeasureString("X = " + newGridX), Color.Black);
-                    spriteBatch.Draw(GameValues.tileTex, new Rectangle(200, 610, 100, 30), Color.White);
-                    spriteBatch.DrawString(GameValues.font, "Y = " + newGridY, new Vector2(250, 625) - GameValues.font.MeasureString("Y = " + newGridY), Color.Black);
-                    spriteBatch.Draw(GameValues.tileTex, new Rectangle(200, 710, 100, 30), Color.White);
-                    spriteBatch.DrawString(GameValues.font, "Type = " + GameValues.buildingTypes[newBuildingType], new Vector2(250, 725) - GameValues.font.MeasureString("Type = " + GameValues.buildingTypes[newBuildingType]), Color.Black);
                     break;
             }
             for(int i = 0; i < 20; i++)
@@ -142,9 +150,10 @@ namespace GameDesign
             }
             else if (click(plusRectangle, mouseState, prevMouseState))
             {
-                GameValues.state = GameState.plus;
+                GameValues.buildState = BuildState.newBuilding;
                 newGridX = newGridY = 10;
                 newBuildingType = 1;
+                newBuildingTypeVector = new Vector2(250 - GameValues.font.MeasureString(GameValues.buildingTypes[newBuildingType].ToString().Remove(0, 11)).X / 2, 685);
             }
 
             switch (GameValues.state)
@@ -173,50 +182,52 @@ namespace GameDesign
                             }
                         }
                     }
+                    else if (GameValues.buildState == BuildState.newBuilding)
+                    {
+                        if (click(plusXRectangle, mouseState, prevMouseState) && newGridX < 30)
+                        {
+                            newGridX++;
+                        }
+                        else if (click(minXRectangle, mouseState, prevMouseState) && newGridX > 4)
+                        {
+                            newGridX--;
+                        }
+                        else if (click(plusYRectangle, mouseState, prevMouseState) && newGridY < 30)
+                        {
+                            newGridY++;
+                        }
+                        else if (click(minYRectangle, mouseState, prevMouseState) && newGridY > 4)
+                        {
+                            newGridY--;
+                        }
+                        else if (click(plusTypeRectangle, mouseState, prevMouseState))
+                        {
+                            newBuildingType++;
+                            if (newBuildingType >= GameValues.buildingTypes.Count)
+                            {
+                                newBuildingType = 1;
+                            }
+                            newBuildingTypeVector = new Vector2(250 - GameValues.font.MeasureString(GameValues.buildingTypes[newBuildingType].ToString().Remove(0, 11)).X / 2, 685);
+                        }
+                        else if (click(minTypeRectangle, mouseState, prevMouseState))
+                        {
+                            newBuildingType--;
+                            if (newBuildingType < 1)
+                            {
+                                newBuildingType = GameValues.buildingTypes.Count - 1;
+                            }
+                            newBuildingTypeVector = new Vector2(250 - GameValues.font.MeasureString(GameValues.buildingTypes[newBuildingType].ToString().Remove(0, 11)).X / 2, 685);
+                        }
+                        else if (click(makeGridRectangle, mouseState, prevMouseState))
+                        {
+                            //Call gridMaker
+                        }
+                    }
                     else
                     {
 
                     }
                     break;
-                case GameState.plus:
-                    if (click(plusXRectangle, mouseState, prevMouseState))
-                    {
-                        newGridX++;
-                    }
-                    else if (click(minXRectangle, mouseState, prevMouseState))
-                    {
-                        newGridX--;
-                    }
-                    else if (click(plusYRectangle, mouseState, prevMouseState))
-                    {
-                        newGridY++;
-                    }
-                    else if (click(minYRectangle, mouseState, prevMouseState))
-                    {
-                        newGridY--;
-                    }
-                    else if (click(plusTypeRectangle, mouseState, prevMouseState))
-                    {
-                        newBuildingType++;
-                        if (newBuildingType >= GameValues.buildingTypes.Count)
-                        {
-                            newBuildingType = 1;
-                        }
-                    }
-                    else if (click(minTypeRectangle, mouseState, prevMouseState))
-                    {
-                        newBuildingType--;
-                        if (newBuildingType < 1)
-                        {
-                            newBuildingType = GameValues.buildingTypes.Count - 1;
-                        }
-                    }
-                    else if (click(makeGridRectangle, mouseState, prevMouseState))
-                    {
-                        //Call gridMaker
-                    }
-                    break;
-
             }
             if (verticalRectangle.Contains(mouseState.Position) || bottomRectangle.Contains(mouseState.Position)) 
             {
@@ -257,7 +268,7 @@ namespace GameDesign
             selectRectangle.X += direction;
             removeRectangle.X += direction;
             zoneRectangle.X += direction;
-            plusRectangle.X += direction;
+            plusRectangle.Y -= direction;
             bottomRectangle.Y -= direction;
             otherBuildState.Y -= direction;
             addBuild.Y -= direction;
