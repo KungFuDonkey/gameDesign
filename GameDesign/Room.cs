@@ -49,91 +49,17 @@ namespace GameDesign
             {
                 foreach(char c in l)
                 {
-                    switch (c)
+                    if(c == ' ')
                     {
-                        case 'A':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place,Color.Aqua, zone));
-                            break;
-                        case 'B':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.Black, zone));
-                            break;
-                        case 'C':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.CadetBlue, zone));
-                            break;
-                        case 'D':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.DimGray, zone));
-                            break;
-                        case 'E':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.Chocolate, zone));
-                            break;
-                        case 'F':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.Fuchsia, zone));
-                            break;
-                        case 'G':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.DarkGreen, zone));
-                            break;
-                        case 'H':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.HotPink, zone));
-                            break;
-                        case 'I':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.Indigo, zone));
-                            break;
-                        case 'J':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.IndianRed, zone));
-                            break;
-                        case 'K':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.Khaki, zone));
-                            break;
-                        case 'L':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.Lavender, zone));
-                            break;
-                        case 'M':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.Magenta, zone));
-                            break;
-                        case 'N':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.Navy, zone));
-                            break;
-                        case 'O':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.Orange, zone));
-                            break;
-                        case 'P':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.PaleTurquoise, zone));
-                            break;
-                        case 'Q':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.PaleGoldenrod, zone));
-                            break;
-                        case 'R':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.Red, zone));
-                            break;
-                        case 'S':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.Silver, zone));
-                            break;
-                        case 'T':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.Teal, zone));
-                            break;
-                        case 'U':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.Sienna, zone));
-                            break;
-                        case 'V':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.Violet, zone));
-                            break;
-                        case 'W':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.White, zone));
-                            break;
-                        case 'X':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.Wheat, zone));
-                            break;
-                        case 'Y':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.Yellow, zone));
-                            break;
-                        case 'Z':
-                            layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, Color.YellowGreen, zone));
-                            break;
-                        case '#':
-                            layout.Add(new Enterance(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, zone));
-                            break;
-                        case ' ':
-                            break;
+                        continue;
+                    }
+                    else if(c == ' ')
+                    {
+                        layout.Add(new Enterance(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, zone));
+                    }
+                    else
+                    {
+                        layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, GameValues.buildTileColors[Array.IndexOf(GameValues.buildChars,c)], zone));
                     }
                     x += 1;
                     maxX = maxX < x ? x : maxX;
