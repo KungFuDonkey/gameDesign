@@ -40,8 +40,8 @@ namespace GameDesign
                 allTiles[i] = new Rectangle(100 * i + 200, screenheight - 17, 50, 50);
             }
             indicatorRectangle = new Rectangle(screenwidth - 44, 0, 41, 41);
-            drawpoint = new Vector2(screenwidth - 29, screenheight - 30);
-            DRAWPOINT = new Vector2(screenwidth - 29, screenheight - 30);
+            drawpoint = new Vector2(screenwidth - 29, screenheight - 60);
+            DRAWPOINT = new Vector2(screenwidth - 29, screenheight - 60);
         }
         public void draw(SpriteBatch spriteBatch)
         {
@@ -73,9 +73,9 @@ namespace GameDesign
                     }
                     break;
             }
-            for(int i = -1; i < 20; i++)
+            for(int i = 0; i < 20; i++)
             {
-                if (i == Game1.cam.layer)
+                if (i == Game1.cam.place)
                 {
                     indicatorRectangle.Y = (int)drawpoint.Y - 10;
                     spriteBatch.Draw(GameValues.tileTex, indicatorRectangle, Color.Blue);

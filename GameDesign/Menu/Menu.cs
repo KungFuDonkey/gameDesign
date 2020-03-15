@@ -222,22 +222,6 @@ namespace GameDesign
                     newMenuState = MenuState.Main;
                 }
             }
-            else if (savegameButton.clicked)
-            {
-                SaveSystem.SaveGame();
-            }
-            else if (loadgameButton.clicked)
-            {
-                GameValues.state = GameState.select;
-                GameData data =  SaveSystem.LoadGame();
-                int i = 0;
-                foreach (Tile t in GameValues.tiles)
-                {
-                    t.type = (Type)data.types[i];
-                    t.zone = (Zone)data.zones[i];
-                    i++;
-                }
-            }
         }
 
         public void Draw(SpriteBatch spriteBatch)

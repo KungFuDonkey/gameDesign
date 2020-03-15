@@ -6,7 +6,6 @@ using System.Linq;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using System.Diagnostics;
 
 namespace GameDesign
 {
@@ -101,8 +100,8 @@ namespace GameDesign
                 drawRectangle.Location = selectedRectangle.Location + t.rectangle.Location - room.middle;
                 try
                 {
-                    Tile oldtile = (from tile in GameValues.tiles where tile.rectangle.X == drawRectangle.X && tile.rectangle.Y == drawRectangle.Y && tile.layer == Game1.cam.layer select tile).First();
-                    if (oldtile.occupied && !(t.type == Type.wall && oldtile.type == Type.wall))
+                    Tile oldtile = (from tile in GameValues.tiles where tile.rectangle.X == drawRectangle.X && tile.rectangle.Y == drawRectangle.Y && tile.place == Game1.cam.place select tile).First();
+                    if (oldtile.occupied)
                     {
                         return true;
                     }
@@ -120,7 +119,7 @@ namespace GameDesign
         {
             if (!room.part)
             {
-                room.layer = Game1.cam.layer;
+                room.place = Game1.cam.place;
             }
             foreach (Tile t in room.layout)
             {
@@ -128,46 +127,13 @@ namespace GameDesign
                 Rectangle rectangle = new Rectangle(drawRectangle.X, drawRectangle.Y, GameValues.tileSize, GameValues.tileSize);
                 try
                 {
-                    Tile oldtile = (from tile in GameValues.tiles where tile.rectangle.X == drawRectangle.X && tile.rectangle.Y == drawRectangle.Y && tile.layer == room.layer select tile).First();
-                    switch (t.type)
-                    {
-                        case Type.wall:
-                            TileChange.setWall(oldtile);
-                            break;
-                        case Type.floor:
-                            TileChange.setFloor(oldtile);
-                            break;
-                        case Type.grass:
-                            break;
-                    }
+                    Tile oldtile = (from tile in GameValues.tiles where tile.rectangle.X == drawRectangle.X && tile.rectangle.Y == drawRectangle.Y && tile.place == room.place select tile).First();
+                    TileChange.setColorTile(oldtile,t.color,t.zone);
                 }
                 catch
                 {
-                    switch (t.type)
-                    {
-                        case Type.wall:
-                            GameValues.tiles.Add(new Wall(rectangle, room.layer, room.zone));
-                            break;
-                        case Type.floor:
-                            GameValues.tiles.Add(new Floor(rectangle, room.layer, room.zone));
-                            break;
-                        case Type.grass:
-                            break;
-                    }
+                    GameValues.tiles.Add(new ColorTile(rectangle, room.place, t.color, room.zone));
                 }
-                if(t.type == Type.wall || room.layer == -1)
-                {
-                    try
-                    {
-                        Tile oldtile = (from tile in GameValues.tiles where tile.rectangle.X == drawRectangle.X && tile.rectangle.Y == drawRectangle.Y && tile.layer == room.layer + 1 select tile).First();
-                        continue;
-                    }
-                    catch
-                    {
-
-                    }
-                }
-                GameValues.tiles.Add(new Ceiling(rectangle, room.layer + 1, room.zone));
             }
             Game1.money.payCash(buildCosts);
         }

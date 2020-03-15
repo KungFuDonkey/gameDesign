@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 namespace GameDesign
 {
-    class Pavement : Tile
+    class ColorTile:Tile
     {
-        public Pavement(Rectangle _rectangle, int _place)
+        public ColorTile(Rectangle _rectangle, int _place, Color _color, Zone _zone)
         {
             rectangle = _rectangle;
-            standardColor = Color.Gray;
-            color = Color.Gray;
-            walkable = true;
+            standardColor = color;
+            color = _color;
+            walkable = false;
             occupied = true;
             place = _place;
-            zone = Zone.Path;
-            type = Type.grass;
+            zone = _zone;
+            type = Type.building;
         }
     }
 }

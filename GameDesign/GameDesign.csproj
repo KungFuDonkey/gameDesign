@@ -45,7 +45,6 @@
     <Compile Include="Camera.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameValues.cs" />
-    <Compile Include="GameData.cs" />
     <Compile Include="Menu\LoadGameMenu.cs" />
     <Compile Include="Menu\Menu.cs" />
     <Compile Include="Menu\MainMenu.cs" />
@@ -58,21 +57,16 @@
     <Compile Include="Remove.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="RoomPreview.cs" />
-    <Compile Include="Save.cs" />
-    <Compile Include="SaveSystem.cs" />
     <Compile Include="ScoreSystem.cs" />
     <Compile Include="Selectors.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="TileChange.cs" />
     <Compile Include="TileCreator.cs" />
-    <Compile Include="Tiles\Ceiling.cs" />
-    <Compile Include="Tiles\Floor.cs" />
+    <Compile Include="Tiles\ColorTile.cs" />
     <Compile Include="Tiles\Grass.cs" />
     <Compile Include="Hud.cs" />
     <Compile Include="Tiles\Pavement.cs" />
     <Compile Include="Tiles\Road.cs" />
-    <Compile Include="Tiles\Stone.cs" />
-    <Compile Include="Tiles\Wall.cs" />
     <Compile Include="Timer.cs" />
     <Compile Include="ZoneCreator.cs" />
   </ItemGroup>

@@ -8,7 +8,7 @@ namespace GameDesign
 {
     class Road : Tile
     {
-        public Road(Rectangle _rectangle)
+        public Road(Rectangle _rectangle, int _place)
         {
             rectangle = _rectangle;
             standardColor = Color.DarkGray;
@@ -17,7 +17,7 @@ namespace GameDesign
             walkable = false;
             zone = Zone.Grass;
             type = Type.grass;
-            layer = 0;
+            place = _place;
         }
     }
 }

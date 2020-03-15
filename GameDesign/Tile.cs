@@ -20,11 +20,9 @@ namespace GameDesign
     }
     public enum Type
     {
+        building,
         grass,
-        wall,
-        floor,
-        ceiling,
-        Stone
+        pavement
     }
     public class Tile
     {
@@ -33,7 +31,7 @@ namespace GameDesign
         public Color standardColor;
         public Color drawColor;
         public Color color;
-        public int layer;
+        public int place;
         public bool walkable;
         public Zone zone;
         public bool occupied;
