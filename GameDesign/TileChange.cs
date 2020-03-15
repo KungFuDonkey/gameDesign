@@ -9,34 +9,12 @@ namespace GameDesign
 {
     static class TileChange
     {
-        public static void setWall(Tile tile)
-        {
-            tile.walkable = false;
-            tile.standardColor = Color.Brown;
-            tile.occupied = true;
-            tile.type = Type.wall;
-        }
-        public static void setFloor(Tile tile)
-        {
-            tile.walkable = true;
-            tile.standardColor = Color.Beige;
-            tile.occupied = true;
-            tile.type = Type.floor;
-        }
         public static void setGrass(Tile tile)
         {
             tile.walkable = true;
             tile.standardColor = Color.Green;
             tile.occupied = false;
             tile.type = Type.grass;
-            tile.zone = Zone.Grass;
-        }
-        public static void setCeiling(Tile tile)
-        {
-            tile.walkable = true;
-            tile.standardColor = Color.Gray;
-            tile.occupied = false;
-            tile.type = Type.ceiling;
             tile.zone = Zone.Grass;
         }
         public static void setRoad(Tile tile)
@@ -54,6 +32,15 @@ namespace GameDesign
             tile.occupied = true;
             tile.zone = Zone.Path;
             tile.type = Type.grass;
+        }
+        public static void setColorTile(Tile tile, Color color, Zone zone)
+        {
+            tile.walkable = false;
+            tile.standardColor = color;
+            tile.color = color;
+            tile.zone = zone;
+            tile.type = Type.building;
+            tile.occupied = true;
         }
     }
 }

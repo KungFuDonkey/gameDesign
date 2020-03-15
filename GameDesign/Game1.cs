@@ -46,19 +46,13 @@ namespace GameDesign
                 {
                     rect = new Rectangle(i * GameValues.tileSize, j * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize);
                     GameValues.tiles.Add(new Grass(rect,0));
-                    rect = new Rectangle(i * GameValues.tileSize, j * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize); //dont remove for different rectangle
-                    GameValues.tiles.Add(new Stone(rect, -1));
                 }
                 rect = new Rectangle(i * GameValues.tileSize, (GameValues.gridHeight - 3) * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize);
-                GameValues.tiles.Add(new Pavement(rect));
-                rect = new Rectangle(i * GameValues.tileSize, (GameValues.gridHeight - 3) * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize); //dont remove for different rectangle
-                GameValues.tiles.Add(new Stone(rect, -1));
+                GameValues.tiles.Add(new Pavement(rect,0));
                 for(int j = 2; j != 0; j--)
                 {
                     rect = new Rectangle(i * GameValues.tileSize, (GameValues.gridHeight - j) * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize);
-                    GameValues.tiles.Add(new Road(rect));
-                    rect = new Rectangle(i * GameValues.tileSize, (GameValues.gridHeight - j) * GameValues.tileSize, GameValues.tileSize, GameValues.tileSize); //dont remove for different rectangle
-                    GameValues.tiles.Add(new Stone(rect, -1));
+                    GameValues.tiles.Add(new Road(rect,0));
                 }
             }
             graphics.PreferredBackBufferWidth = viewport.X;
@@ -128,7 +122,7 @@ namespace GameDesign
                     }
                 }
 
-                IEnumerable<Tile> query = from t in GameValues.tiles where t.layer == cam.layer select t;
+                IEnumerable<Tile> query = from t in GameValues.tiles where t.place == cam.place select t;
                 foreach (Tile t in query)
                 {
                     t.Update(mouseState);
@@ -179,7 +173,7 @@ namespace GameDesign
             {
                 GraphicsDevice.Clear(Color.Black);
 
-                IEnumerable<Tile> query = from t in GameValues.tiles where t.layer == cam.layer select t;
+                IEnumerable<Tile> query = from t in GameValues.tiles where t.place == cam.place select t;
                 foreach (Tile t in query)
                 {
                     t.Draw(spriteBatch, currentPhase);

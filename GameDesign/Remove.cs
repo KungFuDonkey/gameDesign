@@ -20,34 +20,14 @@ namespace GameDesign
             base.Update(mouseState, prevMouseState, selectedTile);
             if (mouseState.LeftButton == ButtonState.Released && prevMouseState.LeftButton == ButtonState.Pressed)
             {
-                IEnumerable<Tile> query = from t in GameValues.tiles where drawRectangle.Contains(t.rectangle.Location) && t.layer == firstSelection.layer && t.layer == secondSelection.layer && t.type != Type.grass select t;
-                int count = query.Count();
-                for (int i = 0; i<count; ++i)
-                {
-                    if (hasCeiling(query.ElementAt(i)))
-                    {
-                        return;
-                    }
-                }
+                IEnumerable<Tile> query = from t in GameValues.tiles where drawRectangle.Contains(t.rectangle.Location) && t.place == firstSelection.place && t.place == secondSelection.place && t.type != Type.grass select t;
+                int count = query.Count(); //gets downed by 1 everytime query.elementat(0) is called on line 27
                 for(int i = 0; i<count; ++i)
                 {
                     Tile t = query.ElementAt(0);
-                    if (t.layer == 0)
+                    if (t.place == 0)
                     {
                         TileChange.setGrass(t);
-                    }
-                    else
-                    {
-                        TileChange.setCeiling(t);
-                    }
-                    try
-                    {
-                        Tile ceiling = (from x in GameValues.tiles where x.rectangle.X == t.rectangle.X && x.rectangle.Y == t.rectangle.Y && x.layer > t.layer select x).First();
-                        GameValues.tiles.Remove(ceiling);
-                    }
-                    catch
-                    {
-
                     }
                 }
                 drawRectangle.X = 0;
@@ -55,15 +35,6 @@ namespace GameDesign
                 drawRectangle.Width = 0;
                 drawRectangle.Height = 0;
             }
-        }
-        public bool hasCeiling(Tile selectedTile)
-        {
-            IEnumerable<Tile> query = from t in GameValues.tiles where t.rectangle.X == selectedTile.rectangle.X && t.rectangle.Y == selectedTile.rectangle.Y && t.layer > selectedTile.layer && t.type != Type.ceiling select t;
-            foreach(Tile t in query)
-            {
-                return true;
-            }
-            return false;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace GameDesign
     public class Camera
     {
         Keys[] keys = new Keys[6] { Keys.W, Keys.S, Keys.A, Keys.D, Keys.Up, Keys.Down };
-        public int layer = 0;
+        public int place = 0;
         public int movespeed = 5;
         int zoomSpeed = 1;
         public void Update(KeyboardState keyboardState, KeyboardState prevKeyBoardState, MouseState currMouseState, MouseState prevMouseState)
@@ -37,7 +37,7 @@ namespace GameDesign
                 }
                 if (keyboardState.IsKeyDown(keys[i + 4]) && !prevKeyBoardState.IsKeyDown(keys[i+4]))
                 {
-                    layer = layer + move > GameValues.maxHeight || layer + move < -1 ? layer : layer + move;
+                    place = place + move > GameValues.maxPlaces || place + move < 0 ? place : place + move;
                 }
                 move *= -1;
             }

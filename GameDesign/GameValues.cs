@@ -21,15 +21,13 @@ namespace GameDesign
         room,
         singleTile
     }
-    enum BuildTiles
+    enum BuildTiles //maybe roads aswell
     {
-        floor,
-        wall,
         pavement
     }
     static class GameValues
     {
-        public static int gridWidth = 200, gridHeight = 200, tileSize = 10, maxHeight = 20;
+        public static int gridWidth = 200, gridHeight = 200, tileSize = 10, maxPlaces = 20, currentMaxPlace = 1;
         public static int gridSize = gridHeight * gridWidth;
         public static Texture2D tileTex, hammer, colorplate, remover, colorSpetter;
         public static List<Tile> tiles = new List<Tile>();
@@ -37,10 +35,9 @@ namespace GameDesign
         public static SpriteFont font;
         public static Color[] zoneColors = new Color[6] { Color.Blue, Color.Gray, Color.Brown, Color.Black, Color.Green, Color.Green };
         public static Zone selectedZone = Zone.Lesson;
-        public static Color[] tileColors = new Color[3] { Color.Beige, Color.Brown, Color.Gray };//floor wall pavement
-        public static BuildTiles selectedTile = BuildTiles.floor;
+        public static Color[] tileColors = new Color[1] { Color.Gray };//floor wall pavement
         public static GameState state = GameState.menu;
-
+        public static BuildTiles selectedTile = BuildTiles.pavement;
         //Money
         public static int wallCost = 5;
         public static int floorCost = 1;
