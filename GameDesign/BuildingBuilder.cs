@@ -21,6 +21,8 @@ namespace GameDesign
         Rectangle bottomRectangle;
         Rectangle saveRectangle;
         Rectangle quitRectangle;
+        Vector2 savePoint;
+        Vector2 quitPoint;
         public BuildingBuilder(int _sizex, int _sizey, Zone _zone, int _screenwidth, int _screenheight)
         {
             sizex = _sizex;
@@ -41,6 +43,8 @@ namespace GameDesign
             bottomRectangle = new Rectangle(0, _screenheight - 20, _screenwidth, 50);
             saveRectangle = new Rectangle(_screenwidth - 50, _screenheight - 20, 50, 50);
             quitRectangle = new Rectangle(_screenwidth - 100, _screenheight - 20, 50, 50);
+            savePoint = new Vector2(_screenwidth - 45, _screenheight - 2);
+            quitPoint = new Vector2(_screenwidth - 95, _screenheight - 2);
             for(int i = 0; i < 28; i++)
             {
                 ColorBlocks[i] = new Rectangle(i * 40, _screenheight - 17, 40, 50);
@@ -59,8 +63,10 @@ namespace GameDesign
                 spriteBatch.Draw(GameValues.tileTex, ColorBlocks[i], GameValues.buildTileColors[i]);
             }
             spriteBatch.Draw(GameValues.remover, ColorBlocks[27], Color.White);
-            spriteBatch.Draw(GameValues.tileTex, saveRectangle, Color.Black);
-            spriteBatch.Draw(GameValues.tileTex, quitRectangle, Color.Purple);
+            spriteBatch.Draw(GameValues.tileTex, saveRectangle, Color.White);
+            spriteBatch.Draw(GameValues.tileTex, quitRectangle, Color.LightGray);
+            spriteBatch.DrawString(GameValues.font, "save", savePoint, Color.Black);
+            spriteBatch.DrawString(GameValues.font, "quit", quitPoint, Color.Black);
         }
         public void Update(MouseState mouseState, MouseState prevMouseState, GameTime gameTime)
         {
@@ -135,6 +141,8 @@ namespace GameDesign
             bottomRectangle.Y -= direction;
             saveRectangle.Y -= direction;
             quitRectangle.Y -= direction;
+            quitPoint.Y -= direction;
+            savePoint.Y -= direction;
             for (int i = 0; i < ColorBlocks.Count(); ++i)
             {
                 ColorBlocks[i].Y -= direction;
