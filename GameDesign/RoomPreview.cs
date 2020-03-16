@@ -42,6 +42,7 @@ namespace GameDesign
             }
            
         }
+        //creates a new room in the rooms list
         public void newRoom(string _path)
         {
             rooms.Add(new Room(_path));

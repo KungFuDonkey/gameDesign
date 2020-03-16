@@ -150,10 +150,17 @@ namespace GameDesign
             }
             else if (click(plusRectangle, mouseState, prevMouseState))
             {
-                GameValues.buildState = BuildState.newBuilding;
-                newGridX = newGridY = 10;
-                newBuildingType = 1;
-                newBuildingTypeVector = new Vector2(250 - GameValues.font.MeasureString(GameValues.buildingTypes[newBuildingType].ToString().Remove(0, 11)).X / 2, 685);
+                if(GameValues.buildState == BuildState.newBuilding)
+                {
+                    GameValues.buildState = BuildState.room;
+                }
+                else
+                {
+                    GameValues.buildState = BuildState.newBuilding;
+                    newGridX = newGridY = 10;
+                    newBuildingType = 1;
+                    newBuildingTypeVector = new Vector2(250 - GameValues.font.MeasureString(GameValues.buildingTypes[newBuildingType].ToString().Remove(0, 11)).X / 2, 685);
+                }
             }
 
             switch (GameValues.state)
@@ -220,13 +227,9 @@ namespace GameDesign
                         }
                         else if (click(makeGridRectangle, mouseState, prevMouseState))
                         {
-                            //Call gridMaker
+                            Game1.buildingBuilder = new BuildingBuilder(newGridX, newGridY, (Zone)newBuildingType, 1280, 900);
+                            GameValues.state = GameState.editor;
                         }
-                    }
-                    else
-                    {
-                        Game1.buildingBuilder = new BuildingBuilder(newGridX, newGridY, (Zone)newBuildingType, 1280, 900);
-                        GameValues.state = GameState.editor;
                     }
                     break;
             }

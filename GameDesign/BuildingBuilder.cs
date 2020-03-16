@@ -20,6 +20,7 @@ namespace GameDesign
         Rectangle[] ColorBlocks = new Rectangle[28];
         Rectangle bottomRectangle;
         Rectangle saveRectangle;
+        Rectangle quitRectangle;
         public BuildingBuilder(int _sizex, int _sizey, Zone _zone, int _screenwidth, int _screenheight)
         {
             sizex = _sizex;
@@ -38,7 +39,8 @@ namespace GameDesign
                 }
             }
             bottomRectangle = new Rectangle(0, _screenheight - 20, _screenwidth, 50);
-            saveRectangle = new Rectangle(_screenwidth - 100, _screenheight - 20, 100, 50);
+            saveRectangle = new Rectangle(_screenwidth - 50, _screenheight - 20, 50, 50);
+            quitRectangle = new Rectangle(_screenwidth - 100, _screenheight - 20, 50, 50);
             for(int i = 0; i < 28; i++)
             {
                 ColorBlocks[i] = new Rectangle(i * 40, _screenheight - 17, 40, 50);
@@ -58,6 +60,7 @@ namespace GameDesign
             }
             spriteBatch.Draw(GameValues.remover, ColorBlocks[27], Color.White);
             spriteBatch.Draw(GameValues.tileTex, saveRectangle, Color.Black);
+            spriteBatch.Draw(GameValues.tileTex, quitRectangle, Color.Purple);
         }
         public void Update(MouseState mouseState, MouseState prevMouseState, GameTime gameTime)
         {
@@ -93,6 +96,12 @@ namespace GameDesign
             {
                 SaveBuilding.save(save, sizex, sizey, zone);
                 GameValues.state = GameState.build;
+                GameValues.buildState = BuildState.room;
+            }
+            else if(quitRectangle.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
+            {
+                GameValues.state = GameState.build;
+                GameValues.buildState = BuildState.room;
             }
             if (bottomRectangle.Contains(mouseState.Position))
             {
@@ -125,6 +134,7 @@ namespace GameDesign
         {
             bottomRectangle.Y -= direction;
             saveRectangle.Y -= direction;
+            quitRectangle.Y -= direction;
             for (int i = 0; i < ColorBlocks.Count(); ++i)
             {
                 ColorBlocks[i].Y -= direction;
