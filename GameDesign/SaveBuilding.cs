@@ -8,7 +8,7 @@ namespace GameDesign
 {
     public static class SaveBuilding
     {
-        public static void save(char[,] save, int size, Type type)
+        public static void save(char[,] save, int sizex, int sizey, Zone zone)
         {
             string directory = Directory.GetCurrentDirectory();
             directory = directory.Remove(directory.Length - 22);
@@ -17,10 +17,10 @@ namespace GameDesign
             string path = Path.Combine(directory, "Rooms//room" + amount.ToString() + ".txt");
             amount++;
             List<string> Save = new List<string>();
-            for(int y = 0; y < size; y++)
+            for(int y = 0; y < sizey; y++)
             {
                 string line = "";
-                for(int x = 0; x < size; x++)
+                for(int x = 0; x < sizex; x++)
                 {
                     line += save[x, y];
                 }
@@ -28,6 +28,7 @@ namespace GameDesign
             }
             File.WriteAllLines(amountpath, new string[]{ amount.ToString()});
             File.WriteAllLines(path, Save.ToArray());
+            Game1.roomPreview.newRoom(path);
         }
     }
 }

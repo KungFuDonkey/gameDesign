@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BuildingBuilder.cs" />
     <Compile Include="BuildingSelector.cs" />
     <Compile Include="Building\BuildingType.cs" />
     <Compile Include="Building\Building.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Remove.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="RoomPreview.cs" />
+    <Compile Include="SaveBuilding.cs" />
     <Compile Include="Tiles\Enterance.cs" />
     <Compile Include="ScoreSystem.cs" />
     <Compile Include="Selectors.cs" />

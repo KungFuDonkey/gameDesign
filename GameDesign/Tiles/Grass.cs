@@ -13,8 +13,8 @@ namespace GameDesign
         public Grass(Rectangle _rectangle, int _place)
         {
             rectangle = _rectangle;
-            standardColor = Color.Green;
-            color = Color.Green;
+            standardColor = Color.ForestGreen;
+            color = Color.ForestGreen;
             walkable = false;
             place = _place;
             zone = Zone.Grass;

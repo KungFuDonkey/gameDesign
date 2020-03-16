@@ -13,7 +13,7 @@ namespace GameDesign
         public static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public static Tile SelectedTile;
-        RoomPreview roomPreview = new RoomPreview();
+        public static RoomPreview roomPreview = new RoomPreview();
         Remove remove = new Remove();
         ZoneCreator zoneCreator = new ZoneCreator();
         TileCreator tileCreator = new TileCreator();
@@ -119,12 +119,12 @@ namespace GameDesign
             }
             else if(GameValues.state == GameState.editor)
             {
-                cam.Update(keys, prevKeys, mouseState, prevMouseState);
-                buildingBuilder.Update(mouseState, prevMouseState);
+                cam.Update(keys, prevKeys, mouseState, prevMouseState, buildingBuilder.grid);
+                buildingBuilder.Update(mouseState, prevMouseState, gameTime);
             }
             else
             {
-                cam.Update(keys, prevKeys, mouseState, prevMouseState);
+                cam.Update(keys, prevKeys, mouseState, prevMouseState, GameValues.grid);
                 if (gameTimer.isPhaseOver())
                 {
                     currentPhase = gameTimer.getCurrentPhase();
@@ -188,7 +188,7 @@ namespace GameDesign
             }
             else if(GameValues.state == GameState.editor)
             {
-                GraphicsDevice.Clear(Color.Black);
+                GraphicsDevice.Clear(Color.Green);
                 buildingBuilder.Draw(spriteBatch);
             }
             else

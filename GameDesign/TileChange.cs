@@ -12,7 +12,7 @@ namespace GameDesign
         public static void setGrass(Tile tile)
         {
             tile.walkable = true;
-            tile.standardColor = Color.Green;
+            tile.standardColor = Color.ForestGreen;
             tile.occupied = false;
             tile.type = Type.grass;
             tile.zone = Zone.Grass;

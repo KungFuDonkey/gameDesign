@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace GameDesign
 {
-    class RoomPreview
+    public class RoomPreview
     {
         public List<Room> rooms = new List<Room>();
         public Room room;
@@ -33,16 +33,21 @@ namespace GameDesign
                 try
                 {
                     path = Path.Combine(directory, "Rooms//room" + i.ToString() + ".txt");
-                    rooms.Add(new Room(path));
+                    newRoom(path);
                 }
                 catch
                 {
 
                 }
             }
+           
+        }
+        public void newRoom(string _path)
+        {
+            rooms.Add(new Room(_path));
+            roomIndex = 0;
             room = rooms[roomIndex];
         }
-
         //draws the current room to the screen over the grid
         public void Draw(SpriteBatch spriteBatch, Rectangle selectedRectangle)
         {

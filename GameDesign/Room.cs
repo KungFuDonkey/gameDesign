@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameDesign
 {
-    class Room
+    public class Room
     {
         public Zone zone;
         public int place, rotation = 0, walls, floors;
@@ -49,17 +49,13 @@ namespace GameDesign
             {
                 foreach(char c in l)
                 {
-                    if(c == ' ')
-                    {
-                        continue;
-                    }
-                    else if(c == ' ')
+                    if(c == '#')
                     {
                         layout.Add(new Enterance(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, zone));
                     }
-                    else
+                    else if(c != ' ')
                     {
-                        layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, GameValues.buildTileColors[Array.IndexOf(GameValues.buildChars,c)], zone));
+                        layout.Add(new ColorTile(new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize), place, GameValues.buildTileColors[Array.IndexOf(GameValues.buildChars, c)], zone));
                     }
                     x += 1;
                     maxX = maxX < x ? x : maxX;

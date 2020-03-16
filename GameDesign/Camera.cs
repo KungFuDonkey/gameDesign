@@ -17,7 +17,7 @@ namespace GameDesign
         int zoomSpeed = 1;
         public bool moving;
 
-        public void Update(KeyboardState keyboardState, KeyboardState prevKeyBoardState, MouseState currMouseState, MouseState prevMouseState)
+        public void Update(KeyboardState keyboardState, KeyboardState prevKeyBoardState, MouseState currMouseState, MouseState prevMouseState, Tile[,,] grid)
         {
             moving = false;
             movespeed = 5 + GameValues.tileSize / 5;
@@ -27,7 +27,7 @@ namespace GameDesign
                 if (keyboardState.IsKeyDown(keys[i]))
                 {
                     moving = true;
-                    foreach (Tile t in GameValues.grid)
+                    foreach (Tile t in grid)
                     {
                         t.rectangle.Y += move * movespeed;
                     }
@@ -35,7 +35,7 @@ namespace GameDesign
                 if (keyboardState.IsKeyDown(keys[i + 2]))
                 {
                     moving = true;
-                    foreach (Tile t in GameValues.grid)
+                    foreach (Tile t in grid)
                     {
                         t.rectangle.X += move * movespeed;
                     }
@@ -47,17 +47,6 @@ namespace GameDesign
                 }
                 move *= -1;
             }
-            if(GameValues.state == GameState.editor)
-            {
-                Zoom(keyboardState, prevKeyBoardState, currMouseState, prevMouseState, Game1.buildingBuilder.grid);
-            }
-            else
-            {
-                Zoom(keyboardState, prevKeyBoardState, currMouseState, prevMouseState, GameValues.grid);
-            }
-        }
-        public void Zoom(KeyboardState keyboardState, KeyboardState prevKeyBoardState, MouseState currMouseState, MouseState prevMouseState, Tile[,,] grid)
-        {
             if (currMouseState.ScrollWheelValue != prevMouseState.ScrollWheelValue)
             {
                 moving = true;

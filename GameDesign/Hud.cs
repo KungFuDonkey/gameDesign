@@ -225,7 +225,8 @@ namespace GameDesign
                     }
                     else
                     {
-
+                        Game1.buildingBuilder = new BuildingBuilder(newGridX, newGridY, (Zone)newBuildingType, 1280, 900);
+                        GameValues.state = GameState.editor;
                     }
                     break;
             }

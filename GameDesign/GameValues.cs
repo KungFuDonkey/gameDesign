@@ -16,6 +16,7 @@ namespace GameDesign
         select,
         remove,
         zone,
+        plus,
         editor
     }
     enum BuildState
@@ -58,11 +59,11 @@ namespace GameDesign
             Color.IndianRed,
             Color.Khaki,
             Color.Lavender,
-            Color.Magenta,
+            Color.Gold,
             Color.Navy,
             Color.Orange,
-            Color.PaleTurquoise,
-            Color.PaleGoldenrod,
+            Color.MistyRose,
+            Color.Goldenrod,
             Color.Red,
             Color.Silver,
             Color.Teal,
@@ -73,7 +74,7 @@ namespace GameDesign
             Color.Yellow,
             Color.YellowGreen,
             Color.Gray,
-            Color.Green
+            Color.ForestGreen
         };
         public static char[] buildChars = new char[28]
         {
