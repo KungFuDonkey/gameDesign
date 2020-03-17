@@ -74,7 +74,7 @@ namespace GameDesign
             spriteBatch.Draw(GameValues.tileTex, quitRectangle, Color.LightGray);
             spriteBatch.DrawString(GameValues.font, "save", savePoint, Color.Black);
             spriteBatch.DrawString(GameValues.font, "quit", quitPoint, Color.Black);
-            spriteBatch.DrawString(GameValues.font, "ent", enterancePoint, Color.Black);
+            spriteBatch.Draw(GameValues.door, enterancePoint, Color.White);
             spriteBatch.DrawString(GameValues.font, currentError, errorPoint, Color.Black);
         }
         public void Update(MouseState mouseState, MouseState prevMouseState, GameTime gameTime)

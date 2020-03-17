@@ -12,24 +12,28 @@ namespace GameDesign
 {
     public class NPC
     {
+        int direction = 1;
+        Random rng = new Random();
         List<Node> gridNodes;
-        List<Node> openlist;
+        Heap<Node> openlist;
         List<Node> path;
         Node startNode;
         Node targetNode;
-        Point location = new Point(0, 0);
-        Point oldlocation = new Point();
+        Point location, oldLocation;
+        Point targetLocation;
 
-        public Rectangle drawRectangle = new Rectangle(20, 20, GameValues.tileSize, GameValues.tileSize);
-        bool walking = false;
+
+        public Rectangle drawRectangle = new Rectangle(0, 0, GameValues.tileSize, GameValues.tileSize);
+        bool walking = false, calculating = false, start = false;
         int steps = 0;
         float timer = 0;
+
         public void Update(KeyboardState keys, KeyboardState prevKeys, GameTime gameTime)
         {
             drawRectangle.Size = new Point(GameValues.tileSize, GameValues.tileSize);
             if (keys.IsKeyDown(Keys.Enter) && !prevKeys.IsKeyDown(Keys.Enter))
             {
-                walkToWards(50, 50, gameTime);
+                start = true; 
             }
             if (walking)
             {
@@ -42,57 +46,106 @@ namespace GameDesign
                 else if (timer > 1)
                 {
                     steps++;
+                    oldLocation = location;
                     timer = 0;
                 }
-                oldlocation = location;
                 location = new Point(path[steps].x, path[steps].y);
+                if(location.X - oldLocation.X > 0)
+                {
+                    direction = 1;
+                }
+                else if(location.X - oldLocation.X < 0)
+                {
+                    direction = 2;
+                }
+                else if(location.Y - oldLocation.Y > 0)
+                {
+                    direction = 3;
+                }
+                else
+                {
+                    direction = 4;
+                }
                 drawRectangle = GameValues.grid[location.X, location.Y, 0].rectangle;
             }
+            else if (calculating)
+            {
+                PathFinding();
+            }
+            else if(start)
+            {
+                location = decideNextLocation();
+                targetLocation = decideNextLocation();
+                walkToWards(targetLocation.X, targetLocation.Y);
+            }
+        }
+
+        public Point decideNextLocation()
+        {
+            List<Tile> entrances = new List<Tile>();
+            foreach (Tile t in GameValues.grid)
+            {
+                if (t.enterance)
+                {
+                    entrances.Add(t);
+                }
+            }
+            return entrances[rng.Next(0, entrances.Count)].gridPos;
+           
         }
 
         public void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.Draw(GameValues.student, drawRectangle, Color.White);
+            if(direction == 1)
+            {
+                spritebatch.Draw(GameValues.student_right, drawRectangle, Color.White);
+            }
+            else if(direction == 2)
+            {
+                spritebatch.Draw(GameValues.student_left, drawRectangle, Color.White);
+            }
+            else if (direction == 3)
+            {
+                spritebatch.Draw(GameValues.student_down, drawRectangle, Color.White);
+            }
+            else
+            {
+                spritebatch.Draw(GameValues.student_up, drawRectangle, Color.White);
+            }
         }
 
-        private void walkToWards(int xDest, int yDest, GameTime gameTime)
+        private void walkToWards(int xDest, int yDest)
         {
             if (!walking)
             {
-                drawRectangle.X = location.X * GameValues.tileSize;
-                drawRectangle.Y = location.Y * GameValues.tileSize;
-                path = PathFinding(location, new Point(xDest, yDest));
+                gridNodes = GameValues.TileNodes();
+                openlist = new Heap<Node>(GameValues.gridSize);
+                
+                startNode = (from T in gridNodes where T.x == location.X && T.y == location.Y select T).First();
+                targetNode = (from T in gridNodes where T.x == xDest && T.y == yDest select T).First();
+                startNode.gCost = 0;
+                startNode.fCost = 0;
+                openlist.Add(startNode);
+
                 steps = 0;
                 timer = 0;
-                walking = true;
+                calculating = true;
             }
         }
-        private List<Node> PathFinding(Point startLocation, Point targetLocation)
+        private void PathFinding()
         {
-            gridNodes = GameValues.TileNodes();
-            startNode = (from T in gridNodes where T.x == startLocation.X && T.y == startLocation.Y select T).First();
-            startNode.gCost = 0;
-            startNode.fCost = 0;
 
-            targetNode = (from T in gridNodes where T.x == targetLocation.X && T.y == targetLocation.Y select T).First();
-
-            openlist = new List<Node>();
-            List<Node> path = new List<Node>();
-
-            openlist.Add(startNode);
-
-            while (openlist.Count > 0)
+            if (openlist.Count > 0)
             {
-                Node node = (from n in openlist select n).OrderBy(x => x.fCost).ThenBy(x => x.hCost).First();
+                Node node = openlist.RemoveFirst();
 
                 if (node == targetNode)
                 {
-                    path = RetracePath(startNode, targetNode);
-                    walking = false;
-                    return path;
+                    path = RetracePath(startNode, node);
+                    calculating = false;
+                    walking = true;
                 }
                 Debug.WriteLine("x:" + node.x + " y:" + node.y + " gCost:" + node.gCost);
-                openlist.Remove(node);
                 Tile tile = GameValues.grid[node.x, node.y, 0];
                 tile.standardColor = Color.Red;
 
@@ -116,9 +169,10 @@ namespace GameDesign
                     }
                 }
             }
-            return null;
 
         }
+
+
 
         int GetDistance(Node nodeA, Node nodeB)
         {
@@ -134,7 +188,7 @@ namespace GameDesign
         List<Node> RetracePath(Node startNode, Node endNode)
         {
             List<Node> path = new List<Node>();
-            Node currentNode = (from n in openlist where n.x == endNode.x && n.y == endNode.y select n).First();
+            Node currentNode = endNode;
 
             while (currentNode != startNode)
             {

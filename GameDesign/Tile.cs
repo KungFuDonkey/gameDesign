@@ -76,10 +76,6 @@ namespace GameDesign
                 color = drawColor;
             }
         }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(GameValues.tileTex, rectangle, color);
-        }
 
         public void Draw(SpriteBatch spriteBatch, Phase currentPhase)
         {
