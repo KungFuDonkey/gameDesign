@@ -14,8 +14,9 @@ namespace GameDesign
         public Tile[,,] grid;
         char selectedTile = ' ';
         char[,] save;
+        string currentError;
         Zone zone;
-        int sizex, sizey, screenheight;
+        int sizex, sizey, screenheight, Tilesize;
         float timer = 0.01f, TIMER = 0.01f;
         Rectangle[] ColorBlocks = new Rectangle[28];
         Rectangle bottomRectangle;
@@ -23,8 +24,11 @@ namespace GameDesign
         Rectangle quitRectangle;
         Vector2 savePoint;
         Vector2 quitPoint;
-        public BuildingBuilder(int _sizex, int _sizey, Zone _zone, int _screenwidth, int _screenheight)
+        Vector2 errorPoint;
+        Vector2 enterancePoint;
+        public BuildingBuilder(int _sizex, int _sizey, Zone _zone, int _screenwidth, int _screenheight, int tileSizeSave)
         {
+            Tilesize = tileSizeSave;
             sizex = _sizex;
             sizey = _sizey;
             save = new char[_sizex, _sizey];
@@ -45,11 +49,14 @@ namespace GameDesign
             quitRectangle = new Rectangle(_screenwidth - 100, _screenheight - 20, 50, 50);
             savePoint = new Vector2(_screenwidth - 45, _screenheight - 2);
             quitPoint = new Vector2(_screenwidth - 95, _screenheight - 2);
+            errorPoint = new Vector2(_screenwidth / 2 - 45, 20);
+            enterancePoint = new Vector2(1045, _screenheight - 2);
             for(int i = 0; i < 28; i++)
             {
                 ColorBlocks[i] = new Rectangle(i * 40, _screenheight - 17, 40, 50);
             }
             screenheight = _screenheight;
+            currentError = "There is no enterance";
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -67,6 +74,8 @@ namespace GameDesign
             spriteBatch.Draw(GameValues.tileTex, quitRectangle, Color.LightGray);
             spriteBatch.DrawString(GameValues.font, "save", savePoint, Color.Black);
             spriteBatch.DrawString(GameValues.font, "quit", quitPoint, Color.Black);
+            spriteBatch.DrawString(GameValues.font, "ent", enterancePoint, Color.Black);
+            spriteBatch.DrawString(GameValues.font, currentError, errorPoint, Color.Black);
         }
         public void Update(MouseState mouseState, MouseState prevMouseState, GameTime gameTime)
         {
@@ -88,6 +97,7 @@ namespace GameDesign
                     {
                         save[x, y] = selectedTile;
                         t.standardColor = GameValues.buildTileColors[Array.IndexOf(GameValues.buildChars, selectedTile)];
+                        currentError = check();
                     }
                 }
             }
@@ -100,12 +110,17 @@ namespace GameDesign
             }
             if(saveRectangle.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
             {
-                SaveBuilding.save(save, sizex, sizey, zone);
-                GameValues.state = GameState.build;
-                GameValues.buildState = BuildState.room;
+                if (check() == "")
+                {
+                    SaveBuilding.save(save, sizex, sizey, zone);
+                    GameValues.tileSize = Tilesize;
+                    GameValues.state = GameState.build;
+                    GameValues.buildState = BuildState.room;
+                }
             }
             else if(quitRectangle.Contains(mouseState.Position) && mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
             {
+                GameValues.tileSize = Tilesize;
                 GameValues.state = GameState.build;
                 GameValues.buildState = BuildState.room;
             }
@@ -143,9 +158,77 @@ namespace GameDesign
             quitRectangle.Y -= direction;
             quitPoint.Y -= direction;
             savePoint.Y -= direction;
+            enterancePoint.Y -= direction;
             for (int i = 0; i < ColorBlocks.Count(); ++i)
             {
                 ColorBlocks[i].Y -= direction;
+            }
+        }
+        public string check()
+        {
+            string normalBlock = "There are no normal blocks";
+            string enterance = "There is no enterance";
+            for(int y = 0; y < sizey; y++)
+            {
+                for(int x = 0; x < sizex; x++)
+                {
+                    if(save[x,y] != ' ')
+                    {
+                        int missingblocks = 0;
+                        if (save[x, y] == '#')
+                            enterance = "";
+                        else
+                            normalBlock = "";
+                        if (x != 0)
+                        {
+                            if (save[x - 1, y] == ' ')
+                                missingblocks++;
+                        }
+                        else
+                        {
+                            missingblocks++;
+                        }
+                        if (x != sizex - 1)
+                        {
+                            if (save[x + 1, y] == ' ')
+                                missingblocks++;
+                        }
+                        else
+                        {
+                            missingblocks++;
+                        }
+                        if (y != 0)
+                        {
+                            if (save[x, y - 1] == ' ')
+                                missingblocks++;
+                        }
+                        else
+                        {
+                            missingblocks++;
+                        }
+                        if (y != sizey - 1)
+                        {
+                            if (save[x, y + 1] == ' ')
+                                missingblocks++;
+                        }
+                        else
+                        {
+                            missingblocks++;
+                        }
+                        if (missingblocks == 4)
+                        {
+                            return "There is a standalone block";
+                        }
+                    }
+                }
+            }
+            if(normalBlock != "")
+            {
+                return normalBlock;
+            }
+            else
+            {
+                return enterance;
             }
         }
     }

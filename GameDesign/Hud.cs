@@ -227,7 +227,7 @@ namespace GameDesign
                         }
                         else if (click(makeGridRectangle, mouseState, prevMouseState))
                         {
-                            Game1.buildingBuilder = new BuildingBuilder(newGridX, newGridY, (Zone)newBuildingType, 1280, 900);
+                            Game1.buildingBuilder = new BuildingBuilder(newGridX, newGridY, (Zone)newBuildingType, 1280, 900, GameValues.tileSize);
                             GameValues.state = GameState.editor;
                         }
                     }
