@@ -29,6 +29,18 @@ namespace GameDesign
 
         public void Update()
         {
+            UpdateValues();
+            CalculateScore();
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(GameValues.tileTex, scoreRectangle, Color.White);
+            spriteBatch.DrawString(GameValues.font, score.ToString(), drawStringVector, scoreColor);
+        }
+
+        void CalculateScore()
+        {
             if (GameValues.students > 0)
             {
                 studentGrades = ((studentPerformance + studentProductivity) / 2 - (100 - workerProductivity)) * happiness / 80;
@@ -64,15 +76,24 @@ namespace GameDesign
                 scoreColor = Color.Black;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void UpdateValues()
         {
-            spriteBatch.Draw(GameValues.tileTex, scoreRectangle, Color.White);
-            spriteBatch.DrawString(GameValues.font, score.ToString(), drawStringVector, scoreColor);
-        }
-
-        public void addResearchScore(int amount)
-        {
-            researchScore += amount;
+            GameValues.students = 0;
+            GameValues.workers = 0;
+            foreach (Tile t in GameValues.grid)
+            {
+                if (t.buildingType.capIncrease)
+                {
+                    if (t.buildingType.forStudents)
+                    {
+                        GameValues.students += t.buildingType.capacity;
+                    }
+                    else
+                    {
+                        GameValues.workers += t.buildingType.capacity;
+                    }
+                }
+            }
         }
     }
 }
