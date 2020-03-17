@@ -137,11 +137,11 @@ namespace GameDesign
                     Tile oldtile = GameValues.grid[gridPos.X, gridPos.Y, Game1.cam.place];
                     if (t.enterance)
                     {
-                        TileChange.setEnterance(oldtile, t.zone);
+                        TileChange.setEnterance(oldtile, t.zone, room.buildingType);
                     }
                     else
                     {
-                        TileChange.setColorTile(oldtile, t.color, t.zone);
+                        TileChange.setColorTile(oldtile, t.color, room.buildingType);
                     }
                 }
                 catch

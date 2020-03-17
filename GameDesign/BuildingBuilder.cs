@@ -15,7 +15,7 @@ namespace GameDesign
         char selectedTile = ' ';
         char[,] save;
         string currentError;
-        Zone zone;
+        int buildingType;
         int sizex, sizey, screenheight, Tilesize;
         float timer = 0.01f, TIMER = 0.01f;
         Rectangle[] ColorBlocks = new Rectangle[28];
@@ -26,14 +26,14 @@ namespace GameDesign
         Vector2 quitPoint;
         Vector2 errorPoint;
         Vector2 enterancePoint;
-        public BuildingBuilder(int _sizex, int _sizey, Zone _zone, int _screenwidth, int _screenheight, int tileSizeSave)
+        public BuildingBuilder(int _sizex, int _sizey, int _buildingType, int _screenwidth, int _screenheight, int tileSizeSave)
         {
             Tilesize = tileSizeSave;
             sizex = _sizex;
             sizey = _sizey;
             save = new char[_sizex, _sizey];
             grid = new Tile[_sizex, _sizey, 1];
-            zone = _zone;
+            buildingType = _buildingType;
             GameValues.tileSize = 10;
             int tileSize = GameValues.tileSize;
             for(int y = 0; y < sizey; y++)
@@ -112,7 +112,7 @@ namespace GameDesign
             {
                 if (check() == "")
                 {
-                    SaveBuilding.save(save, sizex, sizey, zone);
+                    SaveBuilding.save(save, sizex, sizey, buildingType);
                     GameValues.tileSize = Tilesize;
                     GameValues.state = GameState.build;
                     GameValues.buildState = BuildState.room;

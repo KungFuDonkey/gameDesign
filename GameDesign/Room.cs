@@ -13,13 +13,13 @@ namespace GameDesign
     public class Room
     {
         public Zone zone;
+        public BuildingType buildingType;
         public int place, rotation = 0, walls, floors;
         int size, width, height;
         public Point middle;
         public List<Tile> layout;
         public string path;
         public bool part;
-
         public Room(string path)
         {
             this.path = path;
@@ -41,7 +41,7 @@ namespace GameDesign
             floors = 0;
             layout = new List<Tile>();
             List<string> lines = File.ReadAllLines(path).ToList();
-            zone = (Zone)int.Parse(lines.ElementAt(0));
+            buildingType = GameValues.buildingTypes[int.Parse(lines[0])];
             lines.RemoveAt(0);
             int x = 0, maxX = 0;
             int y = 0;

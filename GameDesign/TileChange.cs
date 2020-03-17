@@ -36,22 +36,23 @@ namespace GameDesign
             tile.type = Type.pavement;
             tile.enterance = false;
         }
-        public static void setColorTile(Tile tile, Color color, Zone zone)
+        public static void setColorTile(Tile tile, Color color, BuildingType buildingType)
         {
             tile.walkable = false;
             tile.standardColor = color;
             tile.color = color;
-            tile.zone = zone;
+            tile.buildingType = buildingType;
             tile.type = Type.building;
             tile.occupied = true;
             tile.enterance = false;
         }
-        public static void setEnterance(Tile tile, Zone zone)
+        public static void setEnterance(Tile tile, Zone zone, BuildingType buildingType)
         {
             tile.walkable = true;
             tile.standardColor = Color.Gray;
             tile.color = Color.Gray;
             tile.zone = zone;
+            tile.buildingType = buildingType;
             tile.type = Type.pavement;
             tile.occupied = true;
             tile.enterance = true;
