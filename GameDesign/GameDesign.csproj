@@ -55,6 +55,8 @@
     <Compile Include="Menu\OptionsMenu.cs" />
     <Compile Include="Menu\PauseMenu.cs" />
     <Compile Include="Money.cs" />
+    <Compile Include="Node.cs" />
+    <Compile Include="NPC.cs" />
     <Compile Include="OptionsValues.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

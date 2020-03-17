@@ -34,7 +34,7 @@ namespace GameDesign
         public static int gridWidth = 200, gridHeight = 200, tileSize = 10, maxPlaces = 20, currentMaxPlace = 1;
         public static Tile[,,] grid;
         public static int gridSize = gridHeight * gridWidth;
-        public static Texture2D tileTex, hammer, colorplate, remover, colorSpetter, warning, plus, popUp, plusSign, minSign, arrowSign, makeBuilding;
+        public static Texture2D tileTex, hammer, colorplate, remover, colorSpetter, warning, plus, popUp, plusSign, minSign, arrowSign, makeBuilding, student;
         public static BuildState buildState = BuildState.room;
         public static SpriteFont font;
         public static Color[] zoneColors = new Color[6] { Color.Blue, Color.Gray, Color.Brown, Color.Black, Color.Green, Color.Yellow };
@@ -174,6 +174,45 @@ namespace GameDesign
                 done.AddRange(neighbours);
             }
         }
+
+        public static List<Node> TileNodes()
+        {
+            List<Node> nodes = new List<Node>();
+            for (int x = 0; x < gridWidth; x++)
+            {
+                for (int y = 0; y < gridHeight; y++)
+                {
+                    
+                    if(grid[x,y,0].walkable)
+                    {
+                        nodes.Add(new Node(x, y));
+                    }
+                    
+                }
+            }
+            return nodes;
+        }
+
+
+        public static List<Node> GetNeighbours(List<Node> grid, Node n)
+        {
+            List<Node> neighbours = new List<Node>();
+            for (int x = -1; x <= 1; x++)
+            {
+                for (int y = -1; y <= 1; y++)
+                {
+                    if (x == 0 && y == 0)
+                        continue;
+                    IEnumerable<Node> query = (from T in grid where T.x == n.x + x && T.y == n.y + y select T);
+                    foreach (Node t in query)
+                    {
+                        neighbours.Add(t);
+                    }
+                }
+            }
+            return neighbours;
+        }
+
 
         public static int maintenanceCosts
         {

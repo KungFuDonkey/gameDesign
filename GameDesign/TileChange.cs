@@ -11,7 +11,7 @@ namespace GameDesign
     {
         public static void setGrass(Tile tile)
         {
-            tile.walkable = true;
+            tile.walkable = false;
             tile.standardColor = Color.ForestGreen;
             tile.occupied = false;
             tile.type = Type.grass;
