@@ -18,7 +18,6 @@ namespace GameDesign
         TileCreator tileCreator = new TileCreator();
         BuildingSelector buildingSelector = new BuildingSelector();
         public static Camera cam = new Camera();
-        public NPC npc = new NPC();
         public List<NPC> nPCs = new List<NPC>();
 
         Phase currentPhase;
@@ -42,7 +41,9 @@ namespace GameDesign
         public static Point viewport = new Point(1280, 900);
         protected override void Initialize()
         {
+            NPC npc = new NPC();
             nPCs.Add(npc);
+            
             Rectangle rect = new Rectangle(0,0,0,0);
             GameValues.grid = new Tile[GameValues.gridWidth, GameValues.gridHeight, 1];
             int tileSize = GameValues.tileSize;
@@ -89,7 +90,12 @@ namespace GameDesign
             GameValues.minSign = Content.Load<Texture2D>("Buttons/minSign");
             GameValues.arrowSign = Content.Load<Texture2D>("Buttons/arrowSign");
             GameValues.makeBuilding = Content.Load<Texture2D>("Buttons/makeBuilding");
-            GameValues.student = Content.Load<Texture2D>("player_side");
+            GameValues.student_right = Content.Load<Texture2D>("Student_Right");
+            GameValues.student_left = Content.Load<Texture2D>("Student_Left");
+            GameValues.student_up = Content.Load<Texture2D>("Student_Up");
+            GameValues.student_down = Content.Load<Texture2D>("Student_Down");
+
+
         }
         protected override void UnloadContent()
         {
@@ -128,6 +134,10 @@ namespace GameDesign
             }
             else
             {
+                while ((GameValues.walkAbleTiles()) > nPCs.Count * 50)
+                {
+                    nPCs.Add(new NPC());
+                }
                 foreach(NPC n in nPCs)
                 {
                     n.Update(keys, prevKeys, gameTime);

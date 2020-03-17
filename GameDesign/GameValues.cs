@@ -34,7 +34,7 @@ namespace GameDesign
         public static int gridWidth = 200, gridHeight = 200, tileSize = 10, maxPlaces = 20, currentMaxPlace = 1;
         public static Tile[,,] grid;
         public static int gridSize = gridHeight * gridWidth;
-        public static Texture2D tileTex, hammer, colorplate, remover, colorSpetter, warning, plus, popUp, plusSign, minSign, arrowSign, makeBuilding, student;
+        public static Texture2D tileTex, hammer, colorplate, remover, colorSpetter, warning, plus, popUp, plusSign, minSign, arrowSign, makeBuilding, student_right, student_left, student_up, student_down;
         public static BuildState buildState = BuildState.room;
         public static SpriteFont font;
         public static Color[] zoneColors = new Color[6] { Color.Blue, Color.Gray, Color.Brown, Color.Black, Color.Green, Color.Yellow };
@@ -213,6 +213,18 @@ namespace GameDesign
             return neighbours;
         }
 
+        public static int walkAbleTiles()
+        {
+            int counter = 0;
+            foreach (Tile t in grid)
+            {
+                if (t.walkable)
+                {
+                    counter++;
+                }
+            }
+            return counter;
+        }
 
         public static int maintenanceCosts
         {

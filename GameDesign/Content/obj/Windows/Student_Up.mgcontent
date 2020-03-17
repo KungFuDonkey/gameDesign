@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Buttons/ElevatorDown.png</SourceFile>
-  <SourceTime>2020-03-16T17:47:09.5456565+01:00</SourceTime>
-  <DestFile>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/bin/Windows/Buttons/ElevatorDown.xnb</DestFile>
-  <DestTime>2020-03-17T14:58:39.4816123+01:00</DestTime>
+  <SourceFile>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Student_Up.png</SourceFile>
+  <SourceTime>2020-03-17T14:50:50.1311446+01:00</SourceTime>
+  <DestFile>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/bin/Windows/Student_Up.xnb</DestFile>
+  <DestTime>2020-03-17T14:58:40.3301092+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T16:05:36+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
