@@ -76,7 +76,6 @@
     <Compile Include="Tiles\Pavement.cs" />
     <Compile Include="Tiles\Road.cs" />
     <Compile Include="Timer.cs" />
-    <Compile Include="ZoneCreator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

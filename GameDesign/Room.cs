@@ -40,8 +40,9 @@ namespace GameDesign
             walls = 0;
             floors = 0;
             layout = new List<Tile>();
-            zone = Zone.Break;
             List<string> lines = File.ReadAllLines(path).ToList();
+            zone = (Zone)int.Parse(lines.ElementAt(0));
+            lines.RemoveAt(0);
             int x = 0, maxX = 0;
             int y = 0;
             int tileSize = GameValues.tileSize;

@@ -15,7 +15,6 @@ namespace GameDesign
         public static Tile SelectedTile;
         public static RoomPreview roomPreview = new RoomPreview();
         Remove remove = new Remove();
-        ZoneCreator zoneCreator = new ZoneCreator();
         TileCreator tileCreator = new TileCreator();
         BuildingSelector buildingSelector = new BuildingSelector();
         public static Camera cam = new Camera();
@@ -178,7 +177,6 @@ namespace GameDesign
                             break;
                         case GameState.zone:
                             buildingSelector.Update(mouseState, prevMouseState, SelectedTile);
-                            zoneCreator.Update(mouseState, prevMouseState, SelectedTile);
                             break;
                     }
                 }

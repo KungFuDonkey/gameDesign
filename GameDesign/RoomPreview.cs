@@ -70,7 +70,7 @@ namespace GameDesign
         //updates the input of the player leftbutton = build, E and Q = switching between rooms, rightbutton = rotation
         public void Update(KeyboardState keyBoardState, KeyboardState prevKeyboardState, MouseState mouseState, MouseState prevMouseState, Rectangle selectedRectangle)
         {
-            room.setValues(rooms[roomIndex].path);
+            room.setValues(room.path);
             for (int i = 0; i < room.rotation; i++)
             {
                 room.rotate();
@@ -135,7 +135,14 @@ namespace GameDesign
                 try
                 {
                     Tile oldtile = GameValues.grid[gridPos.X, gridPos.Y, Game1.cam.place];
-                    TileChange.setColorTile(oldtile,t.color,t.zone);
+                    if (t.enterance)
+                    {
+                        TileChange.setEnterance(oldtile, t.zone);
+                    }
+                    else
+                    {
+                        TileChange.setColorTile(oldtile, t.color, t.zone);
+                    }
                 }
                 catch
                 {

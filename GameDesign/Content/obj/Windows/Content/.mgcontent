@@ -27,8 +27,10 @@
     <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Warning.png</File>
     <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/White.png</File>
     <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Yellowblock.png</File>
+    <File>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/player_side.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

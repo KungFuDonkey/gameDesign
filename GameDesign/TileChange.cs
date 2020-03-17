@@ -46,5 +46,15 @@ namespace GameDesign
             tile.occupied = true;
             tile.enterance = false;
         }
+        public static void setEnterance(Tile tile, Zone zone)
+        {
+            tile.walkable = true;
+            tile.standardColor = Color.Gray;
+            tile.color = Color.Gray;
+            tile.zone = zone;
+            tile.type = Type.pavement;
+            tile.occupied = true;
+            tile.enterance = true;
+        }
     }
 }

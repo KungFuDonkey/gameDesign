@@ -14,7 +14,6 @@ namespace GameDesign
         Rectangle verticalRectangle, horizontalRectangle, cornerRectangle, layerRectangle, indicatorRectangle, bottomRectangle;
         Rectangle buildRectangle, selectRectangle, removeRectangle, zoneRectangle, plusRectangle, plusXRectangle, plusYRectangle, minXRectangle, minYRectangle, plusTypeRectangle, 
                                     minTypeRectangle, makeGridRectangle, popUpRectangle, newGridXRectangle, newGridYRectangle, newBuildingTypeRectangle;
-        Rectangle[] zoneRectangles = new Rectangle[GameValues.zoneColors.Count()];
         Rectangle otherBuildState, addBuild;
         Rectangle[] allTiles = new Rectangle[GameValues.tileColors.Count()];
         float timer = 0.01f, TIMER = 0.01f;
@@ -49,10 +48,6 @@ namespace GameDesign
             otherBuildState = new Rectangle(200, screenheight - 17, 50, 50);
             addBuild = new Rectangle(300, screenheight - 17, 50, 50);
             int x = 80;
-            foreach(Zone zone in Enum.GetValues(typeof(Zone))){
-                zoneRectangles[(int)zone] = new Rectangle(x, screenheight - 17, 50, 50);
-                x += 100;
-            }
             for(int i = 0; i < GameValues.tileColors.Count(); ++i)
             {
                 allTiles[i] = new Rectangle(100 * i + 200, screenheight - 17, 50, 50);
@@ -74,12 +69,6 @@ namespace GameDesign
             spriteBatch.Draw(GameValues.tileTex, layerRectangle, Color.AliceBlue);
             switch (GameValues.state)
             {
-                case GameState.zone:
-                    for (int i = 0; i < zoneRectangles.Count(); ++i)
-                    {
-                        spriteBatch.Draw(GameValues.colorSpetter, zoneRectangles[i], GameValues.zoneColors[i]);
-                    }
-                    break;
                 case GameState.build:
                     spriteBatch.Draw(GameValues.tileTex, otherBuildState, Color.Black);
                     spriteBatch.Draw(GameValues.plus, plusRectangle, Color.White);
@@ -165,15 +154,6 @@ namespace GameDesign
 
             switch (GameValues.state)
             {
-                case GameState.zone:
-                    for (int i = 0; i < zoneRectangles.Count(); ++i)
-                    {
-                        if (click(zoneRectangles[i], mouseState, prevMouseState))
-                        {
-                            GameValues.selectedZone = (Zone)i;
-                        }
-                    }
-                    break;
                 case GameState.build:
                     if (click(otherBuildState, mouseState, prevMouseState))
                     {
@@ -276,10 +256,6 @@ namespace GameDesign
             bottomRectangle.Y -= direction;
             otherBuildState.Y -= direction;
             addBuild.Y -= direction;
-            for (int i = 0; i < zoneRectangles.Count(); ++i)
-            {
-                zoneRectangles[i].Y -= direction;
-            }
             for (int i = 0; i < allTiles.Count(); ++i)
             {
                 allTiles[i].Y -= direction;
