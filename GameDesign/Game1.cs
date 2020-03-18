@@ -27,8 +27,10 @@ namespace GameDesign
         public static ScoreSystem score;
         public static BuildingBuilder buildingBuilder;
         Hud hud;
-        bool onhud; 
-
+        bool onhud;
+        bool message = false;
+        string smessage = "";
+        Vector2 messagePoint = new Vector2(500, 400);
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -110,6 +112,11 @@ namespace GameDesign
             GameValues.student_up = Content.Load<Texture2D>("Student_Up");
             GameValues.student_down = Content.Load<Texture2D>("Student_Down");
             GameValues.cursor = Content.Load<Texture2D>("Computer_Cursor");
+            GameValues.forbidden = Content.Load<Texture2D>("forbidden");
+            GameValues.Road = Content.Load<Texture2D>("Road");
+            GameValues.BBG = Content.Load<Texture2D>("BBG");
+
+
         }
         protected override void UnloadContent()
         {
@@ -126,11 +133,10 @@ namespace GameDesign
             {
                 return;
             }
-            else
-            {
-                keys = Keyboard.GetState();
-                mouseState = Mouse.GetState();
-            }
+            
+            keys = Keyboard.GetState();
+            mouseState = Mouse.GetState();
+            
             if (keys.IsKeyDown(Keys.Escape) && prevKeys.IsKeyUp(Keys.Escape))
             {
                 if (GameValues.state != GameState.menu)
@@ -144,6 +150,9 @@ namespace GameDesign
                 }
             }
 
+            //Game speed controls
+            handleGameTimeControls();
+
             if (GameValues.state == GameState.menu)
             {
                 menu.Update(keys, prevKeys, mouseState, prevMouseState, this);
@@ -152,19 +161,28 @@ namespace GameDesign
             {
                 cam.Update(keys, prevKeys, mouseState, prevMouseState, buildingBuilder.grid);
                 buildingBuilder.Update(mouseState, prevMouseState, gameTime);
+                if (GameValues.firstBuildingBuild)
+                {
+                    smessage = "To build press the color buttons on the bottom";
+                    message = true;
+                    GameValues.firstBuildingBuild = false;
+                }
             }
             else
             {
-                /*
-                while ((GameValues.walkAbleTiles()) > nPCs.Count * 50)
+                if (GameValues.showNPCs)
                 {
-                    nPCs.Add(new NPC());
+                    while ((GameValues.students > nPCs.Count * 120))
+                    {
+                        Debug.WriteLine(GameValues.students);
+                        nPCs.Add(new NPC());
+                    }
+                    foreach (NPC n in nPCs)
+                    {
+                        n.Update(keys, prevKeys, gameTime);
+                    }
                 }
-                foreach(NPC n in nPCs)
-                {
-                    n.Update(keys, prevKeys, gameTime);
-                }
-                */
+
                 cam.Update(keys, prevKeys, mouseState, prevMouseState, GameValues.grid);
                 if (gameTimer.isPhaseOver())
                 {
@@ -196,23 +214,57 @@ namespace GameDesign
                             switch (GameValues.buildState)
                             {
                                 case BuildState.room:
+                                    if (GameValues.firstBuild)
+                                    {
+                                        smessage = "Press E and Q for different buildings \nPress the black button for roads";
+                                        message = true;
+                                        GameValues.firstBuild = false;
+                                    }
                                     roomPreview.Update(keys, prevKeys, mouseState, prevMouseState, SelectedTile.rectangle);
                                     break;
                                 case BuildState.singleTile:
+                                    if (GameValues.firstRoad)
+                                    {
+                                        smessage = "Select tiles to change them to roads \nPress the gray button for buildings";
+                                        message = true;
+                                        GameValues.firstRoad = false;
+                                    }
                                     tileCreator.Update(mouseState, prevMouseState, SelectedTile);
                                     break;
                             }
                             break;
                         case GameState.remove:
+                            if (GameValues.firstRemove)
+                            {
+                                smessage = "Select tiles to remove them";
+                                message = true;
+                                GameValues.firstRemove = false;
+                            }
                             remove.Update(mouseState, prevMouseState, SelectedTile);
                             break;
                         case GameState.select:
+                            if (GameValues.firstTime)
+                            {
+                                smessage = "Press shift to speed up time \nPress control to slow down time";
+                                message = true;
+                                GameValues.firstTime = false;
+                            }
                             break;
                         case GameState.zone:
+                            if (GameValues.firstZone)
+                            {
+                                smessage = "Select buildings to change their type";
+                                message = true;
+                                GameValues.firstZone = false;
+                            }
                             buildingSelector.Update(mouseState, prevMouseState, SelectedTile);
                             break;
                     }
                 }
+            }
+            if(mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
+            {
+                message = false;
             }
             prevKeys = keys;
             prevMouseState = mouseState;
@@ -247,10 +299,12 @@ namespace GameDesign
                     }
 
                 }
-
-                foreach(NPC n in nPCs)
+                if (GameValues.showNPCs)
                 {
-                    n.Draw(spriteBatch);
+                    foreach (NPC n in nPCs)
+                    {
+                        n.Draw(spriteBatch);
+                    }
                 }
                 foreach (Building b in GameValues.buildings)
                 {
@@ -286,8 +340,28 @@ namespace GameDesign
                 money.Draw(spriteBatch);
                 score.Draw(spriteBatch);
             }
+            if (message)
+            {
+                spriteBatch.DrawString(GameValues.font, smessage, messagePoint, Color.Black);
+            }
             spriteBatch.End();
             base.Draw(gameTime);
         }
+        private void handleGameTimeControls()
+        {
+            if (keys.IsKeyDown(Keys.LeftShift) && prevKeys.IsKeyUp(Keys.LeftShift))
+            {
+                gameTimer.increaseGameSpeed();
+            }
+            if (keys.IsKeyDown(Keys.LeftControl) && prevKeys.IsKeyUp(Keys.LeftControl))
+            {
+                gameTimer.decreaseGameSpeed();
+            }
+            if (keys.IsKeyDown(Keys.Space) && prevKeys.IsKeyUp(Keys.Space))
+            {
+                gameTimer.togglePause();
+            }
+        }
     }
+
 }

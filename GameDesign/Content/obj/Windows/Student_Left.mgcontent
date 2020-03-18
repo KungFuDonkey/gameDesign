@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Student_Left.png</SourceFile>
-  <SourceTime>2020-03-17T15:40:17.290758+01:00</SourceTime>
-  <DestFile>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/bin/Windows/Student_Left.xnb</DestFile>
-  <DestTime>2020-03-17T15:42:50.5052155+01:00</DestTime>
+  <SourceFile>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Student_Left.png</SourceFile>
+  <SourceTime>2020-03-17T14:46:14.5096168+01:00</SourceTime>
+  <DestFile>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/bin/Windows/Student_Left.xnb</DestFile>
+  <DestTime>2020-03-18T15:00:51.6548832+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T16:05:36+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

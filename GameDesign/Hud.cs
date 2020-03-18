@@ -12,7 +12,7 @@ namespace GameDesign
     class Hud
     {
         Rectangle verticalRectangle, horizontalRectangle, cornerRectangle, layerRectangle, indicatorRectangle, bottomRectangle;
-        Rectangle buildRectangle, selectRectangle, removeRectangle, zoneRectangle, plusRectangle, plusXRectangle, plusYRectangle, minXRectangle, minYRectangle, plusTypeRectangle, 
+        Rectangle buildRectangle, selectRectangle, removeRectangle, NPCRectangle, plusRectangle, plusXRectangle, plusYRectangle, minXRectangle, minYRectangle, plusTypeRectangle, 
                                     minTypeRectangle, makeGridRectangle, popUpRectangle, newGridXRectangle, newGridYRectangle, newBuildingTypeRectangle;
         Rectangle otherBuildState, addBuild;
         Rectangle[] allTiles = new Rectangle[GameValues.tileColors.Count()];
@@ -30,7 +30,7 @@ namespace GameDesign
             buildRectangle = new Rectangle(-30, 100, 50, 50);
             selectRectangle = new Rectangle(-30, 200, 50, 50);
             removeRectangle = new Rectangle(-30, 300, 50, 50);
-            zoneRectangle = new Rectangle(-30, 400, 50, 50);
+            NPCRectangle = new Rectangle(-30, 400, 50, 50);
             plusRectangle = new Rectangle(100, screenheight - 17, 50, 50);
             plusXRectangle = new Rectangle(300, 500, 50, 50);
             plusYRectangle = new Rectangle(300, 570, 50, 50);
@@ -47,7 +47,6 @@ namespace GameDesign
             newGridYVector = new Vector2(220, 585);
             otherBuildState = new Rectangle(200, screenheight - 17, 50, 50);
             addBuild = new Rectangle(300, screenheight - 17, 50, 50);
-            int x = 80;
             for(int i = 0; i < GameValues.tileColors.Count(); ++i)
             {
                 allTiles[i] = new Rectangle(100 * i + 200, screenheight - 17, 50, 50);
@@ -65,19 +64,21 @@ namespace GameDesign
             spriteBatch.Draw(GameValues.hammer, buildRectangle, Color.White);
             spriteBatch.Draw(GameValues.cursor, selectRectangle, Color.Pink);
             spriteBatch.Draw(GameValues.remover, removeRectangle, Color.White);
-            spriteBatch.Draw(GameValues.colorplate, zoneRectangle, Color.White);
+            spriteBatch.Draw(GameValues.colorplate, NPCRectangle, Color.White);
+            if (!GameValues.showNPCs)
+            {
+                spriteBatch.Draw(GameValues.forbidden, NPCRectangle, Color.White);
+            }
             spriteBatch.Draw(GameValues.tileTex, layerRectangle, Color.AliceBlue);
             switch (GameValues.state)
             {
                 case GameState.build:
-                    spriteBatch.Draw(GameValues.tileTex, otherBuildState, Color.Black);
+
+                    spriteBatch.Draw(GameValues.BBG, otherBuildState, Color.White);
                     spriteBatch.Draw(GameValues.plus, plusRectangle, Color.White);
                     if (GameValues.buildState == BuildState.singleTile)
                     {
-                        for(int i = 0; i < GameValues.tileColors.Count(); ++i)
-                        {
-                            spriteBatch.Draw(GameValues.tileTex, allTiles[i], GameValues.tileColors[i]);
-                        }
+                        spriteBatch.Draw(GameValues.Road, otherBuildState, Color.White);
                     }
                     else if (GameValues.buildState == BuildState.newBuilding)
                     {
@@ -133,9 +134,16 @@ namespace GameDesign
             {
                 GameValues.state = GameState.remove;
             }
-            else if (click(zoneRectangle, mouseState, prevMouseState))
+            else if (click(NPCRectangle, mouseState, prevMouseState))
             {
-                GameValues.state = GameState.zone;
+                if (GameValues.showNPCs)
+                {
+                    GameValues.showNPCs = false;
+                }
+                else
+                {
+                    GameValues.showNPCs = true;
+                }
             }
             else if (click(plusRectangle, mouseState, prevMouseState))
             {
@@ -157,7 +165,7 @@ namespace GameDesign
                 case GameState.build:
                     if (click(otherBuildState, mouseState, prevMouseState))
                     {
-                        //GameValues.buildState = GameValues.buildState == BuildState.room ? BuildState.singleTile : BuildState.room;
+                        GameValues.buildState = GameValues.buildState == BuildState.room ? BuildState.singleTile : BuildState.room;
                     }
                     if(GameValues.buildState == BuildState.singleTile)
                     {
@@ -251,7 +259,7 @@ namespace GameDesign
             buildRectangle.X += direction;
             selectRectangle.X += direction;
             removeRectangle.X += direction;
-            zoneRectangle.X += direction;
+            NPCRectangle.X += direction;
             plusRectangle.Y -= direction;
             bottomRectangle.Y -= direction;
             otherBuildState.Y -= direction;

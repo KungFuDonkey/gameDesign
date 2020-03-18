@@ -35,7 +35,7 @@ namespace GameDesign
         public static Tile[,,] grid;
         public static int gridSize = gridHeight * gridWidth;
         public static Texture2D tileTex, hammer, colorplate, remover, colorSpetter, warning, plus, popUp, plusSign, minSign, arrowSign, makeBuilding, student_right, student_left, 
-            student_up, student_down, door, tree, prullenbak, path, wall1, wall2, wall3, wall4, wall5, wall6, pion, fietsplaats, parkeerplaats, stoplicht, water, cursor;
+            student_up, student_down, door, tree, prullenbak, path, wall1, wall2, wall3, wall4, wall5, wall6, pion, fietsplaats, parkeerplaats, stoplicht, water, cursor, forbidden, BBG, Road;
         public static BuildState buildState = BuildState.room;
         public static SpriteFont font;
         public static Color[] zoneColors = new Color[6] { Color.Blue, Color.Gray, Color.Brown, Color.Black, Color.Green, Color.Yellow };
@@ -45,6 +45,8 @@ namespace GameDesign
         public static BuildTiles selectedTile = BuildTiles.pavement;
         public static List<BuildingType> buildingTypes = new List<BuildingType>();
         public static List<Building> buildings = new List<Building>();
+        public static List<List<Node>> Paths = new List<List<Node>>();
+        public static bool showNPCs = true;
         //Room and building builder
         public static Color[] buildTileColors = new Color[28]
         {
@@ -144,7 +146,13 @@ namespace GameDesign
         public static BuildingType superMarket = new SuperMarket();
 
         public static BuildingType selectedBuildingType = adminBuilding;
-
+        public static bool firstBuildingBuild = true;
+        public static bool firstBuild = true;
+        public static bool firstRoad = true;
+        public static bool firstRemove = true;
+        public static bool firstTime = true;
+        public static bool firstSelect = true;
+        public static bool firstZone = true;
         public static void CountTypes()
         {
             foreach (BuildingType b in buildingTypes)
@@ -225,6 +233,19 @@ namespace GameDesign
             foreach (Tile t in grid)
             {
                 if (t.walkable)
+                {
+                    counter++;
+                }
+            }
+            return counter;
+        }
+
+        public static int enteranceTiles()
+        {
+            int counter = 0;
+            foreach (Tile t in grid)
+            {
+                if (t.enterance)
                 {
                     counter++;
                 }

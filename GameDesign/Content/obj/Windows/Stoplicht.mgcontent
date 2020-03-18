@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Stoplicht.png</SourceFile>
-  <SourceTime>2020-03-10T13:33:08.6218578+01:00</SourceTime>
-  <DestFile>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/bin/Windows/Stoplicht.xnb</DestFile>
-  <DestTime>2020-03-17T15:19:41.331858+01:00</DestTime>
+  <SourceFile>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Stoplicht.png</SourceFile>
+  <SourceTime>2020-03-18T12:34:56.493163+01:00</SourceTime>
+  <DestFile>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/bin/Windows/Stoplicht.xnb</DestFile>
+  <DestTime>2020-03-18T15:00:51.629951+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T16:05:36+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

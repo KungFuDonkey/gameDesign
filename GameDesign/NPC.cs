@@ -31,10 +31,18 @@ namespace GameDesign
         public void Update(KeyboardState keys, KeyboardState prevKeys, GameTime gameTime)
         {
             drawRectangle.Size = new Point(GameValues.tileSize, GameValues.tileSize);
-            if (keys.IsKeyDown(Keys.Enter) && !prevKeys.IsKeyDown(Keys.Enter))
+            if(GameValues.state != GameState.build)
             {
-                start = true; 
+                if(decideNextLocation() != Point.Zero)
+                {
+                    start = true;
+                }
             }
+            else
+            {
+                GameValues.Paths = new List<List<Node>>();
+            }
+           
             if (walking)
             {
                 timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -70,7 +78,16 @@ namespace GameDesign
             }
             else if (calculating)
             {
-                PathFinding();
+                if (GameValues.Paths.Count == (GameValues.enteranceTiles() * (GameValues.enteranceTiles() - 1)))
+                {
+                    path = GameValues.Paths[rng.Next(0, GameValues.Paths.Count)];
+                    calculating = false;
+                    walking = true;
+                }
+                else
+                {
+                    PathFinding();
+                }
             }
             else if(start)
             {
@@ -82,15 +99,19 @@ namespace GameDesign
 
         public Point decideNextLocation()
         {
-            List<Tile> entrances = new List<Tile>();
+            List<Tile> enterances = new List<Tile>();
             foreach (Tile t in GameValues.grid)
             {
                 if (t.enterance)
                 {
-                    entrances.Add(t);
+                    enterances.Add(t);
                 }
             }
-            return entrances[rng.Next(0, entrances.Count)].gridPos;
+            if (enterances.Count == 0)
+            {
+                return Point.Zero;
+            }
+            return enterances[rng.Next(0, enterances.Count)].gridPos;
            
         }
 
@@ -142,17 +163,17 @@ namespace GameDesign
                 if (node == targetNode)
                 {
                     path = RetracePath(startNode, node);
+                    if (!GameValues.Paths.Contains(path))
+                    {
+                        GameValues.Paths.Add(path);
+                    }
                     calculating = false;
                     walking = true;
                 }
-                Debug.WriteLine("x:" + node.x + " y:" + node.y + " gCost:" + node.gCost);
-                Tile tile = GameValues.grid[node.x, node.y, 0];
-                tile.standardColor = Color.Red;
 
                 foreach (Node neighbour in GameValues.GetNeighbours(gridNodes, node))
                 {
                     int newgCost = node.gCost + GetDistance(node, neighbour);
-                    Debug.WriteLine("newgCost:" + newgCost + " neighbour:" + neighbour.gCost);
 
                     if (newgCost < neighbour.gCost)
                     {
@@ -193,7 +214,6 @@ namespace GameDesign
             while (currentNode != startNode)
             {
                 path.Add(currentNode);
-                GameValues.grid[currentNode.x, currentNode.y, 0].standardColor = Color.Blue;
                 currentNode = currentNode.parent;
             }
             path.Reverse();
