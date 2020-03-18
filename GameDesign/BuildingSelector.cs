@@ -32,8 +32,6 @@ namespace GameDesign
                 drawRectangle.Width = 0;
                 drawRectangle.Height = 0;
             }
-            GameValues.getAllBuildings();
-            GameValues.CountTypes();
         }
     }
 }

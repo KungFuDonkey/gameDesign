@@ -34,7 +34,8 @@ namespace GameDesign
         public static int gridWidth = 200, gridHeight = 200, tileSize = 10, maxPlaces = 20, currentMaxPlace = 1;
         public static Tile[,,] grid;
         public static int gridSize = gridHeight * gridWidth;
-        public static Texture2D tileTex, hammer, colorplate, remover, colorSpetter, warning, plus, popUp, plusSign, minSign, arrowSign, makeBuilding, student_right, student_left, student_up, student_down, door, tree, prullenbak, path, wall1, wall2, wall3, wall4, wall5, wall6, pion, fietsplaats, parkeerplaats, stoplicht, water;
+        public static Texture2D tileTex, hammer, colorplate, remover, colorSpetter, warning, plus, popUp, plusSign, minSign, arrowSign, makeBuilding, student_right, student_left, 
+            student_up, student_down, door, tree, prullenbak, path, wall1, wall2, wall3, wall4, wall5, wall6, pion, fietsplaats, parkeerplaats, stoplicht, water, cursor;
         public static BuildState buildState = BuildState.room;
         public static SpriteFont font;
         public static Color[] zoneColors = new Color[6] { Color.Blue, Color.Gray, Color.Brown, Color.Black, Color.Green, Color.Yellow };
@@ -192,7 +193,6 @@ namespace GameDesign
             }
             return nodes;
         }
-
 
         public static List<Node> GetNeighbours(List<Node> grid, Node n)
         {

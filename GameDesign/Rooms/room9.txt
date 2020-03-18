@@ -1,0 +1,31 @@
+10
+                              
+                              
+               #              
+               #              
+               #              
+             VVVVV            
+            VBBVBBV           
+            VBBVBBV           
+            VBBVBBV           
+            VVVVVVV           
+            VBBBBBV           
+            VBBBBBV           
+            VBBBBBV           
+            VBBBBBV           
+            VBBBBBV           
+            VBBBBBV           
+            VBBBBBV           
+            VBBBBBV           
+            VBBBBBV           
+            VBBBBBV           
+            VBBBBBV           
+            VBBBBBV           
+            VBBBBBV           
+         VVVVBBBBBVVVV        
+        VBBBVBBBBBVBBBV       
+       VBBBBBVBBBVBBBBBV      
+       VBBBBBVBBBVBBBBBV      
+       VBBBBBVVVVVBBBBBV      
+        VBBBV     VBBBV       
+         VVV       VVV        

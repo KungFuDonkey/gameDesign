@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace GameDesign
         public int studentGrades, capacityScore, researchScore; //Calculate form values
 
         public bool researchBuildings; //Got to be imported but no class yet
-
+        
         public int score;
 
         Rectangle scoreRectangle;
@@ -27,7 +28,7 @@ namespace GameDesign
             drawStringVector = new Vector2(scoreRectangle.X + 5, scoreRectangle.Y + 5);
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             UpdateValues();
             CalculateScore();

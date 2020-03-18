@@ -63,7 +63,7 @@ namespace GameDesign
             spriteBatch.Draw(GameValues.tileTex, verticalRectangle, Color.LightBlue);
             spriteBatch.Draw(GameValues.tileTex, cornerRectangle, Color.Gray);
             spriteBatch.Draw(GameValues.hammer, buildRectangle, Color.White);
-            spriteBatch.Draw(GameValues.tileTex, selectRectangle, Color.Pink);
+            spriteBatch.Draw(GameValues.cursor, selectRectangle, Color.Pink);
             spriteBatch.Draw(GameValues.remover, removeRectangle, Color.White);
             spriteBatch.Draw(GameValues.colorplate, zoneRectangle, Color.White);
             spriteBatch.Draw(GameValues.tileTex, layerRectangle, Color.AliceBlue);
@@ -157,7 +157,7 @@ namespace GameDesign
                 case GameState.build:
                     if (click(otherBuildState, mouseState, prevMouseState))
                     {
-                        GameValues.buildState = GameValues.buildState == BuildState.room ? BuildState.singleTile : BuildState.room;
+                        //GameValues.buildState = GameValues.buildState == BuildState.room ? BuildState.singleTile : BuildState.room;
                     }
                     if(GameValues.buildState == BuildState.singleTile)
                     {

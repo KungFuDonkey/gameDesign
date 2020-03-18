@@ -150,6 +150,8 @@ namespace GameDesign
                 }
             }
             Game1.money.payCash(buildCosts);
+            GameValues.getAllBuildings();
+            GameValues.CountTypes();
         }
     }
 }

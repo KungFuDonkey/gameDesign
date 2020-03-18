@@ -109,8 +109,7 @@ namespace GameDesign
             GameValues.student_left = Content.Load<Texture2D>("Student_Left");
             GameValues.student_up = Content.Load<Texture2D>("Student_Up");
             GameValues.student_down = Content.Load<Texture2D>("Student_Down");
-
-
+            GameValues.cursor = Content.Load<Texture2D>("Computer_Cursor");
         }
         protected override void UnloadContent()
         {
@@ -132,10 +131,17 @@ namespace GameDesign
                 keys = Keyboard.GetState();
                 mouseState = Mouse.GetState();
             }
-            if (keys.IsKeyDown(Keys.Escape) && GameValues.state != GameState.menu)
+            if (keys.IsKeyDown(Keys.Escape) && prevKeys.IsKeyUp(Keys.Escape))
             {
-                menu.newMenuState = MenuState.Pause;
-                GameValues.state = GameState.menu;
+                if (GameValues.state != GameState.menu)
+                {
+                    menu.newMenuState = MenuState.Pause;
+                    GameValues.state = GameState.menu;
+                }
+                else if (GameValues.state == GameState.menu && menu.menuState == MenuState.Pause)
+                {
+                    GameValues.state = GameState.select;
+                }
             }
 
             if (GameValues.state == GameState.menu)
@@ -149,6 +155,7 @@ namespace GameDesign
             }
             else
             {
+                /*
                 while ((GameValues.walkAbleTiles()) > nPCs.Count * 50)
                 {
                     nPCs.Add(new NPC());
@@ -157,6 +164,7 @@ namespace GameDesign
                 {
                     n.Update(keys, prevKeys, gameTime);
                 }
+                */
                 cam.Update(keys, prevKeys, mouseState, prevMouseState, GameValues.grid);
                 if (gameTimer.isPhaseOver())
                 {
@@ -178,7 +186,7 @@ namespace GameDesign
                 }
 
                 money.Update(keys, prevKeys);
-                score.Update();
+                score.Update(gameTime);
                 onhud = hud.Update(mouseState, prevMouseState, gameTime);
                 if (!onhud)
                 {

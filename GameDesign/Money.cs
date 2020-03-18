@@ -57,7 +57,8 @@ namespace GameDesign
         {
             spriteBatch.Draw(GameValues.tileTex, moneyRectangle, Color.White);
             spriteBatch.Draw(euroSign, euroRectangle, Color.White);
-            spriteBatch.DrawString(GameValues.font, Cash.ToString(), new Vector2(moneyRectangle.Right - GameValues.font.MeasureString(Cash.ToString()).X, moneyRectangle.Center.Y - GameValues.font.MeasureString(Cash.ToString()).Y / 2) , moneyColor);
+            spriteBatch.DrawString(GameValues.font, Cash.ToString(), new Vector2(moneyRectangle.Right - GameValues.font.MeasureString(Cash.ToString()).X, 
+                                                        moneyRectangle.Center.Y - GameValues.font.MeasureString(Cash.ToString()).Y / 2) , moneyColor);
         }
 
         public void DailyPay()

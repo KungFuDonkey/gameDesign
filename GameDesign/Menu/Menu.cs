@@ -181,19 +181,7 @@ namespace GameDesign
             }
             else if (exitButton.clicked)
             {
-                if (menuState == MenuState.Main)
-                {
-                    game.Exit();
-                }
-                else if (menuState == MenuState.Pause)
-                {
-                    newMenuState = MenuState.Main;
-                    /*
-                    popUpState = PopUpState.ExitPause;
-                    string[] text = new string[]{ "All unsaved progress", "will be lost!" };
-                    PopUp(text);
-                    */
-                }
+                game.Exit();
             }
             else if (cancelButton.clicked)
             {

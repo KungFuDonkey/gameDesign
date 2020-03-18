@@ -43,7 +43,7 @@ namespace GameDesign
                 if (keyboardState.IsKeyDown(keys[i + 4]) && !prevKeyBoardState.IsKeyDown(keys[i+4]))
                 {
                     moving = true;
-                    place = place + move > GameValues.maxPlaces || place + move < 0 ? place : place + move;
+                    place = place + move > GameValues.currentMaxPlace - 1 || place + move < 0 ? place : place + move;
                 }
                 move *= -1;
             }
