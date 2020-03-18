@@ -11,8 +11,8 @@ namespace GameDesign
 {
     public class ScoreSystem
     {
-        public int happiness, studentPerformance, studentProductivity, workerProductivity; //Get values from all buildings, 100 max
-        public int studentGrades, capacityScore, researchScore; //Calculate form values
+        public int happiness, rawHappiness, studentPerformance, productivity; //Get values from all buildings, 100 max
+        public int studentGrades, capacityScore, research; //Calculate form values
 
         public bool researchBuildings; //Got to be imported but no class yet
         
@@ -42,9 +42,12 @@ namespace GameDesign
 
         void CalculateScore()
         {
+            int x = rawHappiness;
+            happiness = (int) (50 + rawHappiness - ((0.5 * Math.Sqrt(x) + 0.3 * Math.Sin(0.4 * x) + 0.14 * Math.Cos(0.5 * x) + 0.05 * x + 10 + Math.Sin(0.1 * x)) * 2 + 0.00003 * x * x));
+
             if (GameValues.students > 0)
             {
-                studentGrades = ((studentPerformance + studentProductivity) / 2 - (100 - workerProductivity)) * (happiness / 1000) / 80;
+                studentGrades = (productivity * GameValues.students) * (happiness / 10 + 1);
             }
             else
             {
@@ -53,33 +56,29 @@ namespace GameDesign
 
             if (GameValues.researchBuilding.tileCount > 0)
             {
-                researchScore = (GameValues.workers * workerProductivity) / 100 * (happiness / 1000) / 80;
+                research = (productivity * GameValues.workers) * (happiness / 10 + 1);
             }
             else
             {
-                researchScore = 0;
+                research = 0;
             }
-
-            capacityScore = (GameValues.students + GameValues.workers) / 2;
 
             if (studentGrades > 100)
                 studentGrades = 100;
-            if (researchScore > 100)
-                researchScore = 100;
-            if (capacityScore > 100)
-                capacityScore = 100;
 
-            score = (studentGrades * 5 + researchScore * 3 + capacityScore) / 9;
+            score = (int) (0.65 * research + 0.35 * studentPerformance);
 
-            if (score < 50)
+            if (score < 30)
                 scoreColor = Color.Red;
-            else
+            else if (score < 70)
                 scoreColor = Color.Black;
+            else
+                scoreColor = Color.Green;
         }
 
         public void UpdateValues()
         {
-            happiness = studentPerformance = studentProductivity = workerProductivity = 0;
+            happiness = rawHappiness = studentPerformance = productivity = 0;
             GameValues.CountTypes();
             GameValues.students = 0;
             GameValues.workers = 0;
@@ -98,13 +97,13 @@ namespace GameDesign
                 }
                 if (t.buildingType.forStudents)
                 {
-                    studentProductivity += t.buildingType.productivity;
+                    productivity += t.buildingType.productivity;
                 }
                 else
                 {
-                    workerProductivity += t.buildingType.productivity;
+                    productivity += t.buildingType.productivity;
                 }
-                happiness += t.buildingType.happiness;
+                rawHappiness += t.buildingType.happiness;
                 studentPerformance += t.buildingType.studentPerformance;
             }
         }
