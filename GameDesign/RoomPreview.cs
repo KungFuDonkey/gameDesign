@@ -17,6 +17,7 @@ namespace GameDesign
         public float alpha = 0.8f, buildCosts;
         public int direction = -1;
         public int roomIndex = 0;
+        public bool rotating;
         string path;
 
         //initialize runs on the initialization and creates the different rooms which are read from the text files in rooms/text
@@ -70,32 +71,39 @@ namespace GameDesign
         //updates the input of the player leftbutton = build, E and Q = switching between rooms, rightbutton = rotation
         public void Update(KeyboardState keyBoardState, KeyboardState prevKeyboardState, MouseState mouseState, MouseState prevMouseState, Rectangle selectedRectangle)
         {
-            room.setValues(room.path);
-            for (int i = 0; i < room.rotation; i++)
-            {
-                room.rotate();
-            }
-            if (mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released && !collision(selectedRectangle) && Game1.money.canBuy(buildCosts))
-            {
-                build(selectedRectangle);
-            }
-            if(keyBoardState.IsKeyDown(Keys.E) && !prevKeyboardState.IsKeyDown(Keys.E))
+            if (keyBoardState.IsKeyDown(Keys.E) && !prevKeyboardState.IsKeyDown(Keys.E))
             {
                 roomIndex = roomIndex == rooms.Count - 1 ? roomIndex : roomIndex + 1;
                 room = rooms[roomIndex];
+                rotating = true;
             }
             if(keyBoardState.IsKeyDown(Keys.Q) && !prevKeyboardState.IsKeyDown(Keys.Q))
             {
                 roomIndex = roomIndex == 0 ? 0 : roomIndex - 1;
                 room = rooms[roomIndex];
+                rotating = true;
             }
-            if((mouseState.RightButton == ButtonState.Pressed && prevMouseState.RightButton != ButtonState.Pressed) || 
+            if ((mouseState.RightButton == ButtonState.Pressed && prevMouseState.RightButton != ButtonState.Pressed) || 
                 (mouseState.MiddleButton == ButtonState.Pressed && prevMouseState.MiddleButton != ButtonState.Pressed) ||
                 (keyBoardState.IsKeyDown(Keys.R) && !prevKeyboardState.IsKeyDown(Keys.R)))
             {
                 room.rotation = (room.rotation + 1) % 4;
+                rotating = true;
             }
             buildCosts = room.walls * GameValues.wallCost + room.floors * GameValues.floorCost;
+            if (Game1.cam.zooming || rotating)
+            {
+                room.setValues(room.path);
+                for (int i = 0; i < room.rotation; i++)
+                {
+                    room.rotate();
+                }
+                rotating = false;
+            }
+            if (mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released && !collision(selectedRectangle) && Game1.money.canBuy(buildCosts))
+            {
+                build(selectedRectangle);
+            }
         }
 
         //checks for a collision with the grid to decide if the room can be placed
@@ -123,6 +131,7 @@ namespace GameDesign
         //builds the room onto the grid
         public void build(Rectangle selectedRectangle)
         {
+            buildCosts = room.walls * GameValues.wallCost + room.floors * GameValues.floorCost;
             if (!room.part)
             {
                 room.place = Game1.cam.place;

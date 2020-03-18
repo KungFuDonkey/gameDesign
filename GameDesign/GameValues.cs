@@ -35,7 +35,7 @@ namespace GameDesign
         public static Tile[,,] grid;
         public static int gridSize = gridHeight * gridWidth;
         public static Texture2D tileTex, hammer, colorplate, remover, colorSpetter, warning, plus, popUp, plusSign, minSign, arrowSign, makeBuilding, student_right, student_left, 
-            student_up, student_down, door, tree, prullenbak, path, wall1, wall2, wall3, wall4, wall5, wall6, pion, fietsplaats, parkeerplaats, stoplicht, water, cursor;
+            student_up, student_down, door, tree, prullenbak, path, wall1, wall2, wall3, wall4, wall5, wall6, pion, fietsplaats, parkeerplaats, stoplicht, water, cursor, forbidden, BBG, Road;
         public static BuildState buildState = BuildState.room;
         public static SpriteFont font;
         public static Color[] zoneColors = new Color[6] { Color.Blue, Color.Gray, Color.Brown, Color.Black, Color.Green, Color.Yellow };
@@ -46,6 +46,8 @@ namespace GameDesign
         public static List<BuildingType> buildingTypes = new List<BuildingType>();
         public static List<Building> buildings = new List<Building>();
         public static List<List<Node>> Paths = new List<List<Node>>();
+        public static bool showNPCs = true;
+
         //Room and building builder
         public static Color[] buildTileColors = new Color[28]
         {
@@ -182,6 +184,11 @@ namespace GameDesign
                 buildings.Add(new Building(t.buildingType, neighbours));
                 done.AddRange(neighbours);
             }
+        }
+
+        public static void addBuilding(Room room)
+        {
+            buildings.Add(new Building(room.buildingType, room.layout));
         }
 
         public static List<Node> TileNodes()

@@ -22,7 +22,7 @@ namespace GameDesign
 
         Phase currentPhase;
         public Timer gameTimer;
-        public static Money money = new Money(100000);
+        public static Money money = new Money(10000);
         public static Menu menu;
         public static ScoreSystem score;
         public static BuildingBuilder buildingBuilder;
@@ -112,6 +112,11 @@ namespace GameDesign
             GameValues.student_up = Content.Load<Texture2D>("Student_Up");
             GameValues.student_down = Content.Load<Texture2D>("Student_Down");
             GameValues.cursor = Content.Load<Texture2D>("Computer_Cursor");
+            GameValues.forbidden = Content.Load<Texture2D>("forbidden");
+            GameValues.Road = Content.Load<Texture2D>("Road");
+            GameValues.BBG = Content.Load<Texture2D>("BBG");
+
+
         }
         protected override void UnloadContent()
         {
@@ -165,15 +170,19 @@ namespace GameDesign
             }
             else
             {
-                while (GameValues.students > nPCs.Count * 120)
+                if (GameValues.showNPCs)
                 {
-                    Debug.WriteLine(GameValues.students);
-                    nPCs.Add(new NPC());
+                    while ((GameValues.students > nPCs.Count * 120))
+                    {
+                        Debug.WriteLine(GameValues.students);
+                        nPCs.Add(new NPC());
+                    }
+                    foreach (NPC n in nPCs)
+                    {
+                        n.Update(keys, prevKeys, gameTime);
+                    }
                 }
-                foreach(NPC n in nPCs)
-                {
-                    n.Update(keys, prevKeys, gameTime);
-                }
+
                 cam.Update(keys, prevKeys, mouseState, prevMouseState, GameValues.grid);
                 if (gameTimer.isPhaseOver())
                 {
@@ -195,7 +204,7 @@ namespace GameDesign
                 }
 
                 money.Update(keys, prevKeys);
-                score.Update(gameTime);
+                score.Update();
                 onhud = hud.Update(mouseState, prevMouseState, gameTime);
                 if (!onhud)
                 {
@@ -290,10 +299,12 @@ namespace GameDesign
                     }
 
                 }
-
-                foreach(NPC n in nPCs)
+                if (GameValues.showNPCs)
                 {
-                    n.Draw(spriteBatch);
+                    foreach (NPC n in nPCs)
+                    {
+                        n.Draw(spriteBatch);
+                    }
                 }
                 foreach (Building b in GameValues.buildings)
                 {
