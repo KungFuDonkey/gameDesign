@@ -157,7 +157,7 @@ namespace GameDesign
                 case GameState.build:
                     if (click(otherBuildState, mouseState, prevMouseState))
                     {
-                        //GameValues.buildState = GameValues.buildState == BuildState.room ? BuildState.singleTile : BuildState.room;
+                        GameValues.buildState = GameValues.buildState == BuildState.room ? BuildState.singleTile : BuildState.room;
                     }
                     if(GameValues.buildState == BuildState.singleTile)
                     {

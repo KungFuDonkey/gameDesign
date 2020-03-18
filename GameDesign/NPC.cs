@@ -31,9 +31,17 @@ namespace GameDesign
         public void Update(KeyboardState keys, KeyboardState prevKeys, GameTime gameTime)
         {
             drawRectangle.Size = new Point(GameValues.tileSize, GameValues.tileSize);
-            if (keys.IsKeyDown(Keys.Enter) && !prevKeys.IsKeyDown(Keys.Enter))
+            try
             {
-                start = true; 
+                if(GameValues.state != GameState.build)
+                {
+                    decideNextLocation();
+                    start = true;
+                }
+            }
+            catch
+            {
+
             }
             if (walking)
             {
@@ -70,7 +78,17 @@ namespace GameDesign
             }
             else if (calculating)
             {
-                PathFinding();
+                if (GameValues.Paths.Count == (GameValues.enteranceTiles() * (GameValues.enteranceTiles() - 1)))
+                {
+                    Debug.WriteLine("test");
+                    path = GameValues.Paths[rng.Next(0, GameValues.Paths.Count)];
+                    calculating = false;
+                    walking = true;
+                }
+                else
+                {
+                    PathFinding();
+                }
             }
             else if(start)
             {
@@ -142,6 +160,10 @@ namespace GameDesign
                 if (node == targetNode)
                 {
                     path = RetracePath(startNode, node);
+                    if (!GameValues.Paths.Contains(path))
+                    {
+                        GameValues.Paths.Add(path);
+                    }
                     calculating = false;
                     walking = true;
                 }

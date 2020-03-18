@@ -155,9 +155,9 @@ namespace GameDesign
             }
             else
             {
-                /*
-                while ((GameValues.walkAbleTiles()) > nPCs.Count * 50)
+                while ((GameValues.students > nPCs.Count * 120))
                 {
+                    Debug.WriteLine(GameValues.students);
                     nPCs.Add(new NPC());
                 }
                 foreach(NPC n in nPCs)

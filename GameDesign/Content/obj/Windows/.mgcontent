@@ -4,7 +4,6 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-<<<<<<< Updated upstream
     <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Buttons/arrowSign.png</File>
     <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Buttons/ElevatorDown.png</File>
     <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Buttons/ElevatorDownActive.png</File>
@@ -16,62 +15,37 @@
     <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Buttons/plusSign.png</File>
     <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Buttons/PopUp.png</File>
     <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/ColorPlate.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Computer_Cursor.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Door.png</File>
     <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Eraser.png</File>
     <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/euro-symbol.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Fietsplaats.png</File>
     <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Fonts/MenuFont.spritefont</File>
     <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Fonts/SpelFont.spritefont</File>
     <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Hamer.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Parkeerplaats.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Path.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Pion.png</File>
     <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Plus.png</File>
-    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Tile.png</File>
-    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Title.png</File>
-    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/UUlogo.png</File>
-    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Warning.png</File>
-    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/White.png</File>
-    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Yellowblock.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Prullenbak.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Stoplicht.png</File>
     <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Student_Down.png</File>
     <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Student_Left.png</File>
     <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Student_Right.png</File>
     <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Student_Up.png</File>
-=======
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Buttons/arrowSign.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Buttons/ElevatorDown.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Buttons/ElevatorDownActive.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Buttons/ElevatorUp.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Buttons/ElevatorUpActive.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Buttons/EmptyButton.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Buttons/makeBuilding.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Buttons/minSign.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Buttons/plusSign.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Buttons/PopUp.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/ColorPlate.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Eraser.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/euro-symbol.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Fonts/MenuFont.spritefont</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Fonts/SpelFont.spritefont</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Hamer.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Plus.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Tile.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Title.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/UUlogo.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Warning.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/White.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Yellowblock.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/player_side.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Door.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Tree.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Prullenbak.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Path.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Wall1.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Pion.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Wall2.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Wall3.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Wall4.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Wall5.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Wall6.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Parkeerplaats.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Fietsplaats.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Water.png</File>
-    <File>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/Stoplicht.png</File>
->>>>>>> Stashed changes
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Tile.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Title.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Tree.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/UUlogo.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Wall1.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Wall2.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Wall3.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Wall4.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Wall5.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Wall6.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Warning.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Water.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/White.png</File>
+    <File>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Yellowblock.png</File>
   </SourceFiles>
 </SourceFileCollection>

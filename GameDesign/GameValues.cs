@@ -45,6 +45,7 @@ namespace GameDesign
         public static BuildTiles selectedTile = BuildTiles.pavement;
         public static List<BuildingType> buildingTypes = new List<BuildingType>();
         public static List<Building> buildings = new List<Building>();
+        public static List<List<Node>> Paths = new List<List<Node>>();
         //Room and building builder
         public static Color[] buildTileColors = new Color[28]
         {
@@ -219,6 +220,19 @@ namespace GameDesign
             foreach (Tile t in grid)
             {
                 if (t.walkable)
+                {
+                    counter++;
+                }
+            }
+            return counter;
+        }
+
+        public static int enteranceTiles()
+        {
+            int counter = 0;
+            foreach (Tile t in grid)
+            {
+                if (t.enterance)
                 {
                     counter++;
                 }

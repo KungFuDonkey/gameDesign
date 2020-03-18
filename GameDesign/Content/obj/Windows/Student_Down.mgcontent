@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-<<<<<<< Updated upstream:GameDesign/Content/obj/Windows/Student_Down.mgcontent
   <SourceFile>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Student_Down.png</SourceFile>
   <SourceTime>2020-03-17T14:50:05.7936112+01:00</SourceTime>
   <DestFile>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/bin/Windows/Student_Down.xnb</DestFile>
-  <DestTime>2020-03-17T14:58:40.3001897+01:00</DestTime>
-=======
-  <SourceFile>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/player_side.png</SourceFile>
-  <SourceTime>2020-03-17T12:56:20.1934164+01:00</SourceTime>
-  <DestFile>C:/Users/larst/Desktop/IntroductieProject-master/design/GameDesign/Content/bin/Windows/player_side.xnb</DestFile>
-  <DestTime>2020-03-17T12:58:03.0882575+01:00</DestTime>
->>>>>>> Stashed changes:GameDesign/Content/obj/Windows/player_side.mgcontent
+  <DestTime>2020-03-18T12:35:27.331626+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T16:05:36+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
