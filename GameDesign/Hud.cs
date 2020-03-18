@@ -11,7 +11,7 @@ namespace GameDesign
 {
     class Hud
     {
-        Rectangle verticalRectangle, horizontalRectangle, cornerRectangle, layerRectangle, indicatorRectangle, bottomRectangle;
+        Rectangle verticalRectangle, horizontalRectangle, cornerRectangle, bottomRectangle;
         Rectangle buildRectangle, selectRectangle, removeRectangle, NPCRectangle, plusRectangle, plusXRectangle, plusYRectangle, minXRectangle, minYRectangle, plusTypeRectangle, 
                         minTypeRectangle, makeGridRectangle, popUpRectangle, newGridXRectangle, newGridYRectangle, newBuildingTypeRectangle, statsRectangle;
         Rectangle otherBuildState, addBuild;
@@ -26,7 +26,6 @@ namespace GameDesign
         {
             horizontalRectangle = new Rectangle(0, 0, screenwidth, 50);
             verticalRectangle = new Rectangle(-30, 0, 50, screenheight);
-            layerRectangle = new Rectangle(screenwidth - 50, 50, 50, screenheight - 50);
             cornerRectangle = new Rectangle(-30, 0, 50, 50);
             bottomRectangle = new Rectangle(0, screenheight - 20, screenwidth, 50);
             buildRectangle = new Rectangle(-30, 100, 50, 50);
@@ -69,9 +68,6 @@ namespace GameDesign
             {
                 allTiles[i] = new Rectangle(100 * i + 200, screenheight - 17, 50, 50);
             }
-            indicatorRectangle = new Rectangle(screenwidth - 44, 0, 41, 41);
-            drawpoint = new Vector2(screenwidth - 29, screenheight - 60);
-            DRAWPOINT = new Vector2(screenwidth - 29, screenheight - 60);
         }
         public void draw(SpriteBatch spriteBatch)
         {
@@ -87,7 +83,6 @@ namespace GameDesign
             {
                 spriteBatch.Draw(GameValues.forbidden, NPCRectangle, Color.White);
             }
-            spriteBatch.Draw(GameValues.tileTex, layerRectangle, Color.AliceBlue);
             switch (GameValues.state)
             {
                 case GameState.build:
@@ -131,22 +126,6 @@ namespace GameDesign
                     }
                     break;
             }
-            for(int i = 0; i < 20; i++)
-            {
-                if (i == Game1.cam.place)
-                {
-                    indicatorRectangle.Y = (int)drawpoint.Y - 10;
-                    spriteBatch.Draw(GameValues.tileTex, indicatorRectangle, Color.Blue);
-                }
-                spriteBatch.DrawString(GameValues.font, i.ToString(), drawpoint, Color.Black);
-                if(i == 9)
-                {
-                    drawpoint.X -= 6;
-                }
-                drawpoint.Y -= 40;
-            }
-            drawpoint.X = DRAWPOINT.X;
-            drawpoint.Y = DRAWPOINT.Y;
         }
         public bool Update(MouseState mouseState, MouseState prevMouseState, GameTime gameTime)
         {

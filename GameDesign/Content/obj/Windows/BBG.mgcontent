@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/BBG.png</SourceFile>
-  <SourceTime>2020-03-18T15:37:20.1507515+01:00</SourceTime>
-  <DestFile>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/bin/Windows/BBG.xnb</DestFile>
-  <DestTime>2020-03-18T15:44:48.4625036+01:00</DestTime>
+  <SourceFile>D:/Git_repos/gameDesign/GameDesign/Content/BBG.png</SourceFile>
+  <SourceTime>2020-03-18T17:14:41.6867627+01:00</SourceTime>
+  <DestFile>D:/Git_repos/gameDesign/GameDesign/Content/bin/Windows/BBG.xnb</DestFile>
+  <DestTime>2020-03-18T19:06:31.856802+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T16:05:36+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

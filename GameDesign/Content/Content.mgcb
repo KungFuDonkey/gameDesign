@@ -555,3 +555,9 @@
 /processorParam:TextureFormat=Color
 /build:Road.png
 
+#begin background_music.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:background_music.wav
+
