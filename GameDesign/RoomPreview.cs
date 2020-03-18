@@ -13,12 +13,13 @@ namespace GameDesign
     {
         public List<Room> rooms = new List<Room>();
         public Room room;
-        public Rectangle drawRectangle = new Rectangle(new Point(), new Point(GameValues.tileSize));
+        public Rectangle drawRectangle = new Rectangle(new Point(), new Point(GameValues.tileSize)), costRectangle;
         public float alpha = 0.8f, buildCosts;
         public int direction = -1;
         public int roomIndex = 0;
         public bool rotating;
         string path;
+        Color grayColor = new Color(Color.Black, 0.5f);
 
         //initialize runs on the initialization and creates the different rooms which are read from the text files in rooms/text
         public void initialize()
@@ -53,10 +54,10 @@ namespace GameDesign
         //draws the current room to the screen over the grid
         public void Draw(SpriteBatch spriteBatch, Rectangle selectedRectangle)
         {
-            foreach(Tile t in room.layout)
+            drawRectangle.Size = new Point(GameValues.tileSize);
+            foreach (Tile t in room.layout)
             {
                 drawRectangle.Location = selectedRectangle.Location + t.rectangle.Location - room.middle;
-                drawRectangle.Size = new Point(GameValues.tileSize);
                 t.Draw(spriteBatch, drawRectangle, alpha);
             }
             float move = direction * 0.01f;
@@ -66,6 +67,8 @@ namespace GameDesign
                 move = direction * 0.01f;
             }
             alpha += move;
+            spriteBatch.Draw(GameValues.tileTex, costRectangle, grayColor);
+            spriteBatch.DrawString(GameValues.font, "$ " + buildCosts.ToString(), costRectangle.Location.ToVector2(), Color.White);
         }
 
         //updates the input of the player leftbutton = build, E and Q = switching between rooms, rightbutton = rotation
@@ -91,6 +94,8 @@ namespace GameDesign
                 rotating = true;
             }
             buildCosts = room.walls * GameValues.wallCost + room.floors * GameValues.floorCost;
+            costRectangle.Location = new Point(selectedRectangle.X - (int)GameValues.font.MeasureString("$ " + buildCosts).X / 2, selectedRectangle.Y - (int)GameValues.font.MeasureString("$ " + buildCosts).Y);
+            costRectangle.Size = GameValues.font.MeasureString("$ " + buildCosts).ToPoint();
             if (Game1.cam.zooming || rotating)
             {
                 room.setValues(room.path);
