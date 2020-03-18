@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/Yellowblock.png</SourceFile>
-  <SourceTime>2020-03-16T17:47:09.6035019+01:00</SourceTime>
-  <DestFile>D:/Users/lucas/Desktop/GameDesign/gameDesign/GameDesign/Content/bin/Windows/Yellowblock.xnb</DestFile>
-  <DestTime>2020-03-18T15:00:52.263733+01:00</DestTime>
+  <SourceFile>D:/Git_repos/gameDesign/GameDesign/Content/Yellowblock.png</SourceFile>
+  <SourceTime>2020-03-18T14:16:58.7281736+01:00</SourceTime>
+  <DestFile>D:/Git_repos/gameDesign/GameDesign/Content/bin/Windows/Yellowblock.xnb</DestFile>
+  <DestTime>2020-03-18T19:06:31.783537+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T16:05:36+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

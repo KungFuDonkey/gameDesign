@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,6 +12,8 @@ namespace GameDesign
     public class Game1 : Game
     {
         public static GraphicsDeviceManager graphics;
+        private SoundEffect backgroundMusic;
+        private SoundEffectInstance backgroundMusicInstance;
         SpriteBatch spriteBatch;
         public static Tile SelectedTile;
         public static RoomPreview roomPreview = new RoomPreview();
@@ -116,6 +119,10 @@ namespace GameDesign
             GameValues.Road = Content.Load<Texture2D>("Road");
             GameValues.BBG = Content.Load<Texture2D>("BBG");
 
+            backgroundMusic = Content.Load<SoundEffect>("background_music");
+            backgroundMusicInstance = backgroundMusic.CreateInstance();
+            backgroundMusicInstance.IsLooped = true;
+            backgroundMusicInstance.Play();
 
         }
         protected override void UnloadContent()

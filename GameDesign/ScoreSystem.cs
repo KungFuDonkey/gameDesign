@@ -66,7 +66,7 @@ namespace GameDesign
             if (studentGrades > 100)
                 studentGrades = 100;
 
-            score = (int) (0.65 * research + 0.35 * studentPerformance);
+            score = (int) ((0.65 * research + 0.35 * studentPerformance) / 100);
 
             if (score < 30)
                 scoreColor = Color.Red;
