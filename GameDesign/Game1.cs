@@ -207,7 +207,7 @@ namespace GameDesign
                                 case BuildState.room:
                                     if (GameValues.firstBuild)
                                     {
-                                        smessage = "Press E and Q for different buildings \nPress the black button for roads";
+                                        smessage = "Press E and Q for different buildings \nPress the road button for roads";
                                         message = true;
                                         GameValues.firstBuild = false;
                                     }
@@ -216,7 +216,7 @@ namespace GameDesign
                                 case BuildState.singleTile:
                                     if (GameValues.firstRoad)
                                     {
-                                        smessage = "Select tiles to change them to roads \nPress the gray button for buildings";
+                                        smessage = "Select tiles to change them to roads \nPress the BBG button for buildings";
                                         message = true;
                                         GameValues.firstRoad = false;
                                     }
