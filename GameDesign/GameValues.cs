@@ -145,6 +145,13 @@ namespace GameDesign
         public static BuildingType superMarket = new SuperMarket();
 
         public static BuildingType selectedBuildingType = adminBuilding;
+        public static bool firstBuildingBuild = true;
+        public static bool firstBuild = true;
+        public static bool firstRoad = true;
+        public static bool firstRemove = true;
+        public static bool firstTime = true;
+        public static bool firstSelect = true;
+        public static bool firstZone = true;
         public static void CountTypes()
         {
             foreach (BuildingType b in buildingTypes)

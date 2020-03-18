@@ -27,8 +27,10 @@ namespace GameDesign
         public static ScoreSystem score;
         public static BuildingBuilder buildingBuilder;
         Hud hud;
-        bool onhud; 
-
+        bool onhud;
+        bool message = false;
+        string smessage = "";
+        Vector2 messagePoint = new Vector2(500, 400);
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -154,10 +156,16 @@ namespace GameDesign
             {
                 cam.Update(keys, prevKeys, mouseState, prevMouseState, buildingBuilder.grid);
                 buildingBuilder.Update(mouseState, prevMouseState, gameTime);
+                if (GameValues.firstBuildingBuild)
+                {
+                    smessage = "To build press the color buttons on the bottom";
+                    message = true;
+                    GameValues.firstBuildingBuild = false;
+                }
             }
             else
             {
-                while ((GameValues.students > nPCs.Count * 120))
+                while (GameValues.students > nPCs.Count * 120)
                 {
                     Debug.WriteLine(GameValues.students);
                     nPCs.Add(new NPC());
@@ -166,7 +174,6 @@ namespace GameDesign
                 {
                     n.Update(keys, prevKeys, gameTime);
                 }
-
                 cam.Update(keys, prevKeys, mouseState, prevMouseState, GameValues.grid);
                 if (gameTimer.isPhaseOver())
                 {
@@ -198,23 +205,57 @@ namespace GameDesign
                             switch (GameValues.buildState)
                             {
                                 case BuildState.room:
+                                    if (GameValues.firstBuild)
+                                    {
+                                        smessage = "Press E and Q for different buildings \nPress the black button for roads";
+                                        message = true;
+                                        GameValues.firstBuild = false;
+                                    }
                                     roomPreview.Update(keys, prevKeys, mouseState, prevMouseState, SelectedTile.rectangle);
                                     break;
                                 case BuildState.singleTile:
+                                    if (GameValues.firstRoad)
+                                    {
+                                        smessage = "Select tiles to change them to roads \nPress the gray button for buildings";
+                                        message = true;
+                                        GameValues.firstRoad = false;
+                                    }
                                     tileCreator.Update(mouseState, prevMouseState, SelectedTile);
                                     break;
                             }
                             break;
                         case GameState.remove:
+                            if (GameValues.firstRemove)
+                            {
+                                smessage = "Select tiles to remove them";
+                                message = true;
+                                GameValues.firstRemove = false;
+                            }
                             remove.Update(mouseState, prevMouseState, SelectedTile);
                             break;
                         case GameState.select:
+                            if (GameValues.firstTime)
+                            {
+                                smessage = "Press shift to speed up time \nPress control to slow down time";
+                                message = true;
+                                GameValues.firstTime = false;
+                            }
                             break;
                         case GameState.zone:
+                            if (GameValues.firstZone)
+                            {
+                                smessage = "Select buildings to change their type";
+                                message = true;
+                                GameValues.firstZone = false;
+                            }
                             buildingSelector.Update(mouseState, prevMouseState, SelectedTile);
                             break;
                     }
                 }
+            }
+            if(mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
+            {
+                message = false;
             }
             prevKeys = keys;
             prevMouseState = mouseState;
@@ -287,6 +328,10 @@ namespace GameDesign
                 hud.draw(spriteBatch);
                 money.Draw(spriteBatch);
                 score.Draw(spriteBatch);
+            }
+            if (message)
+            {
+                spriteBatch.DrawString(GameValues.font, smessage, messagePoint, Color.Black);
             }
             spriteBatch.End();
             base.Draw(gameTime);
