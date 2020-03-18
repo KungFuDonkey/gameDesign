@@ -126,11 +126,10 @@ namespace GameDesign
             {
                 return;
             }
-            else
-            {
-                keys = Keyboard.GetState();
-                mouseState = Mouse.GetState();
-            }
+            
+            keys = Keyboard.GetState();
+            mouseState = Mouse.GetState();
+            
             if (keys.IsKeyDown(Keys.Escape) && prevKeys.IsKeyUp(Keys.Escape))
             {
                 if (GameValues.state != GameState.menu)
@@ -143,6 +142,9 @@ namespace GameDesign
                     GameValues.state = GameState.select;
                 }
             }
+
+            //Game speed controls
+            handleGameTimeControls();
 
             if (GameValues.state == GameState.menu)
             {
@@ -164,7 +166,7 @@ namespace GameDesign
                 {
                     n.Update(keys, prevKeys, gameTime);
                 }
-                */
+
                 cam.Update(keys, prevKeys, mouseState, prevMouseState, GameValues.grid);
                 if (gameTimer.isPhaseOver())
                 {
@@ -289,5 +291,21 @@ namespace GameDesign
             spriteBatch.End();
             base.Draw(gameTime);
         }
+        private void handleGameTimeControls()
+        {
+            if (keys.IsKeyDown(Keys.LeftShift) && prevKeys.IsKeyUp(Keys.LeftShift))
+            {
+                gameTimer.increaseGameSpeed();
+            }
+            if (keys.IsKeyDown(Keys.LeftControl) && prevKeys.IsKeyUp(Keys.LeftControl))
+            {
+                gameTimer.decreaseGameSpeed();
+            }
+            if (keys.IsKeyDown(Keys.Space) && prevKeys.IsKeyUp(Keys.Space))
+            {
+                gameTimer.togglePause();
+            }
+        }
     }
+
 }

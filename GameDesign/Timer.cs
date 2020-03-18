@@ -101,24 +101,39 @@ namespace GameDesign
 
         public void increaseGameSpeed()
         {
-            phaseTime_ms += 5000;
+            phaseTime_ms /= 2;
         }
 
         public void decreaseGameSpeed()
         {
-            phaseTime_ms -= 5000;
+            phaseTime_ms *= 2;
         }
 
-        public void pauseGameTime()
+        private void pauseGameTime()
         {
             paused = true;
             phaseTimeDifferenceOnPause = getCurrentTime_ms() - phaseStartTime_ms;
         }
 
-        public void resumeGameTime()
+        private void resumeGameTime()
         {
             paused = false;
             phaseStartTime_ms = getCurrentTime_ms() - phaseTimeDifferenceOnPause;
+        }
+
+        public void togglePause()
+        {
+            if (paused)
+            {
+                resumeGameTime();
+                System.Console.WriteLine("resume");
+            }
+            else
+            {
+                pauseGameTime();
+                System.Console.WriteLine("pause");
+            }
+
         }
 
         private long getCurrentTime_ms()
