@@ -1,10 +1,17 @@
-LLLLLLLLLL
-LLLLLL###L
-LLLLLL#F#L
-LLLLLL#F#L
-LLLLLL#F#L
-LLLLLL#F#L
-LLLLLL#F#L
-LLLLLL###L
-LLLLLLLLLL
-LLLLLLLLLL
+10
+                
+                
+                
+                
+   WWWWW        
+  WWWWWWW       
+  BYYYWYB       
+BBBYYYWYB       
+B BYYYWYB       
+B BYYYWYB#      
+B BYYYYYB#      
+B BYYYYYB       
+B BYYYYYB       
+ BBYYYYYB       
+  BYYYYYB       
+   BBBBB        
