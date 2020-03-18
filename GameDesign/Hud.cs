@@ -125,6 +125,7 @@ namespace GameDesign
             if (click(buildRectangle, mouseState, prevMouseState))
             {
                 GameValues.state = GameState.build;
+                Game1.roomPreview.rotating = true;
             }
             else if(click(selectRectangle, mouseState, prevMouseState))
             {

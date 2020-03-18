@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/Buttons/minSign.png</SourceFile>
-  <SourceTime>2020-03-15T23:08:02.5703408+01:00</SourceTime>
-  <DestFile>C:/Users/sietz/source/repos/GameDesign/GameDesign/Content/bin/Windows/Content/Buttons/minSign.xnb</DestFile>
-  <DestTime>2020-03-18T15:02:24.3492419+01:00</DestTime>
+  <SourceFile>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/minSign.png</SourceFile>
+  <SourceTime>2020-03-15T22:23:49.6469035+01:00</SourceTime>
+  <DestFile>C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/bin/Windows/Content/Buttons/minSign.xnb</DestFile>
+  <DestTime>2020-03-18T16:04:13.6816505+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

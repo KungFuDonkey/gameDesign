@@ -44,7 +44,7 @@ namespace GameDesign
         {
             if (GameValues.students > 0)
             {
-                studentGrades = ((studentPerformance + studentProductivity) / 2 - (100 - workerProductivity)) * happiness / 80;
+                studentGrades = ((studentPerformance + studentProductivity) / 2 - (100 - workerProductivity)) * (happiness / 1000) / 80;
             }
             else
             {
@@ -53,7 +53,7 @@ namespace GameDesign
 
             if (GameValues.researchBuilding.tileCount > 0)
             {
-                researchScore = (GameValues.workers * workerProductivity) / 100 * happiness / 80;
+                researchScore = (GameValues.workers * workerProductivity) / 100 * (happiness / 1000) / 80;
             }
             else
             {

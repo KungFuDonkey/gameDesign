@@ -17,7 +17,7 @@ namespace GameDesign
         public float alpha = 0.8f, buildCosts;
         public int direction = -1;
         public int roomIndex = 0;
-        bool rotating;
+        public bool rotating;
         string path;
 
         //initialize runs on the initialization and creates the different rooms which are read from the text files in rooms/text

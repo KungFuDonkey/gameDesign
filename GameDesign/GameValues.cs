@@ -47,6 +47,7 @@ namespace GameDesign
         public static List<Building> buildings = new List<Building>();
         public static List<List<Node>> Paths = new List<List<Node>>();
         public static bool showNPCs = true;
+
         //Room and building builder
         public static Color[] buildTileColors = new Color[28]
         {
