@@ -144,6 +144,7 @@ namespace GameDesign
         public static BuildingType superMarket = new SuperMarket();
 
         public static BuildingType selectedBuildingType = adminBuilding;
+
         public static void CountTypes()
         {
             foreach (BuildingType b in buildingTypes)
@@ -174,6 +175,11 @@ namespace GameDesign
                 buildings.Add(new Building(t.buildingType, neighbours));
                 done.AddRange(neighbours);
             }
+        }
+
+        public static void addBuilding(Room room)
+        {
+            buildings.Add(new Building(room.buildingType, room.layout));
         }
 
         public static List<Node> TileNodes()

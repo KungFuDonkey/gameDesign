@@ -22,7 +22,7 @@ namespace GameDesign
 
         Phase currentPhase;
         public Timer gameTimer;
-        public static Money money = new Money(100000);
+        public static Money money = new Money(10000);
         public static Menu menu;
         public static ScoreSystem score;
         public static BuildingBuilder buildingBuilder;
@@ -186,7 +186,7 @@ namespace GameDesign
                 }
 
                 money.Update(keys, prevKeys);
-                score.Update(gameTime);
+                score.Update();
                 onhud = hud.Update(mouseState, prevMouseState, gameTime);
                 if (!onhud)
                 {

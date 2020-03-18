@@ -15,10 +15,11 @@ namespace GameDesign
         public int place = 0;
         public int movespeed = 5;
         int zoomSpeed = 1;
-        public bool moving;
+        public bool moving, zooming;
 
         public void Update(KeyboardState keyboardState, KeyboardState prevKeyBoardState, MouseState currMouseState, MouseState prevMouseState, Tile[,,] grid)
         {
+            zooming = false;
             moving = false;
             movespeed = 5 + GameValues.tileSize / 5;
             int move = 1;
@@ -50,6 +51,7 @@ namespace GameDesign
             if (currMouseState.ScrollWheelValue != prevMouseState.ScrollWheelValue)
             {
                 moving = true;
+                zooming = true;
                 int tileSize = GameValues.tileSize;
                 if (tileSize > 15)
                 {

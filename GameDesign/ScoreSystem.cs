@@ -28,7 +28,7 @@ namespace GameDesign
             drawStringVector = new Vector2(scoreRectangle.X + 5, scoreRectangle.Y + 5);
         }
 
-        public void Update(GameTime gameTime)
+        public void Update()
         {
             UpdateValues();
             CalculateScore();

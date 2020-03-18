@@ -1,6 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
 "C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Buttons/ElevatorDownActive.png","C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/bin/Windows/Content/Buttons/ElevatorDownActive.xnb","TextureProcessor","Texture2DContent",504,4181,0
-"C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Computer_Cursor.png","C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/bin/Windows/Content/Computer_Cursor.xnb","TextureProcessor","Texture2DContent",10995,1048661,0,2293861
 "C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Door.png","C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/bin/Windows/Content/Door.xnb","TextureProcessor","Texture2DContent",169,1109,0
 "C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Path.png","C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/bin/Windows/Content/Path.xnb","TextureProcessor","Texture2DContent",140,1109,0
 "C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/Stoplicht.png","C:/Users/karst/Source/Repos/gameDesign/GameDesign/Content/bin/Windows/Content/Stoplicht.xnb","TextureProcessor","Texture2DContent",209,1109,0
