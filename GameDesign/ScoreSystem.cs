@@ -11,7 +11,7 @@ namespace GameDesign
 {
     public class ScoreSystem
     {
-        public int happiness, studentPerformance, studentCapacity, studentProductivity, workerCapacity, workerProductivity; //Get values from all buildings, 100 max
+        public int happiness, studentPerformance, studentProductivity, workerProductivity; //Get values from all buildings, 100 max
         public int studentGrades, capacityScore, researchScore; //Calculate form values
 
         public bool researchBuildings; //Got to be imported but no class yet
@@ -51,16 +51,16 @@ namespace GameDesign
                 studentGrades = 0;
             }
 
-            if (researchBuildings)
+            if (GameValues.researchBuilding.tileCount > 0)
             {
-                researchScore = (workerCapacity * workerProductivity) / 100 * happiness / 80;
+                researchScore = (GameValues.workers * workerProductivity) / 100 * happiness / 80;
             }
             else
             {
                 researchScore = 0;
             }
 
-            capacityScore = (studentCapacity + workerCapacity) / 2;
+            capacityScore = (GameValues.students + GameValues.workers) / 2;
 
             if (studentGrades > 100)
                 studentGrades = 100;
@@ -79,6 +79,8 @@ namespace GameDesign
 
         public void UpdateValues()
         {
+            happiness = studentPerformance = studentProductivity = workerProductivity = 0;
+            GameValues.CountTypes();
             GameValues.students = 0;
             GameValues.workers = 0;
             foreach (Tile t in GameValues.grid)
@@ -94,6 +96,16 @@ namespace GameDesign
                         GameValues.workers += t.buildingType.capacity;
                     }
                 }
+                if (t.buildingType.forStudents)
+                {
+                    studentProductivity += t.buildingType.productivity;
+                }
+                else
+                {
+                    workerProductivity += t.buildingType.productivity;
+                }
+                happiness += t.buildingType.happiness;
+                studentPerformance += t.buildingType.studentPerformance;
             }
         }
     }
