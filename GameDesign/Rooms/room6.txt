@@ -1,10 +1,16 @@
-          
-          
-          
-          
-    PPP   
-    PPP   
-    PPP   
-    PPP   
-    PPP#  
-    PPP#  
+8
+               
+    ###        
+   BBBBB       
+ BBEUUEUBB     
+BUUUEUUEUUB    
+BBEUUEEUUBB BB 
+BLBBBBBBBLBBLLB
+BLLLLLLLLLBLBLB
+BLLLLLLLLLBBBLB
+BLLLLLLLLLBBBLB
+BLLLLLLLLLBLBLB
+BLLLLLLLLLBBLLB
+BLLLLLLLLLB BB 
+ BBLLLLLBB     
+   BBBBB       
