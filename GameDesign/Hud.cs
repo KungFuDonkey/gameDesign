@@ -13,12 +13,14 @@ namespace GameDesign
     {
         Rectangle verticalRectangle, horizontalRectangle, cornerRectangle, layerRectangle, indicatorRectangle, bottomRectangle;
         Rectangle buildRectangle, selectRectangle, removeRectangle, NPCRectangle, plusRectangle, plusXRectangle, plusYRectangle, minXRectangle, minYRectangle, plusTypeRectangle, 
-                                    minTypeRectangle, makeGridRectangle, popUpRectangle, newGridXRectangle, newGridYRectangle, newBuildingTypeRectangle;
+                        minTypeRectangle, makeGridRectangle, popUpRectangle, newGridXRectangle, newGridYRectangle, newBuildingTypeRectangle, statsRectangle;
         Rectangle otherBuildState, addBuild;
         Rectangle[] allTiles = new Rectangle[GameValues.tileColors.Count()];
         float timer = 0.01f, TIMER = 0.01f;
-        Vector2 drawpoint, DRAWPOINT, newGridXVector, newGridYVector, newBuildingTypeVector;
+        Vector2 drawpoint, DRAWPOINT, newGridXVector, newGridYVector, newBuildingTypeVector, statsTypeVector, happinessVector, productivityVector, incomeVector, 
+                        studentPerformanceVector, maintenanceVector, capacityVector, perTileVector;
         int newGridX, newGridY, newBuildingType;
+        Color grayColor = new Color(Color.Black, 0.5f);
 
         public Hud(int screenwidth, int screenheight)
         {
@@ -47,7 +49,23 @@ namespace GameDesign
             newGridYVector = new Vector2(220, 585);
             otherBuildState = new Rectangle(200, screenheight - 17, 50, 50);
             addBuild = new Rectangle(300, screenheight - 17, 50, 50);
-            for(int i = 0; i < GameValues.tileColors.Count(); ++i)
+            statsRectangle = new Rectangle(450, Game1.viewport.Y - 450, 250, 400);
+            statsTypeVector.Y = statsRectangle.Y + 10;
+            perTileVector.X = statsRectangle.X + 10;
+            perTileVector.Y = statsRectangle.Y + 58;
+            happinessVector.X = statsRectangle.X + 10;
+            happinessVector.Y = statsRectangle.Y + 108;
+            productivityVector.X = statsRectangle.X + 10;
+            productivityVector.Y = statsRectangle.Y + 131;
+            studentPerformanceVector.X = statsRectangle.X + 10;
+            studentPerformanceVector.Y = statsRectangle.Y + 154;
+            incomeVector.X = statsRectangle.X + 10;
+            incomeVector.Y = statsRectangle.Y + 177;
+            maintenanceVector.X = statsRectangle.X + 10;
+            maintenanceVector.Y = statsRectangle.Y + 200;
+            capacityVector.X = statsRectangle.X + 10;
+            capacityVector.Y = statsRectangle.Y + 223;
+            for (int i = 0; i < GameValues.tileColors.Count(); ++i)
             {
                 allTiles[i] = new Rectangle(100 * i + 200, screenheight - 17, 50, 50);
             }
@@ -96,6 +114,16 @@ namespace GameDesign
                         spriteBatch.DrawString(GameValues.font, "Y = " + newGridY, newGridYVector, Color.Black);
                         spriteBatch.Draw(GameValues.tileTex, newBuildingTypeRectangle, Color.White);
                         spriteBatch.DrawString(GameValues.font, GameValues.buildingTypes[newBuildingType].ToString().Remove(0, 11), newBuildingTypeVector, Color.Black);
+
+                        spriteBatch.Draw(GameValues.tileTex, statsRectangle, grayColor);
+                        spriteBatch.DrawString(GameValues.font, GameValues.buildingTypes[newBuildingType].ToString().Remove(0, 11), statsTypeVector, Color.White);
+                        spriteBatch.DrawString(GameValues.font, "Per Tile", perTileVector, Color.White);
+                        spriteBatch.DrawString(GameValues.font, "Happiness: " + GameValues.buildingTypes[newBuildingType].happiness.ToString(), happinessVector, Color.White);
+                        spriteBatch.DrawString(GameValues.font, "Productivity: " + GameValues.buildingTypes[newBuildingType].productivity.ToString(), productivityVector, Color.White);
+                        spriteBatch.DrawString(GameValues.font, "Student Performance: " + GameValues.buildingTypes[newBuildingType].studentPerformance.ToString(), studentPerformanceVector, Color.White);
+                        spriteBatch.DrawString(GameValues.font, "Income: " + GameValues.buildingTypes[newBuildingType].income.ToString(), incomeVector, Color.White);
+                        spriteBatch.DrawString(GameValues.font, "Maintenance: " + GameValues.buildingTypes[newBuildingType].maintenanceCost.ToString(), maintenanceVector, Color.White);
+                        spriteBatch.DrawString(GameValues.font, "Capacity: " + GameValues.buildingTypes[newBuildingType].capacity.ToString(), capacityVector, Color.White);
                     }
                     else
                     {
@@ -219,6 +247,7 @@ namespace GameDesign
                             Game1.buildingBuilder = new BuildingBuilder(newGridX, newGridY, newBuildingType, 1280, 900, GameValues.tileSize);
                             GameValues.state = GameState.editor;
                         }
+                        statsTypeVector.X = statsRectangle.Center.X - GameValues.font.MeasureString(GameValues.buildingTypes[newBuildingType].ToString().Remove(0, 11)).X / 2;
                     }
                     break;
             }

@@ -58,7 +58,7 @@ namespace GameDesign
         public AdminBuilding()
         {
             type = BuildingTypes.adminBuilding;
-            maintenanceCost = 25;
+            maintenanceCost = 5;
             capacity = 3;
             capIncrease = true;
             forStudents = false;
@@ -70,7 +70,7 @@ namespace GameDesign
         {
             type = BuildingTypes.lectureBuilding;
             studentPerformance = 15;
-            maintenanceCost = 30;
+            maintenanceCost = 3;
             capacity = 4;
             capIncrease = true;
         }
@@ -82,7 +82,7 @@ namespace GameDesign
             type = BuildingTypes.seminarBuilding;
             studentPerformance = 3;
             productivity = 8;
-            maintenanceCost = 20;
+            maintenanceCost = 4;
             capacity = 4;
             capIncrease = true;
         }
@@ -94,7 +94,7 @@ namespace GameDesign
         {
             type = BuildingTypes.researchBuilding;
             productivity = 6;
-            maintenanceCost = 35;
+            maintenanceCost = 7;
             capacity = 4;
             capIncrease = true;
         }
@@ -105,7 +105,8 @@ namespace GameDesign
         public TramStation()
         {
             type = BuildingTypes.tramStation;
-            maintenanceCost = 10;
+            happiness = 3;
+            maintenanceCost = 2;
         }
     }
     class BusStation : BuildingType
@@ -114,7 +115,8 @@ namespace GameDesign
         public BusStation()
         {
             type = BuildingTypes.busStation;
-            maintenanceCost = 3;
+            happiness = 2;
+            maintenanceCost = 1;
         }
     }
     class BikeParking : BuildingType
@@ -122,7 +124,8 @@ namespace GameDesign
         public BikeParking()
         {
             type = BuildingTypes.bikeParking;
-            maintenanceCost = 10;
+            happiness = 1;
+            maintenanceCost = 1;
             capacity = 30;
         }
 
@@ -132,7 +135,8 @@ namespace GameDesign
         public CarParking()
         {
             type = BuildingTypes.carParking;
-            maintenanceCost = 15;
+            happiness = 1;
+            maintenanceCost = 2;
             capacity = 10;
             forStudents = false;
         }
@@ -144,7 +148,7 @@ namespace GameDesign
         {
             type = BuildingTypes.cafe;
             happiness = 5;
-            maintenanceCost = 3;
+            maintenanceCost = 4;
             income = 4;
             capacity = 4;
         }
@@ -156,8 +160,8 @@ namespace GameDesign
         {
             type = BuildingTypes.foodcourt;
             happiness = 2;
-            maintenanceCost = 6;
-            income = 1;
+            maintenanceCost = 4;
+            income = 2;
             capacity = 10;
         }
     }
@@ -168,8 +172,8 @@ namespace GameDesign
             type = BuildingTypes.pub;
             happiness = 12;
             studentPerformance = -7;
-            maintenanceCost = 32;
-            income = 8;
+            maintenanceCost = 6;
+            income = 6;
             capacity = 3;
         }
     }
@@ -180,8 +184,8 @@ namespace GameDesign
             type = BuildingTypes.club;
             happiness = 8;
             studentPerformance = -10;
-            maintenanceCost = 55;
-            income = 10;
+            maintenanceCost = 10;
+            income = 5;
             capacity = 9;
         }
     }
@@ -192,8 +196,8 @@ namespace GameDesign
             type = BuildingTypes.supplyShop;
             happiness = 1;
             productivity = 2;
-            maintenanceCost = 10;
-            income = 2;
+            maintenanceCost = 3;
+            income = 4;
             capacity = 4;
         }
     }
@@ -205,7 +209,7 @@ namespace GameDesign
             happiness = 3;
             productivity = 8;
             studentPerformance = 3;
-            maintenanceCost = 20;
+            maintenanceCost = 4;
             income = 1;
             capacity = 5;
         }
@@ -218,7 +222,7 @@ namespace GameDesign
             happiness = 6;
             productivity = 2;
             studentPerformance = 2;
-            maintenanceCost = 5;
+            maintenanceCost = 2;
             capacity = 5;
         }
 
@@ -231,7 +235,7 @@ namespace GameDesign
             happiness = 4;
             productivity = 2;
             studentPerformance = 2;
-            maintenanceCost = 10;
+            maintenanceCost = 2;
             income = 2;
             capacity = 4;
         }
@@ -245,7 +249,7 @@ namespace GameDesign
             happiness = 6;
             productivity = 2;
             studentPerformance = 2;
-            maintenanceCost = 15;
+            maintenanceCost = 3;
             capacity = 4;
         }
 
@@ -258,7 +262,7 @@ namespace GameDesign
             happiness = 4;
             productivity = 2;
             studentPerformance = 2;
-            maintenanceCost = 5;
+            maintenanceCost = 1;
             capacity = 6;
         }
     }
@@ -270,8 +274,8 @@ namespace GameDesign
             happiness = 5;
             productivity = 2;
             studentPerformance = 2;
-            maintenanceCost = 30;
-            income = 5;
+            maintenanceCost = 4;
+            income = 4;
             capacity = 8;
         }
     }
